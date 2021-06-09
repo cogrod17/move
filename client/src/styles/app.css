@@ -1,0 +1,62 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.app {
+  font-size: 17px;
+  min-height: 100vh;
+  background: whitesmoke;
+}
+
+.header-container {
+  height: 4rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  flex: 3;
+  display: flex;
+  margin-left: 7%;
+  justify-content: left;
+  align-items: center;
+  text-transform: uppercase;
+  font-size: 25px;
+}
+
+.header-btns {
+  flex: 1;
+  max-width: 200px;
+  min-width: 200px;
+  display: flex;
+  margin: 15px;
+  justify-content: space-between;
+}
+
+.login-btn,
+.signup-btn,
+.logout-btn {
+  border: rgb(9, 187, 9) solid 2px;
+  color: rgb(9, 187, 9);
+}
+
+.login-btn,
+.signup-btn {
+  height: 30px;
+  width: 90px;
+}
+
+.logout-btn {
+  align-self: right;
+  height: 30px;
+  width: 100px;
+}
+
+.login-btn:hover,
+.signup-btn:hover,
+.logout-btn:hover {
+  cursor: pointer;
+  background: rgb(9, 187, 9, 0.5);
+  color: white;
+}

@@ -1,0 +1,100 @@
+.landing-img-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.landing-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.landing-quote {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 1;
+  top: 25%;
+  right: 10%;
+  font-size: 25px;
+  padding: 0 5px;
+}
+
+.landing-form-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border: rgba(255, 255, 255) solid 1px;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 3px;
+
+  width: 250px;
+  padding: 30px;
+  padding-bottom: 10px;
+}
+
+.close-btn {
+  color: rgba(0, 0, 0);
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.form-title {
+  color: rgba(0, 0, 0);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.close-btn:hover {
+  color: rgb(9, 187, 9);
+}
+
+.landing-field {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.landing-field label {
+  position: absolute;
+  top: 50px;
+  left: 0px;
+  font-size: 14px;
+  color: rgba(0, 0, 0);
+}
+
+.landing-field input {
+  margin-top: 10px;
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0);
+  background: transparent;
+  width: 100%;
+  padding: 8px 0 5px 0;
+  font-size: 17px;
+  color: black;
+}
+
+.landing-field input:focus {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid rgb(9, 187, 9);
+}
+
+.form-button {
+  position: relative;
+  right: -200px;
+  background: transparent;
+  border: none;
+  color: black;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.form-button:hover {
+  color: rgb(9, 187, 9);
+}

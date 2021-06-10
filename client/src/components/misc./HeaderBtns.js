@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 
+import { connect } from "react-redux";
+import { openForm } from "../../actions";
+
 class HeaderBtns extends Component {
   state = { isLoggedIn: false };
 
@@ -15,12 +18,24 @@ class HeaderBtns extends Component {
     if (!this.state.isLoggedIn) {
       return (
         <div className="header-btns">
-          <button className="login-btn">Login</button>
-          <button className="signup-btn">Sign Up</button>
+          <button
+            onClick={() => this.props.openForm("login")}
+            className="login-btn"
+          >
+            Login
+          </button>
+          <button
+            onClick={() => this.props.openForm("signup")}
+            className="signup-btn"
+          >
+            Sign Up
+          </button>
         </div>
       );
     }
   }
 }
 
-export default HeaderBtns;
+const mapStateToProps = (state) => state;
+
+export default connect(mapStateToProps, { openForm })(HeaderBtns);

@@ -10,7 +10,26 @@ class SignUp extends Component {
         <p className="close-btn" onClick={this.props.closeForm}>
           X
         </p>
-        <h1>Sign Up</h1>
+        <h1 className="form-title">Sign Up</h1>
+        <form>
+          <div className="landing-field">
+            <input />
+            <label>Username</label>
+          </div>
+          <div className="landing-field">
+            <input />
+            <label>Email</label>
+          </div>
+          <div className="landing-field">
+            <input />
+            <label>Password</label>
+          </div>
+          <div className="landing-field">
+            <input />
+            <label>Confirm Password</label>
+          </div>
+          <p className="form-button">→</p>
+        </form>
       </div>
     );
   }

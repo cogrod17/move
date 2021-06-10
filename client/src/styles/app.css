@@ -9,7 +9,8 @@
 .app {
   font-size: 17px;
   min-height: 100vh;
-  background: whitesmoke;
+
+  background: rgba(201, 201, 201, 0.6);
 }
 
 .header-container {
@@ -29,6 +30,9 @@
   align-items: center;
   text-transform: uppercase;
   font-size: 25px;
+}
+.title h1 {
+  cursor: pointer;
 }
 
 .header-btns {
@@ -65,4 +69,75 @@
   cursor: pointer;
   background: rgb(9, 187, 9, 0.5);
   color: white;
+}
+
+.menu-icon {
+  position: relative;
+  top: 17px;
+  right: 30px;
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+}
+
+.menu-icon div {
+  z-index: 10;
+  position: relative;
+  width: 100%;
+  height: 3px;
+  background: rgba(0, 0, 0, 0.7);
+  margin: 3px 0;
+}
+
+@media (min-width: 600px) {
+  .menu-icon {
+    display: none;
+  }
+  .dropdown {
+    display: none;
+  }
+}
+
+.menu-list {
+  position: relative;
+  top: 20px;
+  right: 10px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(5, 85px);
+  padding: 0 5px;
+}
+
+.menu-list p,
+.dropdown p {
+  text-align: center;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.dropdown p {
+  margin-bottom: 5px;
+}
+
+.menu-list p:hover,
+.dropdown p:hover {
+  opacity: 1;
+  border-bottom: 1px solid rgb(9, 187, 9);
+}
+
+@media (max-width: 600px) {
+  .menu-list {
+    display: none;
+  }
+}
+
+.dropdown {
+  z-index: 9;
+  position: absolute;
+  top: 17px;
+  right: 27px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255);
+  padding: 25px;
+  padding-bottom: 20px;
 }

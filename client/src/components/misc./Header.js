@@ -1,14 +1,18 @@
 import React from "react";
 import HeaderBtns from "./HeaderBtns";
+import Menu from "./Menu";
+import history from "../../history";
 
 class Header extends React.Component {
+  state = { isLoggedIn: false };
+
   render() {
     return (
       <div className="header-container">
         <div className="title">
-          <h1>Move</h1>
+          <h1 onClick={() => history.push("/")}>Move</h1>
         </div>
-        <HeaderBtns />
+        {this.state.isLoggedIn ? <Menu /> : <HeaderBtns />}
       </div>
     );
   }

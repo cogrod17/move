@@ -6,7 +6,7 @@ class WorkoutItem extends Component {
   render() {
     return (
       <div className="section-item">
-        <div className="item one">
+        <div className="item">
           <div>
             <p className="item-title">TITLE BITCH</p>
           </div>
@@ -28,8 +28,6 @@ class WorkoutItem extends Component {
           <div>
             <p>Ran around the lake, lots of traffic blah blah blah</p>
           </div>
-        </div>
-        <div className="section-visual">
           <img src={pic} alt="uploaded" />
         </div>
       </div>

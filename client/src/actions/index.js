@@ -14,3 +14,13 @@ export const closeForm = () => {
     payload: null,
   };
 };
+
+//////////////////////////////////////
+//////////////////////////////////////
+
+export const toggleDropdown = () => {
+  return {
+    type: "TOGGLE_DROPDOWN",
+    payload: null,
+  };
+};

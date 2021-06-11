@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import pic from "../../images/Uphill.jpeg";
+import pic from "../../images/miami.jpeg";
 
 class WorkoutItem extends Component {
   render() {
@@ -26,7 +26,10 @@ class WorkoutItem extends Component {
             <p>7:00 per mile (if run)</p>
           </div>
           <div>
-            <p>Ran around the lake, lots of traffic blah blah blah</p>
+            <p>
+              Ran around the lake,asdfasdfasdfasdfasdfasdfasd lots of traffic
+              blah bl
+            </p>
           </div>
           <img src={pic} alt="uploaded" />
         </div>

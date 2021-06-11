@@ -123,6 +123,7 @@
 .dropdown p:hover {
   opacity: 1;
   border-bottom: 1px solid rgb(9, 187, 9);
+  color: rgb(9, 187, 9);
 }
 
 @media (max-width: 600px) {

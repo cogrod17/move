@@ -13,6 +13,7 @@ class Profile extends Component {
         <h1>My Stats</h1>
         <ProfileInfo />
         <Summary />
+        <h1>History</h1>
         <WorkoutHistory />
       </div>
     );

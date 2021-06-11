@@ -6,7 +6,6 @@ class WorkoutsHistory extends Component {
   render() {
     return (
       <div className="history-container">
-        <h1>History</h1>
         <WorkoutItem />
         <WorkoutItem />
         <WorkoutItem />

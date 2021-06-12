@@ -1,17 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import WorkoutItem from "./WorkoutItem";
+import WorkoutCard from "./WorkoutCard";
 
 class WorkoutsHistory extends Component {
   render() {
     return (
       <div className="history-container">
-        <WorkoutItem />
-        <WorkoutItem />
-        <WorkoutItem />
-        <WorkoutItem />
-        <WorkoutItem />
-        <WorkoutItem />
+        <WorkoutCard />
+        <WorkoutCard />
+        <WorkoutCard />
+        <WorkoutCard />
+        <WorkoutCard />
       </div>
     );
   }

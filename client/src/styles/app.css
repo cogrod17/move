@@ -12,22 +12,18 @@
   position: absolute;
   top: 0;
   width: 100vw;
-  background: rgb(216, 216, 216);
-  /*background: linear-gradient(
-    to bottom,
-    rgba(2, 2, 2, 0.6),
-    rgba(255, 255, 255)
-  );*/
+  background: rgb(233, 233, 233);
 }
 
 .header-container {
   position: relative;
   z-index: 999;
   background: rgba(255, 255, 255, 0.6);
-
+  box-shadow: 0 0 5px 3px rgb(173, 172, 172);
   height: 4rem;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .title {

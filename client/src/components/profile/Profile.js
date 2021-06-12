@@ -10,8 +10,10 @@ class Profile extends Component {
   render() {
     return (
       <div className="profile-container">
-        <ProfileInfo />
-        <Summary />
+        <div className="profile-head">
+          <ProfileInfo />
+          <Summary />
+        </div>
         <h1>History</h1>
         <WorkoutHistory />
       </div>

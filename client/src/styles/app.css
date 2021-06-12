@@ -9,14 +9,22 @@
 .app {
   font-size: 17px;
   min-height: 100vh;
-
-  background: rgba(201, 201, 201, 0.6);
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  background: rgb(216, 216, 216);
+  /*background: linear-gradient(
+    to bottom,
+    rgba(2, 2, 2, 0.6),
+    rgba(255, 255, 255)
+  );*/
 }
 
 .header-container {
   position: relative;
   z-index: 999;
   background: rgba(255, 255, 255, 0.6);
+
   height: 4rem;
   display: flex;
   justify-content: space-between;

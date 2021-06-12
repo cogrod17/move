@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   padding: 0 5%;
+  padding-top: 10px;
 }
 
 .info-container {
@@ -11,10 +12,11 @@
 }
 
 .profile-section {
-  background: rgba(255, 255, 255, 0.6);
-  border: rgb(92, 89, 89) solid 1px;
-  box-shadow: 5px 5px 5px 5px rgba(219, 211, 211);
   display: flex;
+  background-color: rgba(255, 255, 255);
+  box-shadow: 5px 5px 5px 5px rgb(173, 172, 172);
+  border: solid 1px rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
   flex-direction: column;
   width: 100%;
   align-items: center;
@@ -43,24 +45,22 @@
 }
 
 .section-item {
-  background: rgba(255, 255, 255, 0.6);
-  border: rgb(92, 89, 89) solid 1px;
-  box-shadow: 5px 5px 5px 5px rgba(219, 211, 211);
+  background-color: rgba(255, 255, 255);
+  box-shadow: 5px 5px 5px 5px rgb(173, 172, 172);
+  border: solid 1px rgba(0, 0, 0, 0.7);
   margin-bottom: 10px;
   max-width: 400px;
   min-width: 350px;
-  margin: 23px;
+  border-radius: 10px;
+  margin: 20px;
 }
 
 .section-stats div {
-  border-bottom: rgb(92, 89, 89) solid 1px;
   display: grid;
 }
 
 .item div {
-  border-bottom: rgb(92, 89, 89) solid 1px;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 2.5px;
+  padding: 1px 10px;
 }
 
 .item-title {
@@ -79,14 +79,11 @@
   margin-right: 5px;
 }
 
-.section-visual {
-  padding: 0 3px;
-}
-
 .item img {
   height: 100%;
   width: 100%;
   object-fit: cover;
+  opacity: 0.9;
 }
 
 .graph {

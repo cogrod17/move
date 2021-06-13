@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 class ProfileInfo extends Component {
   render() {
     return (
-      <div className="profile-section row">
+      <div className="section row">
         <div className="avatar-container">
           <div className="avatar"></div>
         </div>

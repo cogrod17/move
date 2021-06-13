@@ -49,30 +49,21 @@
 }
 
 .login-btn,
-.signup-btn,
-.logout-btn {
-  border: rgb(9, 187, 9) solid 2px;
-  color: rgb(9, 187, 9);
-}
-
-.login-btn,
 .signup-btn {
+  background: transparent;
+  opacity: 0.5;
   height: 30px;
   width: 90px;
-}
-
-.logout-btn {
-  align-self: right;
-  height: 30px;
-  width: 100px;
+  border: 0;
+  font-size: 100%;
+  cursor: pointer;
 }
 
 .login-btn:hover,
-.signup-btn:hover,
-.logout-btn:hover {
-  cursor: pointer;
-  background: rgb(9, 187, 9, 0.5);
-  color: white;
+.signup-btn:hover {
+  opacity: 1;
+  border-bottom: 1px solid rgb(9, 187, 9);
+  color: rgb(9, 187, 9);
 }
 
 .menu-icon {

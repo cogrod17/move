@@ -27,7 +27,7 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  border: rgba(255, 255, 255) solid 1px;
+  border-top: rgb(9, 187, 9) solid 5px;
   transform: translate(-50%, -50%);
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 3px;

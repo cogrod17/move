@@ -4,7 +4,7 @@ import Menu from "./Menu";
 import history from "../../history";
 
 class Header extends React.Component {
-  state = { isLoggedIn: true };
+  state = { isLoggedIn: true, path: window.location.pathname };
 
   render() {
     return (

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 class Summary extends Component {
   render() {
     return (
-      <div className="profile-section">
+      <div className="section">
         <h1>Summary</h1>
         <div className="section-container">
           <div className="section-stats two">
@@ -33,9 +33,7 @@ class Summary extends Component {
               <p className="stat">17</p>
             </div>
           </div>
-          <div className="section-visual">
-            <div className="graph"></div>
-          </div>
+          <div className="section-visual"></div>
         </div>
       </div>
     );

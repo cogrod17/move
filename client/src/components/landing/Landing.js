@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import pic from "../../images/Uphill.jpeg";
 import Login from "./Login";
 import SignUp from "./SignUp";
+import HeaderBtns from "../misc./HeaderBtns";
 import "./landingStyles.css";
 import { connect } from "react-redux";
 
@@ -17,6 +18,7 @@ class Landing extends Component {
         <div className="landing-img-container">
           <img className="landing-img" src={pic} alt="landing-pic" />
         </div>
+        <div className="landing-title">MOVE</div>
         <Login />
         <SignUp />
       </div>

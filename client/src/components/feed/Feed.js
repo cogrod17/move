@@ -8,7 +8,6 @@ class Feed extends Component {
   render() {
     return (
       <div className="feed-container">
-        <h1>Feed</h1>
         <InputFeed />
         <FeedItem />
         <FeedItem />

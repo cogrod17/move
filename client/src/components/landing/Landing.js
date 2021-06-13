@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 
 class Landing extends Component {
   render() {
-    let quote = this.props.activeForm ? null : (
+    let quote = this.props.activeModal ? null : (
       <p className="landing-quote">What's your excuse?</p>
     );
 

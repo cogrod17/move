@@ -4,11 +4,11 @@ import { connect } from "react-redux";
 class FeedItem extends Component {
   render() {
     return (
-      <div className="section">
-        <h3>Feed Item</h3>
+      <div className="section feed-item">
         <div className="section-container">
-          <div className="section-stats two feed-item">
+          <div className="section-stats two ">
             <p>Username</p>
+            <p>Date</p>
             <p>Type</p>
             <div>
               <p>Distance</p>

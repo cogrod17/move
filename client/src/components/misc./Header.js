@@ -2,9 +2,10 @@ import React from "react";
 import HeaderBtns from "./HeaderBtns";
 import Menu from "./Menu";
 import history from "../../history";
+import { connect } from "react-redux";
 
 class Header extends React.Component {
-  state = { isLoggedIn: true, path: window.location.pathname };
+  state = { isLoggedIn: false };
 
   render() {
     return (
@@ -18,4 +19,6 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+const mapStateToProps = (state) => state;
+
+export default connect(mapStateToProps)(Header);

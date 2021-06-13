@@ -1,6 +1,6 @@
-export const openForm = (name) => {
+export const openModal = (name) => {
   return {
-    type: "OPEN_FORM",
+    type: "OPEN_MODAL",
     payload: name,
   };
 };
@@ -8,9 +8,9 @@ export const openForm = (name) => {
 //////////////////////////////////////
 //////////////////////////////////////
 
-export const closeForm = () => {
+export const closeModal = () => {
   return {
-    type: "CLOSE_FORM",
+    type: "CLOSE_MODAL",
     payload: null,
   };
 };

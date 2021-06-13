@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import { toggleFormReducer } from "./toggleFormReducer";
+import { modalReducer } from "./modalReducer";
 import { dropdowReducer } from "./dropdownReducer";
 
 export default combineReducers({
-  activeForm: toggleFormReducer,
+  activeModal: modalReducer,
   isDropdownOpen: dropdowReducer,
 });

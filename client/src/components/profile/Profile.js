@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Summary from "./Summary";
 import WorkoutHistory from "./WorkoutsHistory";
 import WorkoutView from "./WorkoutView";
+import NewWorkout from "./NewWorkout";
 import ProfileInfo from "./ProfileInfo";
 import "./profileStyle.css";
 
@@ -10,11 +11,11 @@ class Profile extends Component {
   render() {
     return (
       <div className="profile-container">
+        <NewWorkout />
         <div className="profile-head">
           <ProfileInfo />
           <Summary />
         </div>
-        <h1>History</h1>
         <WorkoutHistory />
       </div>
     );

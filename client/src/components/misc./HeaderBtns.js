@@ -1,20 +1,20 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { openForm } from "../../actions";
+import { openModal } from "../../actions";
 
 class HeaderBtns extends Component {
   render() {
     return (
       <div className="header-btns">
         <button
-          onClick={() => this.props.openForm("login")}
+          onClick={() => this.props.openModal("login")}
           className="login-btn"
         >
           Login
         </button>
         <button
-          onClick={() => this.props.openForm("signup")}
+          onClick={() => this.props.openModal("signup")}
           className="signup-btn"
         >
           Sign Up
@@ -26,4 +26,4 @@ class HeaderBtns extends Component {
 
 const mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps, { openForm })(HeaderBtns);
+export default connect(mapStateToProps, { openModal })(HeaderBtns);

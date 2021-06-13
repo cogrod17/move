@@ -23,7 +23,7 @@
   padding: 0 5px;
 }
 
-.landing-form-container {
+.modal-container {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -55,12 +55,12 @@
   color: rgb(9, 187, 9);
 }
 
-.landing-field {
+.form-field {
   position: relative;
   margin-bottom: 25px;
 }
 
-.landing-field label {
+.form-field label {
   position: absolute;
   top: 50px;
   left: 0px;
@@ -68,7 +68,7 @@
   color: rgba(0, 0, 0);
 }
 
-.landing-field input {
+.form-field input {
   margin-top: 10px;
   border: 0;
   border-bottom: 1px solid rgba(0, 0, 0);
@@ -79,7 +79,7 @@
   color: black;
 }
 
-.landing-field input:focus {
+.form-field input:focus {
   border: none;
   outline: none;
   border-bottom: 1px solid rgb(9, 187, 9);

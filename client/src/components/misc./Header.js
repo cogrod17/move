@@ -5,7 +5,7 @@ import history from "../../history";
 import { connect } from "react-redux";
 
 class Header extends React.Component {
-  state = { isLoggedIn: false };
+  state = { isLoggedIn: true };
 
   render() {
     return (

@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import ContactList from "./ContactList";
+import Messages from "./Messages";
+import "./chat.css";
 
 class Chat extends Component {
   render() {
     return (
       <div className="chat-container">
-        <h1>Chat</h1>
+        <ContactList />
+        <Messages />
       </div>
     );
   }

@@ -8,6 +8,7 @@ import WorkoutView from "./profile/WorkoutView";
 import Bounties from "./bounties/Bounties";
 import Chat from "./chat/Chat";
 import Profile from "./profile/Profile";
+import LogoutModal from "./misc./LogoutModal";
 import history from "../history";
 import "../styles/app.css";
 import Feed from "./feed/Feed";
@@ -17,6 +18,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="app">
+        <LogoutModal />
         <Router history={history}>
           <Header />
           <Route path="/" exact component={Landing} />

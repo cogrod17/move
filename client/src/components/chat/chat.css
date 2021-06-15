@@ -1,13 +1,19 @@
 .chat-container {
   display: flex;
-  flex-direction: row;
-  height: 85vh;
-  padding: 0 10px;
+  flex-direction: row !important;
+  height: 100%;
+  max-width: 800px !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
 }
 
 .contacts {
   flex: 1 !important;
   overflow: auto;
+  max-height: 83vh;
+  align-self: start;
+  overflow: auto;
+  border-right: rgba(173, 173, 173, 0.5) solid 1px;
 }
 
 .messages {
@@ -18,7 +24,8 @@
 .contacts h1 {
   padding: 5px;
   width: 100%;
-  border-bottom: grey solid 1px;
+  border-bottom: rgb(173, 172, 172, 0.6) solid 1px;
+
   cursor: pointer;
 }
 
@@ -30,10 +37,12 @@
 .conversation {
   display: flex;
   flex-direction: column;
+
   padding-bottom: 10px;
-  height: 100%;
+  max-height: 75vh;
   width: 100%;
   overflow: auto;
+  background: rgba(173, 173, 173, 0.3);
 }
 
 .received,
@@ -42,7 +51,7 @@
   position: relative;
   border-radius: 10px;
   color: white;
-  padding: 2.5px;
+  padding: 2.5px 5px;
   max-width: 50%;
 }
 

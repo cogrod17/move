@@ -7,7 +7,7 @@ import "./chat.css";
 class Chat extends Component {
   render() {
     return (
-      <div className="chat-container">
+      <div className="chat-container  section ">
         <ContactList />
         <Messages />
       </div>

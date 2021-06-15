@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import InputFeed from "../feed/InputFeed";
 import Conversation from "./Conversation";
+import ContactList from "./ContactList";
 
 class Messages extends Component {
   render() {
     return (
-      <div className="section messages">
-        <h1>Messages</h1>
+      <div className="messages">
         <Conversation />
+
         <InputFeed />
       </div>
     );

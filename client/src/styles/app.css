@@ -60,7 +60,8 @@
 }
 
 .login-btn:hover,
-.signup-btn:hover {
+.signup-btn:hover,
+.logout p:hover {
   opacity: 1;
   border-bottom: 1px solid rgb(9, 187, 9);
   color: rgb(9, 187, 9);
@@ -149,7 +150,22 @@
 
 .modal-container {
   position: absolute;
-  top: 20%;
+  top: 200px;
   left: 50%;
   transform: translate(-50%);
+}
+
+.logout div {
+  display: flex;
+  margin: 10px;
+  justify-content: space-evenly;
+  margin: 30px 0;
+}
+
+.logout h1 {
+  text-align: center;
+}
+
+.logout p {
+  cursor: pointer;
 }

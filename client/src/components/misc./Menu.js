@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Dropdown from "./Dropdown";
 import history from "../../history";
 import { connect } from "react-redux";
-import { toggleDropdown } from "../../actions";
+import { toggleDropdown, openModal } from "../../actions";
 
 class Menu extends Component {
   render() {
@@ -20,7 +20,7 @@ class Menu extends Component {
           <p onClick={() => history.push("/chat")}>Chat</p>
           <p onClick={() => history.push("/profile")}>Profile</p>
 
-          <p>Logout</p>
+          <p onClick={() => this.props.openModal("logout")}>Logout</p>
         </div>
       </div>
     );
@@ -29,4 +29,4 @@ class Menu extends Component {
 
 const mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps, { toggleDropdown })(Menu);
+export default connect(mapStateToProps, { toggleDropdown, openModal })(Menu);

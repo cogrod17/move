@@ -150,9 +150,10 @@
 
 .modal-container {
   position: absolute;
-  top: 200px;
+  top: 100px;
   left: 50%;
   transform: translate(-50%);
+  border-top: rgb(56, 160, 166) solid 7.5px;
 }
 
 .logout div {

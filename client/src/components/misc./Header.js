@@ -5,15 +5,13 @@ import history from "../../history";
 import { connect } from "react-redux";
 
 class Header extends React.Component {
-  state = { isLoggedIn: true };
-
   render() {
     return (
       <div className="header-container">
         <div className="title">
           <h1 onClick={() => history.push("/")}>Move</h1>
         </div>
-        {this.state.isLoggedIn ? <Menu /> : <HeaderBtns />}
+        {this.props.user ? <Menu /> : <HeaderBtns />}
       </div>
     );
   }

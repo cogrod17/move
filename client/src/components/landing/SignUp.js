@@ -1,8 +1,24 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { closeModal } from "../../actions";
+import { closeModal, createUser } from "../../actions";
+//import { server } from "../../api";
 
 class SignUp extends Component {
+  state = {
+    username: "",
+    email: "",
+    password: "",
+    confirmPass: "",
+  };
+
+  onCreate = () => {
+    this.props.createUser(
+      this.state.username,
+      this.state.email,
+      this.state.password
+    );
+  };
+
   render() {
     if (this.props.activeModal !== "signup") return null;
     return (
@@ -13,22 +29,30 @@ class SignUp extends Component {
         <h1 className="form-title">Sign Up</h1>
         <form>
           <div className="form-field">
-            <input />
+            <input
+              onChange={(e) => this.setState({ username: e.target.value })}
+            />
             <label>Username</label>
           </div>
           <div className="form-field">
-            <input />
+            <input onChange={(e) => this.setState({ email: e.target.value })} />
             <label>Email</label>
           </div>
           <div className="form-field">
-            <input />
+            <input
+              onChange={(e) => this.setState({ password: e.target.value })}
+            />
             <label>Password</label>
           </div>
           <div className="form-field">
-            <input />
+            <input
+              onChange={(e) => this.setState({ confirmPass: e.target.value })}
+            />
             <label>Confirm Password</label>
           </div>
-          <p className="form-button">→</p>
+          <p className="form-button" onClick={this.onCreate}>
+            →
+          </p>
         </form>
       </div>
     );
@@ -37,4 +61,4 @@ class SignUp extends Component {
 
 const mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps, { closeModal })(SignUp);
+export default connect(mapStateToProps, { closeModal, createUser })(SignUp);

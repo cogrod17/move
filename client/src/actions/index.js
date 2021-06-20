@@ -4,7 +4,6 @@ import history from "../history";
 //////////////////////////////////////
 
 export const setUser = (user) => {
-  console.log(user);
   return {
     type: "SET_USER",
     payload: user,
@@ -20,6 +19,24 @@ export const setToken = (token) => {
     type: "SET_TOKEN",
     payload: token,
   };
+};
+
+//////////////////////////////////////
+//////////////////////////////////////
+
+export const signInWithToken = (token) => async (dispatch) => {
+  try {
+    const res = await server.get("/profile/user", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log(res);
+
+    await dispatch(setUser(res.data));
+    dispatch(setToken(token));
+    history.push("/profile");
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 //////////////////////////////////////
@@ -76,3 +93,41 @@ export const toggleDropdown = () => {
 
 //////////////////////////////////////
 //////////////////////////////////////
+
+export const login = (email, password) => async (dispatch) => {
+  try {
+    const res = await server.post("/login", { email, password });
+
+    console.log(res);
+
+    dispatch(setUser(res.data.user));
+    dispatch(setToken(res.data.token));
+    history.push("profile");
+  } catch (e) {
+    console.log("error in the action creater");
+  }
+};
+
+//////////////////////////////////////
+//////////////////////////////////////
+
+export const logout = (token) => async (dispatch) => {
+  try {
+    const res = await server.post(
+      "/logout",
+      {},
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    console.log("here");
+
+    await dispatch(setToken(null));
+    await dispatch(setUser(null));
+    dispatch(closeModal());
+    localStorage.clear();
+    history.push("/");
+  } catch (e) {
+    console.log(e);
+  }
+};

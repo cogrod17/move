@@ -13,8 +13,15 @@ import history from "../history";
 import "../styles/app.css";
 import Feed from "./feed/Feed";
 import { connect } from "react-redux";
+import { signInWithToken } from "../actions";
 
 class App extends React.Component {
+  componentDidMount() {
+    const token = JSON.parse(localStorage.getItem("token"));
+    if (!token) history.push("/");
+    if (token) this.props.signInWithToken(token);
+  }
+
   render() {
     return (
       <div className="app">
@@ -37,4 +44,4 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, { signInWithToken })(App);

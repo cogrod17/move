@@ -21,6 +21,12 @@ const userSchema = new mongoose.Schema({
   tokens: [{ token: { type: String, required: true } }],
 });
 
+userSchema.virtual("workout", {
+  ref: "Workout",
+  localField: "_id",
+  foreignField: "owner",
+});
+
 userSchema.methods.giveAuthToken = async function () {
   const token = jwt.sign({ _id: this._id.toString() }, TOP_SECRET);
   this.tokens = this.tokens.concat({ token });

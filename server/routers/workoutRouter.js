@@ -34,25 +34,35 @@ router.get("/workout", auth, async (req, res) => {
   }
 });
 
+//get workouts history
+router.get("/workout/history", auth, async (req, res) => {
+  console.log(req.user);
+  const { _id } = req.user;
+
+  try {
+    let history = await Workout.find({ owner: _id });
+
+    //if (!workouts) throw new Error()
+
+    res.status(200).send({ history });
+  } catch (e) {
+    res.status(404).send(e);
+  }
+});
+
 //Edit Workout
 router.patch("/workout", auth, async (req, res) => {
-  console.log(req);
+  const { _id } = req.body;
+  delete req.body._id;
+
   const updates = Object.keys(req.body);
-  console.log(updates);
-
-  //REMOVED THE _ID FROM THE UPDATES
-  //UPDATES IS AN ARRAY
-
   const isAllowed = ["type", "distance", "duration", "description"];
   const isValid = updates.every((key) => isAllowed.includes(key));
 
   if (!isValid) res.status(400).send({ error: "invalid update" });
 
   try {
-    //need to find the workout that is to be updated
-    const workout = findOne({
-      _id: req.body._id,
-    });
+    const workout = await Workout.findOne({ _id: _id });
 
     if (!workout) throw new Error();
 
@@ -61,11 +71,22 @@ router.patch("/workout", auth, async (req, res) => {
     workout.save();
     res.send(workout);
   } catch (e) {
-    console.log(e);
     res.status(404).send(e);
   }
 });
 
 //Delete Workout
+router.delete("/workout", auth, async (req, res) => {
+  try {
+    const workout = await Workout.findOne({ _id: req.body._id });
+
+    if (!workout) throw new Error();
+
+    await workout.remove();
+    res.send(workout);
+  } catch (e) {
+    res.status(500).send();
+  }
+});
 
 module.exports = router;

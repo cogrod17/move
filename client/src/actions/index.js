@@ -131,3 +131,18 @@ export const logout = (token) => async (dispatch) => {
     console.log(e);
   }
 };
+
+//////////////////////////////////////
+//////////////////////////////////////
+
+export const getWorkoutHistory = (token) => async (dispatch) => {
+  try {
+    const res = await server.get("/workout/history", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    dispatch({ type: "WORKOUT_HISTORY", payload: res.data });
+  } catch (e) {
+    console.log(e);
+  }
+};

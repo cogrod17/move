@@ -30,9 +30,6 @@ class WorkoutCard extends Component {
             bl
           </p>
         </div>
-        <div>
-          <p>stats here</p>
-        </div>
       </div>
     );
   }

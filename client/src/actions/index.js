@@ -32,8 +32,9 @@ export const signInWithToken = (token) => async (dispatch) => {
     console.log(res);
 
     await dispatch(setUser(res.data));
-    dispatch(setToken(token));
-    history.push("/profile");
+    await dispatch(setToken(token));
+
+    if (window.location.pathname === "/") history.push("/profile");
   } catch (e) {
     console.log(e);
   }

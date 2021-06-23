@@ -44,7 +44,7 @@ router.get("/workout/history", auth, async (req, res) => {
 
     //if (!workouts) throw new Error()
 
-    res.status(200).send({ history });
+    res.status(200).send(history);
   } catch (e) {
     res.status(404).send(e);
   }

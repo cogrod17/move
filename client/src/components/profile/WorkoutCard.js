@@ -1,39 +1,34 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import pic from "../../images/miami.jpeg";
 
-class WorkoutCard extends Component {
-  render() {
-    return (
-      <div className="workout-card">
-        <div>
-          <p className="item-title">TITLE BITCH</p>
-        </div>
-        <div>
-          <p>January 17, 1997</p>
-        </div>
-        <div>
-          <p>Cardio</p>
-        </div>
-        <div>
-          <p>12 Miles (if run)</p>
-        </div>
-        <div>
-          <p>45 minutes (if run)</p>
-        </div>
-        <div>
-          <p>7:00 per mile (if run)</p>
-        </div>
-        <div>
-          <p>
-            Ran around the lake,asdfasdfasdfasdfasdfasdfasd lots of traffic blah
-            bl
-          </p>
-        </div>
+const WorkoutCard = ({ workout }) => {
+  return (
+    <div className="workout-card">
+      <div>
+        <p className="item-title">{workout.title}</p>
       </div>
-    );
-  }
-}
+      <div>
+        <p>{workout.date}</p>
+      </div>
+      <div>
+        <p>{workout.type}</p>
+      </div>
+      <div>
+        <p>{workout.distance}</p>
+      </div>
+      <div>
+        <p>{workout.duration}</p>
+      </div>
+      <div>
+        <p>NEED TO CALCULATE PACE</p>
+      </div>
+      <div>
+        <p>{workout.description}</p>
+      </div>
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => state;
 

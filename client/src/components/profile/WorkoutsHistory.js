@@ -5,24 +5,25 @@ import { server } from "../../api";
 import { openModal, getWorkoutHistory } from "../../actions";
 
 class WorkoutsHistory extends Component {
-  renderWorkoutList = (history) => {
-    return history.map((workout) => {
-      return <WorkoutCard workout={workout} />;
+  componentDidUpdate(prevProps) {
+    const { getWorkoutHistory, token } = this.props;
+    if (!prevProps.token && token) getWorkoutHistory(token);
+  }
+
+  renderWorkoutList = () => {
+    return this.props.workoutHistory.map((workout, i) => {
+      return <WorkoutCard key={i} workout={workout} />;
     });
   };
 
   render() {
-    const { getWorkoutHistory, token, workoutHistory } = this.props;
-
-    if (token) getWorkoutHistory(token);
-
-    //add loader here to wait for the async call
+    const { workoutHistory } = this.props;
 
     return (
       <div className="history-container">
         <h1 onClick={() => this.props.openModal("newworkout")}>+</h1>
         <div className="history-list">
-          {this.renderWorkoutList(workoutHistory)}
+          {workoutHistory ? this.renderWorkoutList() : "Loading"}
         </div>
       </div>
     );

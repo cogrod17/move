@@ -1,5 +1,10 @@
 import { server } from "../api";
 import history from "../history";
+
+const auth = (token) => {
+  return { headers: { Authorization: `Bearer ${token}` } };
+};
+
 //////////////////////////////////////
 //////////////////////////////////////
 
@@ -144,6 +149,22 @@ export const getWorkoutHistory = (token) => async (dispatch) => {
 
     dispatch({ type: "WORKOUT_HISTORY", payload: res.data });
   } catch (e) {
+    console.log(e);
+  }
+};
+
+////////////////////////////////////
+//////////////////////////////////////
+
+export const createWorkout = (values) => async (dispatch, getState) => {
+  try {
+    const res = await server.post("/workout", values, auth(getState().token));
+
+    console.log(res);
+
+    dispatch({ type: "NEW_WORKOUT", payload: res.data });
+  } catch (e) {
+    dispatch({ type: "NEW_WORKOUT_ERROR", payload: e });
     console.log(e);
   }
 };

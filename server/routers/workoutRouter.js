@@ -5,15 +5,14 @@ const auth = require("../middleware/auth");
 
 ///create workout
 router.post("/workout", auth, async (req, res) => {
-  const { _id } = req.user;
-
   try {
-    req.body.owner = _id;
+    req.body.owner = req.user._id;
     const workout = await new Workout(req.body);
 
     await workout.save();
-    res.status(201).send({ workout });
+    res.status(201).send(workout);
   } catch (e) {
+    console.log(e);
     res.status(400).send(e);
   }
 });
@@ -27,7 +26,7 @@ router.get("/workout", auth, async (req, res) => {
 
     if (!workout) throw new Error();
 
-    res.status(200).send({ workout });
+    res.status(200).send(workout);
   } catch (e) {
     res.status(400).send(e);
     console.log(e);
@@ -36,7 +35,6 @@ router.get("/workout", auth, async (req, res) => {
 
 //get workouts history
 router.get("/workout/history", auth, async (req, res) => {
-  console.log(req.user);
   const { _id } = req.user;
 
   try {

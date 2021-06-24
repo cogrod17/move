@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import pic from "../../images/miami.jpeg";
+//import pic from "../../images/miami.jpeg";
 
 const WorkoutCard = ({ workout }) => {
   return (

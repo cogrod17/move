@@ -4,6 +4,7 @@ import { dropdowReducer } from "./dropdownReducer";
 import { tokenReducer } from "./tokenReducer";
 import { userReducer } from "./userReducer";
 import { historyReducer } from "./historyReducer";
+import { summaryReducer } from "./summaryReducer";
 
 export default combineReducers({
   user: userReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   activeModal: modalReducer,
   isDropdownOpen: dropdowReducer,
   workoutHistory: historyReducer,
+  summary: summaryReducer,
 });

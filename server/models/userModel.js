@@ -27,6 +27,12 @@ userSchema.virtual("workout", {
   foreignField: "owner",
 });
 
+userSchema.virtual("summary", {
+  ref: "Summary",
+  localField: "_id",
+  foreignField: "owner",
+});
+
 userSchema.methods.giveAuthToken = async function () {
   const token = jwt.sign({ _id: this._id.toString() }, TOP_SECRET);
   this.tokens = this.tokens.concat({ token });

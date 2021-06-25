@@ -1,15 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/userModel");
+const Summary = require("../models/summaryModel");
 const auth = require("../middleware/auth");
 const bcrypt = require("bcryptjs");
 
 ///create user
 router.post("/create/user", async (req, res) => {
   const user = await new User(req.body);
+  const summary = await new Summary({ owner: user._id });
 
   try {
     await user.save();
+
+    await summary.save();
     const token = await user.giveAuthToken();
     res.status(201).send({ user, token });
   } catch (e) {

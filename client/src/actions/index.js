@@ -31,9 +31,7 @@ export const setToken = (token) => {
 
 export const signInWithToken = (token) => async (dispatch) => {
   try {
-    const res = await server.get("/profile/user", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const res = await server.get("/profile/user", auth(token));
     console.log(res);
 
     await dispatch(setUser(res.data));
@@ -119,13 +117,7 @@ export const login = (email, password) => async (dispatch) => {
 
 export const logout = (token) => async (dispatch) => {
   try {
-    const res = await server.post(
-      "/logout",
-      {},
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+    const res = await server.post("/logout", {}, auth(token));
     console.log("here");
 
     await dispatch(setToken(null));
@@ -143,9 +135,7 @@ export const logout = (token) => async (dispatch) => {
 
 export const getWorkoutHistory = (token) => async (dispatch) => {
   try {
-    const res = await server.get("/workout/history", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const res = await server.get("/workout/history", auth(token));
 
     dispatch({ type: "WORKOUT_HISTORY", payload: res.data });
   } catch (e) {
@@ -160,11 +150,22 @@ export const createWorkout = (values) => async (dispatch, getState) => {
   try {
     const res = await server.post("/workout", values, auth(getState().token));
 
-    console.log(res);
-
     dispatch({ type: "NEW_WORKOUT", payload: res.data });
   } catch (e) {
     dispatch({ type: "NEW_WORKOUT_ERROR", payload: e });
     console.log(e);
+  }
+};
+
+////////////////////////////////////
+//////////////////////////////////////
+
+export const getSummary = (token) => async (dispatch) => {
+  try {
+    const res = await server.get("/summary", auth(token));
+
+    dispatch({ type: "GET_SUMMARY", payload: res.data });
+  } catch (e) {
+    dispatch({ type: "GET_SUMMARY_ERROR", payload: e });
   }
 };

@@ -49,6 +49,8 @@ router.get("/workout/history", auth, async (req, res) => {
 });
 
 //Edit Workout
+//BE CAREFUL UPDATIING THE WORKOUT
+//HOW CAN I UPDATE THE SUMMARY AS WELL
 router.patch("/workout", auth, async (req, res) => {
   const { _id } = req.body;
   delete req.body._id;

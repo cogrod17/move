@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { closeModal, createWorkout } from "../../actions";
+import { closeModal, createWorkout, getSummary } from "../../actions";
 
 class NewWorkout extends Component {
   state = {
@@ -13,8 +13,32 @@ class NewWorkout extends Component {
   };
 
   onSubmit = async () => {
-    await this.props.createWorkout(this.state);
-    this.props.closeModal();
+    const { createWorkout, getSummary, closeModal, token } = this.props;
+    await createWorkout(this.state);
+    await getSummary(token);
+    closeModal();
+  };
+
+  cardioFields = () => {
+    if (this.state.type !== "cardio") return null;
+    return (
+      <div>
+        <div className="form-field">
+          <input
+            type="number"
+            onChange={(e) => this.setState({ distance: e.target.value })}
+          />
+          <label>Distance (miles)</label>
+        </div>
+        <div className="form-field">
+          <input
+            type="number"
+            onChange={(e) => this.setState({ duration: e.target.value })}
+          />
+          <label>Duration (minutes)</label>
+        </div>
+      </div>
+    );
   };
 
   render() {
@@ -40,23 +64,22 @@ class NewWorkout extends Component {
               <label>Date</label>
             </div>
             <div className="form-field">
-              <input
-                onChange={(e) => this.setState({ type: e.target.value })}
-              />
+              <select
+                id="cars"
+                name="cars"
+                onChange={(e) => {
+                  this.setState({ type: e.target.value });
+                  console.log(this.state.type);
+                }}
+              >
+                <option value=""></option>
+                <option value="cardio">Cardio</option>
+                <option value="strength">Strength</option>
+                <option value="hiit">HIIT</option>
+              </select>
               <label>Type</label>
             </div>
-            <div className="form-field">
-              <input
-                onChange={(e) => this.setState({ distance: e.target.value })}
-              />
-              <label>Distance</label>
-            </div>
-            <div className="form-field">
-              <input
-                onChange={(e) => this.setState({ duration: e.target.value })}
-              />
-              <label>Duration</label>
-            </div>
+            {this.cardioFields()}
             <div className="form-field">
               <input
                 onChange={(e) => this.setState({ description: e.target.value })}
@@ -75,6 +98,8 @@ class NewWorkout extends Component {
 
 const mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps, { closeModal, createWorkout })(
-  NewWorkout
-);
+export default connect(mapStateToProps, {
+  getSummary,
+  closeModal,
+  createWorkout,
+})(NewWorkout);

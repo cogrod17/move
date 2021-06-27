@@ -14,14 +14,15 @@ const WorkoutCard = ({ workout }) => {
       <div>
         <p>{workout.type}</p>
       </div>
+
       <div>
-        <p>{workout.distance}</p>
+        <p>{`${workout.distance} miles`}</p>
       </div>
       <div>
-        <p>{workout.duration}</p>
+        <p>{`${workout.duration} minutes`}</p>
       </div>
       <div>
-        <p>NEED TO CALCULATE PACE</p>
+        <p>{`${workout.pace} min/mile`}</p>
       </div>
       <div>
         <p>{workout.description}</p>

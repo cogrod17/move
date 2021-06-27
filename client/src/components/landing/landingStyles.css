@@ -68,7 +68,8 @@
   color: rgba(0, 0, 0);
 }
 
-.form-field input {
+.form-field input,
+.form-field select {
   margin-top: 10px;
   border: 0;
   border-bottom: 1px solid rgba(0, 0, 0);
@@ -79,7 +80,8 @@
   color: black;
 }
 
-.form-field input:focus {
+.form-field input:focus,
+.form-field select:focus {
   border: none;
   outline: none;
   border-bottom: 1px solid rgb(9, 187, 9);

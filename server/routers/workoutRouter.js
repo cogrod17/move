@@ -1,15 +1,21 @@
 const express = require("express");
 const router = express.Router();
 const Workout = require("../models/workoutModel");
+const Summary = require("../models/summaryModel");
 const auth = require("../middleware/auth");
 
 ///create workout
 router.post("/workout", auth, async (req, res) => {
-  try {
-    req.body.owner = req.user._id;
-    const workout = await new Workout(req.body);
+  req.body.owner = req.user._id;
+  const workout = await new Workout(req.body);
+  const summary = await Summary.findOne({ owner: req.user._id });
 
+  try {
+    await workout.calcPace();
     await workout.save();
+    await summary.add(workout);
+    await summary.save();
+
     res.status(201).send(workout);
   } catch (e) {
     console.log(e);
@@ -39,8 +45,6 @@ router.get("/workout/history", auth, async (req, res) => {
 
   try {
     let history = await Workout.find({ owner: _id });
-
-    //if (!workouts) throw new Error()
 
     res.status(200).send(history);
   } catch (e) {

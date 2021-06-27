@@ -32,7 +32,6 @@ export const setToken = (token) => {
 export const signInWithToken = (token) => async (dispatch) => {
   try {
     const res = await server.get("/profile/user", auth(token));
-    console.log(res);
 
     await dispatch(setUser(res.data));
     await dispatch(setToken(token));
@@ -152,7 +151,7 @@ export const createWorkout = (values) => async (dispatch, getState) => {
 
     dispatch({ type: "NEW_WORKOUT", payload: res.data });
   } catch (e) {
-    dispatch({ type: "NEW_WORKOUT_ERROR", payload: e });
+    dispatch({ type: "NEW_WORKOUT_ERROR", payload: null });
     console.log(e);
   }
 };

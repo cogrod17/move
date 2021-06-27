@@ -8,6 +8,8 @@ const Summary = ({ getSummary, token, summary }) => {
     getSummary(token);
   }, [getSummary, token]);
 
+  if (!summary) return <div className="section">Loading</div>;
+
   return (
     <div className="section">
       <h1>Summary</h1>
@@ -16,6 +18,10 @@ const Summary = ({ getSummary, token, summary }) => {
           <div>
             <p>Move Days</p>
             <p className="stat">{summary.moveDays}</p>
+          </div>
+          <div>
+            <p>Move Min</p>
+            <p className="stat">{summary.moveMin}</p>
           </div>
           <div>
             <p>Cardio Days</p>
@@ -27,7 +33,7 @@ const Summary = ({ getSummary, token, summary }) => {
           </div>
           <div>
             <p>Avg Pace</p>
-            <p className="stat">{`${summary.avgPace} min/mile`}</p>
+            <p className="stat">{`${summary.avgPace.toFixed(2)} min/mile`}</p>
           </div>
           <div>
             <p>Strength Days</p>

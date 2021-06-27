@@ -42,6 +42,7 @@
   display: flex;
   flex-direction: column;
   max-width: 105%;
+  min-width: 105%;
   align-items: left;
   margin-bottom: 10px;
 }
@@ -134,14 +135,6 @@ h2 {
 .stat {
   justify-self: right;
   margin-right: 5px;
-}
-
-.workout-card img {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  opacity: 0.9;
-  border-radius: 10px;
 }
 
 .section-visual {

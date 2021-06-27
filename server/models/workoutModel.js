@@ -14,11 +14,14 @@ const workoutSchema = new mongoose.Schema({
   },
   distance: {
     type: Number,
-    required: true,
   },
   duration: {
-    type: String,
+    type: Number,
     required: true,
+  },
+  pace: {
+    type: Number,
+    default: 0,
   },
   description: {
     type: String,
@@ -30,11 +33,9 @@ const workoutSchema = new mongoose.Schema({
   },
 });
 
-// workoutSchema.pre("save", function (next) {
-//   this.pace = this.duration / this.distance;
-
-//   next();
-// });
+workoutSchema.methods.calcPace = function () {
+  this.pace = (this.duration / this.distance).toFixed(2);
+};
 
 const Workout = mongoose.model("Workout", workoutSchema);
 

@@ -168,3 +168,18 @@ export const getSummary = (token) => async (dispatch) => {
     dispatch({ type: "GET_SUMMARY_ERROR", payload: e });
   }
 };
+
+////////////////////////////////////
+//////////////////////////////////////
+
+export const getFeed = (token) => async (dispatch) => {
+  try {
+    const res = await server.get("/workout/feed");
+    console.log(res);
+
+    dispatch({ type: "FEED", payload: res.data });
+  } catch (e) {
+    console.log(e);
+    dispatch({ type: "FEED_ERROR", payload: e });
+  }
+};

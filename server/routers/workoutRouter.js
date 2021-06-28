@@ -7,6 +7,10 @@ const auth = require("../middleware/auth");
 ///create workout
 router.post("/workout", auth, async (req, res) => {
   req.body.owner = req.user._id;
+  req.body.username = req.user.username;
+
+  if (req.body.type !== "cardio") delete req.body.distance;
+
   const workout = await new Workout(req.body);
   const summary = await Summary.findOne({ owner: req.user._id });
 
@@ -39,7 +43,7 @@ router.get("/workout", auth, async (req, res) => {
   }
 });
 
-//get workouts history
+//get workouts history for user
 router.get("/workout/history", auth, async (req, res) => {
   const { _id } = req.user;
 
@@ -52,9 +56,20 @@ router.get("/workout/history", auth, async (req, res) => {
   }
 });
 
+//get all workouts for feed
+router.get("/workout/feed", async (req, res) => {
+  try {
+    let feed = await Workout.find({});
+
+    res.status(200).send(feed);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+});
+
 //Edit Workout
 //BE CAREFUL UPDATIING THE WORKOUT
-//HOW CAN I UPDATE THE SUMMARY AS WELL
+
 router.patch("/workout", auth, async (req, res) => {
   const { _id } = req.body;
   delete req.body._id;

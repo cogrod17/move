@@ -1,30 +1,31 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import FeedItem from "./FeedItem";
 import InputFeed from "./InputFeed";
+import { getFeed } from "../../actions";
 import "./feed.css";
 
-class Feed extends Component {
-  render() {
-    return (
-      <div className="feed-container">
-        <InputFeed />
-        <FeedItem />
-        <FeedItem />
-        <FeedItem />
-        <FeedItem />
-        <FeedItem />
-        <FeedItem />
-        <FeedItem />
-        <FeedItem />
-        <FeedItem />
-        <FeedItem />
-        <FeedItem />
-      </div>
-    );
-  }
-}
+const Feed = ({ getFeed, feed }) => {
+  useEffect(() => {
+    getFeed();
+  }, []);
+
+  const renderFeed = () => {
+    if (!feed) return null;
+
+    return feed.map((item, i) => {
+      return <FeedItem item={item} key={i} />;
+    });
+  };
+
+  return (
+    <div className="feed-container">
+      <InputFeed />
+      {renderFeed()}
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps)(Feed);
+export default connect(mapStateToProps, { getFeed })(Feed);

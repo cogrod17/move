@@ -5,6 +5,7 @@ import { tokenReducer } from "./tokenReducer";
 import { userReducer } from "./userReducer";
 import { historyReducer } from "./historyReducer";
 import { summaryReducer } from "./summaryReducer";
+import { feedReducer } from "./feedReducer";
 
 export default combineReducers({
   user: userReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
   isDropdownOpen: dropdowReducer,
   workoutHistory: historyReducer,
   summary: summaryReducer,
+  feed: feedReducer,
 });

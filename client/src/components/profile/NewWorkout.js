@@ -50,14 +50,6 @@ class NewWorkout extends Component {
           />
           <label>Distance (miles)</label>
         </div>
-        <div className="form-field">
-          <input
-            type="time"
-            step="1"
-            onChange={(e) => this.setState({ duration: e.target.value })}
-          />
-          <label>Duration (minutes)</label>
-        </div>
       </div>
     );
   };
@@ -102,6 +94,13 @@ class NewWorkout extends Component {
               <label>Type</label>
             </div>
             {this.cardioFields()}
+            <div className="form-field">
+              <input
+                type="number"
+                onChange={(e) => this.setState({ duration: e.target.value })}
+              />
+              <label>Duration (minutes)</label>
+            </div>
             <div className="form-field">
               <input
                 onChange={(e) => this.setState({ description: e.target.value })}

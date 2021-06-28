@@ -26,6 +26,10 @@ const workoutSchema = new mongoose.Schema({
   description: {
     type: String,
   },
+  username: {
+    type: String,
+    required: true,
+  },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
@@ -34,6 +38,7 @@ const workoutSchema = new mongoose.Schema({
 });
 
 workoutSchema.methods.calcPace = function () {
+  if (this.type !== "cardio") return;
   this.pace = (this.duration / this.distance).toFixed(2);
 };
 

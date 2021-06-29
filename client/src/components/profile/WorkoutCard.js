@@ -1,12 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-//import pic from "../../images/miami.jpeg";
+import { formatDate } from "../../helperFunctions";
 
 const WorkoutCard = ({ workout }) => {
   const pace = () => {
     if (workout.type !== "cardio") return null;
     return (
       <div>
+        <p>Pace:</p>
         <p>{`${workout.pace} min/mile`}</p>
       </div>
     );
@@ -16,6 +17,7 @@ const WorkoutCard = ({ workout }) => {
     if (workout.type !== "cardio") return null;
     return (
       <div>
+        <p>Distance:</p>
         <p>{`${workout.distance} miles`}</p>
       </div>
     );
@@ -27,18 +29,22 @@ const WorkoutCard = ({ workout }) => {
         <p className="item-title">{workout.title}</p>
       </div>
       <div>
-        <p>{workout.date}</p>
+        <p className="feed-date">{formatDate(workout.date)}</p>
       </div>
-      <div>
-        <p>{workout.type}</p>
-      </div>
-      {distance()}
-      <div>
-        <p>{`${workout.duration} minutes`}</p>
-      </div>
-      {pace()}
-      <div>
-        <p>{workout.description}</p>
+      <div className="stats">
+        <div>
+          <p>Type:</p>
+          <p>{workout.type}</p>
+        </div>
+        {distance()}
+        <div>
+          <p>Duration:</p>
+          <p>{`${workout.duration} minutes`}</p>
+        </div>
+        {pace()}
+        <div>
+          <p>{workout.description}</p>
+        </div>
       </div>
     </div>
   );

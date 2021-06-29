@@ -90,6 +90,15 @@
   transition: transform 0.25s ease-in-out;
   cursor: pointer;
 }
+.workout-card .stats div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.stats div p {
+  flex: 1;
+}
 
 .workout-card:hover {
   transform: translateY(-5%);

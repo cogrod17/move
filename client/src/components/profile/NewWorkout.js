@@ -3,29 +3,8 @@ import { connect } from "react-redux";
 import { closeModal, createWorkout, getSummary } from "../../actions";
 
 class NewWorkout extends Component {
-  getDate = (x) => {
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-
-    const d = x ? new Date(x) : new Date();
-    return `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
-  };
-
   state = {
     title: "",
-    date: this.getDate(),
     type: "",
     distance: "",
     duration: "",
@@ -69,15 +48,6 @@ class NewWorkout extends Component {
                 onChange={(e) => this.setState({ title: e.target.value })}
               />
               <label>Title</label>
-            </div>
-            <div className="form-field">
-              <input
-                type="date"
-                onChange={(e) => {
-                  this.setState({ date: this.getDate(e.target.value) });
-                }}
-              />
-              <label>Date</label>
             </div>
             <div className="form-field">
               <select

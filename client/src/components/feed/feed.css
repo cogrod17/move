@@ -35,3 +35,16 @@
   margin-left: auto;
   border: 0;
 }
+
+.feed-username {
+  font-size: 150%;
+  font-weight: 900;
+}
+
+.feed-date {
+  border-bottom: grey solid 1px;
+  font-size: 75%;
+}
+
+.feed-description {
+}

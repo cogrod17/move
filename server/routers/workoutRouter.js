@@ -59,7 +59,7 @@ router.get("/workout/history", auth, async (req, res) => {
 //get all workouts for feed
 router.get("/workout/feed", async (req, res) => {
   try {
-    let feed = await Workout.find({});
+    let feed = await Workout.find().sort({ date: -1 });
 
     res.status(200).send(feed);
   } catch (e) {

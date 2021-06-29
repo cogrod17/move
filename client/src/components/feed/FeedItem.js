@@ -1,31 +1,36 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 
-class FeedItem extends Component {
-  render() {
-    return (
-      <div className="section feed-item">
-        <div className="section-container">
-          <div className="section-stats two ">
-            <p>Username</p>
-            <p>Date</p>
-            <p>Type</p>
+const FeedItem = ({ item }) => {
+  const { username, date, type, distance, duration, pace, description } = item;
+
+  return (
+    <div className="section feed-item">
+      <div className="section-container">
+        <div className="section-stats two ">
+          <p>{username}</p>
+          <p>{date}</p>
+          <p>{type}</p>
+          {type === "cardio" ? (
             <div>
               <p>Distance</p>
-              <p>5 miles</p>
+              <p>{distance} miles</p>
             </div>
+          ) : null}
+          <p>{duration} minutes</p>
+          {type === "cardio" ? (
             <div>
               <p>Pace</p>
-              <p>8:30 m/mile</p>
+              <p>{pace} m/mile</p>
             </div>
-            <p>Description</p>
-          </div>
-          <div className="section-visual"></div>
+          ) : null}
+          <p>{description}</p>
         </div>
+        <div className="section-visual"></div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => state;
 

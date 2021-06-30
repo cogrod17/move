@@ -31,7 +31,7 @@ const FeedItem = ({ item }) => {
               <p>{pace} m/mile</p>
             </div>
           ) : null}
-          <br />
+
           <p className="feed-description">{description}</p>
         </div>
         <div className="section-visual"></div>

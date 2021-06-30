@@ -10,6 +10,7 @@ const workoutSchema = new mongoose.Schema({
   },
   date: {
     type: String,
+    default: new Date(),
   },
   distance: {
     type: Number,
@@ -40,12 +41,6 @@ workoutSchema.methods.calcPace = function () {
   if (this.type !== "cardio") return;
   this.pace = (this.duration / this.distance).toFixed(2);
 };
-
-workoutSchema.pre("save", function (next) {
-  this.date = new Date();
-
-  next();
-});
 
 const Workout = mongoose.model("Workout", workoutSchema);
 

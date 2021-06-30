@@ -22,7 +22,6 @@ router.post("/workout", auth, async (req, res) => {
 
     res.status(201).send(workout);
   } catch (e) {
-    console.log(e);
     res.status(400).send(e);
   }
 });
@@ -48,7 +47,7 @@ router.get("/workout/history", auth, async (req, res) => {
   const { _id } = req.user;
 
   try {
-    let history = await Workout.find({ owner: _id });
+    let history = await Workout.find({ owner: _id }).sort({ date: -1 });
 
     res.status(200).send(history);
   } catch (e) {
@@ -87,7 +86,7 @@ router.patch("/workout", auth, async (req, res) => {
 
     updates.forEach((key) => (workout[key] = req.body[key]));
 
-    workout.save();
+    await workout.save();
     res.send(workout);
   } catch (e) {
     res.status(404).send(e);

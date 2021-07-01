@@ -11,13 +11,13 @@ router.get("/feed", auth, async (req, res) => {
   try {
     const workouts = await Workout.find();
 
-    const posts = await Post.find().sort({ date: -1 });
+    const posts = await Post.find();
 
-    console.log(posts);
+    let feed = await [...workouts, ...posts];
 
-    let feed = [...workouts, ...posts];
-
-    await feed.sort({ date: -1 });
+    // await feed.sort(function (a, b) {
+    //   return a.date - b.date;
+    // });
 
     res.status(200).send(feed);
   } catch (e) {

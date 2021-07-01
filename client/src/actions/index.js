@@ -174,8 +174,7 @@ export const getSummary = (token) => async (dispatch) => {
 
 export const getFeed = (token) => async (dispatch) => {
   try {
-    const res = await server.get("/workout/feed");
-    console.log(res);
+    const res = await server.get("/feed", auth(token));
 
     dispatch({ type: "FEED", payload: res.data });
   } catch (e) {

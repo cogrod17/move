@@ -5,10 +5,11 @@ import InputFeed from "./InputFeed";
 import { getFeed } from "../../actions";
 import "./feed.css";
 
-const Feed = ({ getFeed, feed }) => {
+const Feed = ({ getFeed, feed, token }) => {
   useEffect(() => {
-    getFeed();
-  }, []);
+    if (!token) return;
+    getFeed(token);
+  }, [getFeed, token]);
 
   const renderFeed = () => {
     if (!feed) return null;

@@ -182,3 +182,38 @@ export const getFeed = (token) => async (dispatch) => {
     dispatch({ type: "FEED_ERROR", payload: e });
   }
 };
+
+////////////////////////////////////
+//////////////////////////////////////
+
+export const newPost = (text, token) => async (dispatch) => {
+  try {
+    const res = await server.post("/post", { text }, auth(token));
+
+    dispatch({ type: "NEW_POST", payload: res.data });
+  } catch (e) {
+    dispatch({ type: "NEW_POST_ERROR", payload: e });
+  }
+};
+
+////////////////////////////////////
+//////////////////////////////////////
+
+export const viewUser = (owner) => async (dispatch, getState) => {
+  const { user } = getState();
+
+  if (owner === user._id) {
+    history.push("/profile");
+    return;
+  }
+
+  try {
+    const res = await server.get("/viewuser", { headers: { owner } });
+
+    dispatch({ type: "VIEW_USER", payload: res.data });
+    history.push("/viewuser");
+  } catch (e) {
+    console.log(e);
+    dispatch({ type: "VIEW_USER_ERROR", payload: e });
+  }
+};

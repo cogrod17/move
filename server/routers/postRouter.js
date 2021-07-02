@@ -5,7 +5,6 @@ const auth = require("../middleware/auth");
 
 //create
 router.post("/post", auth, async (req, res) => {
-  console.log(req.body);
   req.body.username = req.user.username;
   req.body.owner = req.user._id;
   const post = await new Post(req.body);

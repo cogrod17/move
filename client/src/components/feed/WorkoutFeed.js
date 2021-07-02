@@ -1,15 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
 import { formatDate } from "../../helperFunctions";
+import { viewUser } from "../../actions";
 
-const FeedItem = ({ item }) => {
+const WorkoutFeed = ({ item, viewUser }) => {
   const { username, date, type, distance, duration, pace, description } = item;
 
   return (
     <div className="section feed-item">
       <div className="section-container">
         <div className="section-stats two ">
-          <p className="feed-username">{username}</p>
+          <p className="feed-username" onClick={() => viewUser(item.owner)}>
+            {username}
+          </p>
           <p className="feed-date">{formatDate(date)}</p>
           <div>
             <p>Type</p>
@@ -42,4 +45,4 @@ const FeedItem = ({ item }) => {
 
 const mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps)(FeedItem);
+export default connect(mapStateToProps, { viewUser })(WorkoutFeed);

@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/userModel");
 const Summary = require("../models/summaryModel");
+const Workout = require("../models/workoutModel");
+const Post = require("../models/postModel");
 const auth = require("../middleware/auth");
 const bcrypt = require("bcryptjs");
 
@@ -56,9 +58,31 @@ router.post("/logout", auth, async (req, res) => {
   }
 });
 
-//Read User
+//Read My Profile
 router.get("/profile/user", auth, async (req, res) => {
   res.send(req.user);
+});
+
+//Read other users profile
+router.get("/viewuser", async (req, res) => {
+  try {
+    const user = await User.findOne({ _id: req.headers.owner });
+
+    if (!user) throw new Error();
+
+    delete user.tokens;
+    delete user.password;
+
+    const workouts = await Workout.find({ owner: user._id });
+    const summary = await Summary.find({ owner: user._id });
+    const posts = await Post.find({ owner: user._id });
+
+    const viewUser = { user, workouts, summary, posts };
+
+    res.send(viewUser);
+  } catch (e) {
+    res.status(400).send(e);
+  }
 });
 
 //Update User

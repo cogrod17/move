@@ -15,9 +15,9 @@ router.get("/feed", auth, async (req, res) => {
 
     let feed = await [...workouts, ...posts];
 
-    // await feed.sort(function (a, b) {
-    //   return a.date - b.date;
-    // });
+    await feed.sort(function (a, b) {
+      return new Date(b.date) - new Date(a.date);
+    });
 
     res.status(200).send(feed);
   } catch (e) {

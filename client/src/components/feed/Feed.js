@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import FeedItem from "./FeedItem";
+import WorkoutFeed from "./WorkoutFeed";
+import Post from "./Post";
 import InputFeed from "./InputFeed";
+
 import { getFeed } from "../../actions";
 import "./feed.css";
 
@@ -15,7 +17,9 @@ const Feed = ({ getFeed, feed, token }) => {
     if (!feed) return null;
 
     return feed.map((item, i) => {
-      return <FeedItem item={item} key={i} />;
+      if (item.type) return <WorkoutFeed item={item} key={i} />;
+
+      if (item.text) return <Post post={item} key={i} />;
     });
   };
 

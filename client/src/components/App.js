@@ -6,6 +6,7 @@ import WorkoutsHistory from "./profile/WorkoutsHistory";
 import Friends from "./friends/Friends";
 import WorkoutView from "./profile/WorkoutView";
 import Bounties from "./bounties/Bounties";
+import ViewUser from "./view-user/ViewUser";
 import Chat from "./chat/Chat";
 import Profile from "./profile/Profile";
 import LogoutModal from "./misc./LogoutModal";
@@ -32,12 +33,9 @@ class App extends React.Component {
           <Header />
           <Route path="/" exact component={Landing} />
           <Route path="/feed" exact component={Feed} />
-          <Route path="/bounties" exact component={Bounties} />
           <Route path="/profile" exact component={Profile} />
-          <Route path="/workouts/history" exact component={WorkoutsHistory} />
-          <Route path="/workouts/view" exact component={WorkoutView} />
-          <Route path="/friends" exact component={Friends} />
           <Route path="/chat" exact component={Chat} />
+          <Route path="/viewuser" exact component={ViewUser} />
         </Router>
       </div>
     );

@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { newPost } from "../../actions";
 
-const InputFeed = () => {
+const InputFeed = ({ newPost, token }) => {
   const [post, setPost] = useState("");
 
   const submitPost = (e) => {
     e.preventDefault();
     if (post.length === 0) return;
-    console.log(post);
+    newPost(post, token);
     setPost("");
   };
 
@@ -24,4 +25,4 @@ const InputFeed = () => {
 
 const mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps)(InputFeed);
+export default connect(mapStateToProps, { newPost })(InputFeed);

@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 
 const ProfileInfo = ({ user }) => {
   if (!user) return null;
@@ -21,6 +20,4 @@ const ProfileInfo = ({ user }) => {
   );
 };
 
-const mapStateToProps = (state) => state;
-
-export default connect(mapStateToProps)(ProfileInfo);
+export default ProfileInfo;

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { getSummary, getWorkoutHistory } from "../../actions";
 import Summary from "./Summary";
 import WorkoutHistory from "./WorkoutsHistory";
 import WorkoutView from "./WorkoutView";
@@ -7,19 +8,35 @@ import NewWorkout from "./NewWorkout";
 import ProfileInfo from "./ProfileInfo";
 import "./profileStyle.css";
 
-const Profile = () => {
+const Profile = (props) => {
+  const {
+    getSummary,
+    getWorkoutHistory,
+    token,
+    summary,
+    workoutHistory,
+    user,
+  } = props;
+
+  useEffect(() => {
+    getSummary(token);
+    getWorkoutHistory(token);
+  }, [getSummary, getWorkoutHistory, token]);
+
   return (
     <div className="profile-container">
       <NewWorkout />
       <div className="profile-head">
-        <ProfileInfo />
-        <Summary />
+        <ProfileInfo user={user} />
+        <Summary info={summary} />
       </div>
-      <WorkoutHistory />
+      <WorkoutHistory info={workoutHistory} />
     </div>
   );
 };
 
 const mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps, { getSummary, getWorkoutHistory })(
+  Profile
+);

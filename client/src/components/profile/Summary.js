@@ -2,13 +2,8 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getSummary } from "../../actions";
 
-const Summary = ({ getSummary, token, summary }) => {
-  useEffect(() => {
-    if (!token) return;
-    getSummary(token);
-  }, [getSummary, token]);
-
-  if (!summary) return <div className="section">Loading</div>;
+const Summary = ({ info }) => {
+  if (!info) return <div className="section">Loading</div>;
 
   return (
     <div className="section">
@@ -17,31 +12,33 @@ const Summary = ({ getSummary, token, summary }) => {
         <div className="section-stats two">
           <div>
             <p>Move Days</p>
-            <p className="stat">{summary.moveDays}</p>
+            <p className="stat">{info.moveDays}</p>
           </div>
           <div>
             <p>Move Min</p>
-            <p className="stat">{summary.moveMin}</p>
+            <p className="stat">{info.moveMin}</p>
           </div>
           <div>
             <p>Cardio Days</p>
-            <p className="stat">{summary.cardioDays}</p>
+            <p className="stat">{info.cardioDays}</p>
           </div>
           <div>
             <p>Miles Run</p>
-            <p className="stat">{`${summary.milesRun} miles`}</p>
+            <p className="stat">{`${info.milesRun} miles`}</p>
           </div>
           <div>
             <p>Avg Pace</p>
-            <p className="stat">{`${summary.avgPace.toFixed(2)} min/mile`}</p>
+            <p className="stat">{`${
+              info.avgPace ? info.avgPace.toFixed(2) : "-"
+            } min/mile`}</p>
           </div>
           <div>
             <p>Strength Days</p>
-            <p className="stat">{summary.strengthDays}</p>
+            <p className="stat">{info.strengthDays}</p>
           </div>
           <div>
             <p>HIIT Days</p>
-            <p className="stat">{summary.hiitDays}</p>
+            <p className="stat">{info.hiitDays}</p>
           </div>
         </div>
         <div className="section-visual"></div>

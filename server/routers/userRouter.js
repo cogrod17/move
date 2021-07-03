@@ -66,7 +66,7 @@ router.get("/profile/user", auth, async (req, res) => {
 //Read other users profile
 router.get("/viewuser", async (req, res) => {
   try {
-    const user = await User.findOne({ _id: req.headers.owner });
+    const user = await User.findOne({ username: req.headers.username });
 
     if (!user) throw new Error();
 

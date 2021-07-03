@@ -14,6 +14,7 @@ const Summary = ({ info }) => {
             <p>Move Days</p>
             <p className="stat">{info.moveDays}</p>
           </div>
+
           <div>
             <p>Move Min</p>
             <p className="stat">{info.moveMin}</p>

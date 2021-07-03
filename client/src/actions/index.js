@@ -199,21 +199,19 @@ export const newPost = (text, token) => async (dispatch) => {
 ////////////////////////////////////
 //////////////////////////////////////
 
-export const viewUser = (owner) => async (dispatch, getState) => {
-  const { user } = getState();
+//////////////////////////////////////
+//////////////////////////////////////
 
-  if (owner === user._id) {
-    history.push("/profile");
-    return;
-  }
+export const getViewUser = () => async (dispatch) => {
+  const username = JSON.parse(localStorage.getItem("viewUser"));
 
   try {
-    const res = await server.get("/viewuser", { headers: { owner } });
+    const res = await server.get("/viewuser", {
+      headers: { username },
+    });
 
     dispatch({ type: "VIEW_USER", payload: res.data });
-    history.push("/viewuser");
   } catch (e) {
-    console.log(e);
     dispatch({ type: "VIEW_USER_ERROR", payload: e });
   }
 };

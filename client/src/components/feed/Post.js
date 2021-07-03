@@ -1,7 +1,8 @@
 import React from "react";
-import { formatDate } from "../../helperFunctions";
+import { connect } from "react-redux";
+import { formatDate, setViewUser } from "../../helperFunctions";
 
-const Post = ({ post }) => {
+const Post = ({ post, user }) => {
   const { date, text, username } = post;
 
   return (
@@ -9,7 +10,12 @@ const Post = ({ post }) => {
       <div className="section-container">
         <div className="section-stats">
           <div>
-            <p className="feed-username">{username}</p>
+            <p
+              onClick={() => setViewUser(username, user.username)}
+              className="feed-username"
+            >
+              {username}
+            </p>
             <p className="feed-date">{formatDate(date)}</p>
           </div>
           <p className="feed-description">{text}</p>
@@ -19,4 +25,6 @@ const Post = ({ post }) => {
   );
 };
 
-export default Post;
+const mapStateToProps = (state) => state;
+
+export default connect(mapStateToProps)(Post);

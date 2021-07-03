@@ -1,3 +1,5 @@
+import history from "./history";
+
 export const formatDate = (x) => {
   const months = [
     "January",
@@ -19,4 +21,17 @@ export const formatDate = (x) => {
   return `${
     months[d.getMonth()]
   } ${d.getDate()} at ${d.getHours()}:${d.getMinutes()} `;
+};
+
+/////////////////////
+
+export const setViewUser = async (viewUsername, curUsername) => {
+  if (viewUsername === curUsername) {
+    history.push("/profile");
+    return;
+  }
+
+  localStorage.setItem("viewUser", JSON.stringify(viewUsername));
+
+  history.push("/viewuser");
 };

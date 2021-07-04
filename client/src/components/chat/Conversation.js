@@ -1,34 +1,37 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
-class Conversation extends Component {
-  render() {
-    return (
-      <div className="conversation">
-        <p className="received">Hello</p>
-        <p className="sent">Hello</p>
-        <p className="received">Hello</p>
-        <p className="sent">Hello</p>
-        <p className="received">Hello</p>
-        <p className="sent">Hello</p>
-        <p className="received">Hello</p>
-        <p className="sent">Hello</p>
-        <p className="received">Hello</p>
-        <p className="sent">Hello</p>
-        <p className="received">Hello</p>
-        <p className="sent">Hello</p>
-        <p className="received">Hello</p>
-        <p className="sent">Hello</p>
-        <p className="received">Hello</p>
-        <p className="sent">Hello</p>
-        <p className="received">Hello</p>
-        <p className="sent">Hello</p>
-        <p className="received">Hello</p>
-        <p className="sent">Hello</p>
-      </div>
-    );
-  }
-}
+//socket
+import socketClient from "socket.io-client";
+const ENDPOINT = "http://127.0.0.1:3001";
+
+const Conversation = () => {
+  const [response, setResponse] = useState(null);
+
+  console.log(response);
+
+  useEffect(() => {
+    const socket = socketClient(ENDPOINT);
+    socket.on("FromAPI", (data) => {
+      setResponse(data);
+    });
+
+    return () => socket.disconnect();
+  }, []);
+
+  return (
+    <div className="conversation">
+      <p className="received">{response}</p>
+      <p className="sent">Hello</p>
+      <p className="received">{response}</p>
+      <p className="sent">Hello</p>
+      <p className="received">{response}</p>
+      <p className="sent">Hello</p>
+      <p className="received">{response}</p>
+      <p className="sent">Hello</p>
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => state;
 

@@ -13,6 +13,7 @@ import LogoutModal from "./misc./LogoutModal";
 import history from "../history";
 import "../styles/app.css";
 import Feed from "./feed/Feed";
+import ScrollToTop from "./ScrollToTop";
 import { connect } from "react-redux";
 import { signInWithToken } from "../actions";
 
@@ -30,6 +31,7 @@ class App extends React.Component {
       <div className="app">
         <LogoutModal />
         <Router history={history}>
+          <ScrollToTop />
           <Header />
           <Route path="/" exact component={Landing} />
           <Route path="/feed" exact component={Feed} />

@@ -1,20 +1,17 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import InputFeed from "../feed/InputFeed";
 import Conversation from "./Conversation";
-import ContactList from "./ContactList";
 
-class Messages extends Component {
-  render() {
-    return (
-      <div className="messages">
-        <Conversation />
+const Messages = () => {
+  return (
+    <div className="messages">
+      <Conversation />
 
-        <InputFeed />
-      </div>
-    );
-  }
-}
+      <InputFeed />
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => state;
 

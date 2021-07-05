@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Post = require("../models/postModel");
 const auth = require("../middleware/auth");
+const sortByDate = require("./helperFunctions");
 
 //create
 router.post("/post", auth, async (req, res) => {
@@ -22,7 +23,7 @@ router.post("/post", auth, async (req, res) => {
 //read all post
 router.get("/post/feed", auth, async (req, res) => {
   try {
-    const posts = await Post.find().sort({ date: -1 });
+    const posts = await Post.find().sort(sortByDate);
 
     res.status(200).send(posts);
   } catch (e) {
@@ -34,7 +35,9 @@ router.get("/post/feed", auth, async (req, res) => {
 //read posts from user
 router.get("/post/profile", auth, async (req, res) => {
   try {
-    const posts = await Post.find({ owner: req.user._id }).sort({ date: -1 });
+    const posts = await Post.find({ owner: req.user._id });
+
+    await posts.sort(sortByDate);
 
     res.status(200).send(posts);
   } catch (e) {

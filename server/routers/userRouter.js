@@ -4,6 +4,7 @@ const User = require("../models/userModel");
 const Summary = require("../models/summaryModel");
 const Workout = require("../models/workoutModel");
 const Post = require("../models/postModel");
+const sortByDate = require("./helperFunctions");
 const auth = require("../middleware/auth");
 const bcrypt = require("bcryptjs");
 
@@ -76,6 +77,9 @@ router.get("/viewuser", async (req, res) => {
     const workouts = await Workout.find({ owner: user._id });
     const summary = await Summary.find({ owner: user._id });
     const posts = await Post.find({ owner: user._id });
+
+    await workouts.sort(sortByDate);
+    await posts.sort(sortByDate);
 
     const viewUser = { user, workouts, summary, posts };
 

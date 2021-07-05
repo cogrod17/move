@@ -3,6 +3,7 @@ const router = express.Router();
 const Workout = require("../models/workoutModel");
 const Summary = require("../models/summaryModel");
 const auth = require("../middleware/auth");
+const sortByDate = require("./helperFunctions");
 
 ///create workout
 router.post("/workout", auth, async (req, res) => {
@@ -47,7 +48,9 @@ router.get("/workout/history", auth, async (req, res) => {
   const { _id } = req.user;
 
   try {
-    let history = await Workout.find({ owner: _id }).sort({ date: -1 });
+    let history = await Workout.find({ owner: _id });
+
+    await history.sort(sortByDate);
 
     res.status(200).send(history);
   } catch (e) {
@@ -58,7 +61,9 @@ router.get("/workout/history", auth, async (req, res) => {
 //get all workouts for feed
 router.get("/workout/feed", async (req, res) => {
   try {
-    let feed = await Workout.find().sort({ date: -1 });
+    let feed = await Workout.find();
+
+    await feed.sort(sortByDate);
 
     res.status(200).send(feed);
   } catch (e) {

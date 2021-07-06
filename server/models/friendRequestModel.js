@@ -12,6 +12,7 @@ const friendRequestSchema = new mongoose.Schema({
   status: {
     required: true,
     type: Number,
+    default: 1,
   },
   //1 => pending
   //2 => accepted

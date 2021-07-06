@@ -108,8 +108,7 @@ router.patch("/update/user", auth, async (req, res) => {
 //add friend to friends list
 router.patch("/addfriend", auth, async (req, res) => {
   const { user } = req;
-  console.log(user);
-  console.log(req.body.username);
+
   try {
     user.friends.push(req.body.username);
 

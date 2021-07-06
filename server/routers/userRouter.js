@@ -1,5 +1,4 @@
-const express = require("express");
-const router = express.Router();
+const router = require("express").Router();
 const User = require("../models/userModel");
 const Summary = require("../models/summaryModel");
 const Workout = require("../models/workoutModel");
@@ -103,6 +102,22 @@ router.patch("/update/user", auth, async (req, res) => {
     res.send(req.user);
   } catch (e) {
     res.status(404).send(e);
+  }
+});
+
+//add friend to friends list
+router.patch("/addfriend", auth, async (req, res) => {
+  const { user } = req;
+  console.log(user);
+  console.log(req.body.username);
+  try {
+    user.friends.push(req.body.username);
+
+    await user.save();
+
+    res.send(user);
+  } catch (e) {
+    res.status(400).send(e);
   }
 });
 

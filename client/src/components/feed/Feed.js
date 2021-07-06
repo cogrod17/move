@@ -17,9 +17,11 @@ const Feed = ({ getFeed, feed, token }) => {
     if (!feed) return null;
 
     return feed.map((item, i) => {
-      if (item.type) return <WorkoutFeed item={item} key={i} />;
-
-      if (item.text) return <Post post={item} key={i} />;
+      return item.text ? (
+        <Post post={item} key={i} />
+      ) : (
+        <WorkoutFeed item={item} key={i} />
+      );
     });
   };
 

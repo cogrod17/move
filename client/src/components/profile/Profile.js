@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { getSummary, getWorkoutHistory } from "../../actions";
 import Summary from "./Summary";
 import WorkoutHistory from "./WorkoutsHistory";
-import WorkoutView from "./WorkoutView";
 import NewWorkout from "./NewWorkout";
 import ProfileInfo from "./ProfileInfo";
 import "./profileStyle.css";
@@ -19,6 +18,7 @@ const Profile = (props) => {
   } = props;
 
   useEffect(() => {
+    if (!token) return;
     getSummary(token);
     getWorkoutHistory(token);
   }, [getSummary, getWorkoutHistory, token]);

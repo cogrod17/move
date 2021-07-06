@@ -7,8 +7,6 @@ import { getViewUser } from "../../actions";
 import "../profile/profileStyle.css";
 
 const ViewUser = ({ viewUser, getViewUser }) => {
-  //ON RELOAD THE USER GETS LOST
-  //HAVE TO ADD USE EFFECT HERE
   useEffect(() => {
     getViewUser();
   }, [getViewUser]);
@@ -19,7 +17,7 @@ const ViewUser = ({ viewUser, getViewUser }) => {
   return (
     <div className="profile-container">
       <div className="profile-head">
-        <ProfileInfo user={viewUser.user} />
+        <ProfileInfo status={"view"} user={viewUser.user} />
         <Summary info={viewUser.summary[0]} />
       </div>
       <WorkoutHistory status={"view"} info={viewUser.workouts} />

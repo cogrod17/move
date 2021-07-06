@@ -1,5 +1,4 @@
 import { server } from "../api";
-import { sortByDate } from "../helperFunctions";
 import history from "../history";
 
 const auth = (token) => {
@@ -117,8 +116,7 @@ export const login = (email, password) => async (dispatch) => {
 
 export const logout = (token) => async (dispatch) => {
   try {
-    const res = await server.post("/logout", {}, auth(token));
-    console.log("here");
+    await server.post("/logout", {}, auth(token));
 
     await dispatch(setToken(null));
     await dispatch(setUser(null));
@@ -200,9 +198,6 @@ export const newPost = (text, token) => async (dispatch) => {
 ////////////////////////////////////
 //////////////////////////////////////
 
-//////////////////////////////////////
-//////////////////////////////////////
-
 export const getViewUser = () => async (dispatch) => {
   const username = JSON.parse(localStorage.getItem("viewUser"));
 
@@ -215,4 +210,12 @@ export const getViewUser = () => async (dispatch) => {
   } catch (e) {
     dispatch({ type: "VIEW_USER_ERROR", payload: e });
   }
+};
+
+//////////////////////////////////////
+//////////////////////////////////////
+
+export const addFriend = (id) => async (dispatch) => {
+  try {
+  } catch (e) {}
 };

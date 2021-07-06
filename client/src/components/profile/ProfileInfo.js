@@ -1,9 +1,15 @@
 import React from "react";
 
-const ProfileInfo = ({ user }) => {
+const ProfileInfo = ({ user, status }) => {
   if (!user) return null;
 
   const { username, email } = user;
+
+  const options = status ? (
+    <p className="add-friend">Add Friend</p>
+  ) : (
+    <p>Settings</p>
+  );
 
   return (
     <div className="section row">
@@ -13,8 +19,8 @@ const ProfileInfo = ({ user }) => {
       <div className="profile-info">
         <h2>{username}</h2>
         <p>{email}</p>
-        <p>Friends</p>
-        <p>Settings</p>
+        <p className="friends">Friends</p>
+        {options}
       </div>
     </div>
   );

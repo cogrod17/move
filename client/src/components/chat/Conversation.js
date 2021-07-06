@@ -8,8 +8,6 @@ const ENDPOINT = "http://127.0.0.1:3001";
 const Conversation = () => {
   const [response, setResponse] = useState(null);
 
-  console.log(response);
-
   useEffect(() => {
     const socket = socketClient(ENDPOINT);
     socket.on("FromAPI", (data) => {

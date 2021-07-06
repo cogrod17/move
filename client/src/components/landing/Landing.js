@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import pic from "../../images/Uphill.jpeg";
 import Login from "./Login";
 import SignUp from "./SignUp";
-import HeaderBtns from "../misc./HeaderBtns";
 import "./landingStyles.css";
 import { connect } from "react-redux";
 

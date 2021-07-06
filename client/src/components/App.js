@@ -2,10 +2,6 @@ import React from "react";
 import { Router, Route } from "react-router-dom";
 import Header from "./misc./Header";
 import Landing from "./landing/Landing";
-import WorkoutsHistory from "./profile/WorkoutsHistory";
-import Friends from "./friends/Friends";
-import WorkoutView from "./profile/WorkoutView";
-import Bounties from "./bounties/Bounties";
 import ViewUser from "./view-user/ViewUser";
 import Chat from "./chat/Chat";
 import Profile from "./profile/Profile";
@@ -16,6 +12,8 @@ import Feed from "./feed/Feed";
 import ScrollToTop from "./ScrollToTop";
 import { connect } from "react-redux";
 import { signInWithToken } from "../actions";
+
+//import Friends from "./friends/Friends";
 
 class App extends React.Component {
   async componentDidMount() {

@@ -18,6 +18,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  friends: [String],
   tokens: [{ token: { type: String, required: true } }],
 });
 

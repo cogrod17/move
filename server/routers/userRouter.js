@@ -120,10 +120,45 @@ router.patch("/addfriend", auth, async (req, res) => {
   }
 });
 
+//delete friend from friends list
+router.patch("/deletefriend", auth, async (req, res) => {
+  const { user, body } = req;
+
+  try {
+    const friend = await User.findOne({ username: body.username });
+
+    user.friends = user.friends.filter((friend) => friend !== body.username);
+
+    if (friend) {
+      friend.friends = friend.friends.filter((f) => f !== user.username);
+    }
+
+    await user.save();
+    await friend.save();
+
+    res.status(200).send(user);
+  } catch (e) {
+    res.sendStatus(400);
+  }
+});
+
 //Delete User
 router.delete("/delete/user", auth, async (req, res) => {
   try {
+    /*    Delete the user from other users friends
+    const users = await User.find({ friends: req.user.username });
+    await users.forEach((user) =>
+      user.friends.filter((f) => f !== req.user.username)
+    );
+    await users.forEach((user) => user.save());
+    */
+
     await req.user.remove();
+
+    //delete all workouts and posts
+
+    //delete summary
+
     res.send(req.user);
   } catch (e) {
     res.status(500).send();

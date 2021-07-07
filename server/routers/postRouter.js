@@ -23,7 +23,9 @@ router.post("/post", auth, async (req, res) => {
 //read all post
 router.get("/post/feed", auth, async (req, res) => {
   try {
-    const posts = await Post.find().sort(sortByDate);
+    const posts = await Post.find();
+
+    await posts.sort(sortByDate);
 
     res.status(200).send(posts);
   } catch (e) {

@@ -215,7 +215,7 @@ export const getViewUser = () => async (dispatch) => {
 //////////////////////////////////////
 //////////////////////////////////////
 
-export const addFriend = (id) => async (dispatch) => {
+export const sendFriendReq = (id) => async (dispatch) => {
   try {
   } catch (e) {}
 };

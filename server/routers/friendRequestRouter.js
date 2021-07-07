@@ -9,10 +9,11 @@ router.post("/request", auth, async (req, res) => {
   const receiver = req.body.username;
 
   try {
-    //check to see if they already sent a request
+    //check to see if they already sent a request and if user exists
     const check = await FriendRequest.find({ sender, receiver });
     const user = await User.find({ username: receiver });
-    if (check.length > 0) throw new Error("already sent request");
+    if (check.length > 0 && check.status !== 3)
+      throw new Error("request already exists");
     if (!user) throw new Error("User does not exist");
 
     const request = await new FriendRequest({ sender, receiver });
@@ -38,7 +39,7 @@ router.get("/request", auth, async (req, res) => {
 });
 
 //update
-router.patch("/request", auth, async (req, res) => {
+router.patch("/request/response", auth, async (req, res) => {
   //THe request will be sent from the client
   //will have the _id and 'accept' or 'decline'
 
@@ -65,7 +66,7 @@ router.patch("/request", auth, async (req, res) => {
     }
 
     if (req.body.action === "decline") {
-      request.status === 3;
+      request.status = 3;
       await request.save();
     }
 

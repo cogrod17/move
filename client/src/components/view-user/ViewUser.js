@@ -17,7 +17,7 @@ const ViewUser = ({ viewUser, getViewUser }) => {
   return (
     <div className="profile-container">
       <div className="profile-head">
-        <ProfileInfo status={"view"} user={viewUser.user} />
+        <ProfileInfo status={"view"} />
         <Summary info={viewUser.summary[0]} />
       </div>
       <WorkoutHistory status={"view"} info={viewUser.workouts} />

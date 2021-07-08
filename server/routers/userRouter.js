@@ -82,7 +82,7 @@ router.get("/viewuser", async (req, res) => {
 
     const viewUser = { user, workouts, summary, posts };
 
-    res.send(viewUser);
+    res.status(200).send(viewUser);
   } catch (e) {
     res.status(400).send(e);
   }

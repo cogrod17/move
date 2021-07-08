@@ -1,29 +1,40 @@
 import React from "react";
+import { connect } from "react-redux";
+import { openModal } from "../../actions";
+import Friends from "../friends/Friends";
+import FriendButton from "./FriendButton";
 
-const ProfileInfo = ({ user, status }) => {
-  if (!user) return null;
+const ProfileInfo = ({ user, viewUser, status, openModal }) => {
+  if (!user && !viewUser) return null;
 
-  const { username, email } = user;
-
-  const options = status ? (
-    <p className="add-friend">Add Friend</p>
-  ) : (
-    <p>Settings</p>
-  );
+  let username, email;
+  if (window.location.pathname === "/profile") {
+    username = user.username;
+    email = user.email;
+  }
+  if (window.location.pathname === "/viewuser") {
+    username = viewUser.user.username;
+    email = viewUser.user.email;
+  }
 
   return (
     <div className="section row">
+      <Friends />
       <div className="avatar-container">
         <div className="avatar"></div>
       </div>
       <div className="profile-info">
         <h2>{username}</h2>
         <p>{email}</p>
-        <p className="friends">Friends</p>
-        {options}
+        <p onClick={() => openModal("friends")} className="friends">
+          Friends
+        </p>
+        <FriendButton />
       </div>
     </div>
   );
 };
 
-export default ProfileInfo;
+const mapStateToProps = (state) => state;
+
+export default connect(mapStateToProps, { openModal })(ProfileInfo);

@@ -34,7 +34,7 @@ const WorkoutCard = ({ workout }) => {
       <div className="stats">
         <div>
           <p>Type:</p>
-          <p>{workout.type}</p>
+          <p>{workout.type.toUpperCase()}</p>
         </div>
         {distance()}
         <div>

@@ -7,6 +7,7 @@ import { historyReducer } from "./historyReducer";
 import { summaryReducer } from "./summaryReducer";
 import { feedReducer } from "./feedReducer";
 import { viewUserReducer } from "./viewUserReducer";
+import { requestsReducer } from "./requestsReducer";
 
 export default combineReducers({
   user: userReducer,
@@ -17,4 +18,5 @@ export default combineReducers({
   summary: summaryReducer,
   feed: feedReducer,
   viewUser: viewUserReducer,
+  friendRequests: requestsReducer,
 });

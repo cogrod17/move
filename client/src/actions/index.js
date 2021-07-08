@@ -35,6 +35,9 @@ export const signInWithToken = (token) => async (dispatch) => {
 
     await dispatch(setUser(res.data));
     await dispatch(setToken(token));
+    await dispatch(getWorkoutHistory(token));
+    await dispatch(getFriendRequests(token));
+    await dispatch(getSummary(token));
 
     if (window.location.pathname === "/") history.push("/profile");
   } catch (e) {
@@ -215,7 +218,50 @@ export const getViewUser = () => async (dispatch) => {
 //////////////////////////////////////
 //////////////////////////////////////
 
-export const sendFriendReq = (id) => async (dispatch) => {
+//username should belong to the receiver
+export const sendFriendReq = (username) => async (dispatch, getState) => {
+  const { token } = getState();
+
   try {
-  } catch (e) {}
+    const res = await server.post("/request", { username }, auth(token));
+
+    dispatch({ type: "SEND_REQ", payload: res.data });
+  } catch (e) {
+    dispatch({ type: "SEND_REQ_ERROR", payload: "error" });
+  }
+};
+
+//////////////////////////////////////
+//////////////////////////////////////
+
+export const getFriendRequests = (token) => async (dispatch) => {
+  try {
+    const res = await server.get("/request", auth(token));
+
+    dispatch({ type: "GET_REQ", payload: res.data });
+  } catch (e) {
+    dispatch({ type: "GET_REQ_ERROR", payload: "error" });
+  }
+};
+
+//////////////////////////////////////
+//////////////////////////////////////
+
+export const respondToRequest = (id, action) => async (dispatch, getState) => {
+  const { token } = getState();
+  //id of the request
+  //action is 'accept' or 'decline'
+
+  try {
+    const res = await server.patch(
+      "/request/response",
+      { id, action },
+      auth(token)
+    );
+
+    if (action === "accept")
+      dispatch({ type: "NEW_FRIEND", payload: res.data.sender });
+  } catch (e) {
+    dispatch({ type: "REQ_RESONSE_ERROR", payload: "error" });
+  }
 };

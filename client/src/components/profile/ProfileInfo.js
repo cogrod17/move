@@ -1,18 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
 import { openModal } from "../../actions";
+import { getStatus } from "../../helperFunctions";
 import Friends from "../friends/Friends";
 import FriendButton from "./FriendButton";
 
-const ProfileInfo = ({ user, viewUser, status, openModal }) => {
+const ProfileInfo = ({ user, viewUser, openModal }) => {
   if (!user && !viewUser) return null;
 
+  const status = getStatus();
+
   let username, email;
-  if (window.location.pathname === "/profile") {
+  if (status === "user") {
     username = user.username;
     email = user.email;
-  }
-  if (window.location.pathname === "/viewuser") {
+  } else {
     username = viewUser.user.username;
     email = viewUser.user.email;
   }

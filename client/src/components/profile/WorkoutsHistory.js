@@ -2,10 +2,16 @@ import React from "react";
 import { connect } from "react-redux";
 import WorkoutCard from "./WorkoutCard";
 import { openModal } from "../../actions";
+import { getStatus } from "../../helperFunctions";
 
-const WorkoutsHistory = ({ openModal, info, status }) => {
+const WorkoutsHistory = ({ openModal, workoutHistory, viewUser }) => {
+  let status = getStatus();
+  let info;
+  if (status === "user") info = workoutHistory;
+  if (status === "view") info = viewUser.workouts;
+
   const renderWorkoutList = () => {
-    if (!info || info.length === 0) return <h2>Add first workout!</h2>;
+    if (!info || info.length === 0) return <h2>No Workouts Yet!</h2>;
 
     return info.map((workout, i) => {
       return <WorkoutCard key={i} workout={workout} />;
@@ -14,7 +20,9 @@ const WorkoutsHistory = ({ openModal, info, status }) => {
 
   return (
     <div className="history-container">
-      {!status ? <h1 onClick={() => openModal("newworkout")}>+</h1> : null}
+      {status === "user" ? (
+        <h1 onClick={() => openModal("newworkout")}>+</h1>
+      ) : null}
       <div className="history-list">{renderWorkoutList()}</div>
     </div>
   );

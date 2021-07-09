@@ -35,7 +35,7 @@ const Profile = (props) => {
         <ProfileInfo />
         <Summary info={summary} />
       </div>
-      <WorkoutHistory info={workoutHistory} />
+      <WorkoutHistory />
     </div>
   );
 };

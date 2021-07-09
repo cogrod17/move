@@ -53,19 +53,3 @@ export const getStatus = () => {
 
 /////////////////////
 /////////////////////
-
-export const searchRequests = (requests, viewUser) => {
-  //requests will come from redux store
-  //user will be the logged in user
-  //viewUser is the username realtion in question
-
-  //if the user sent a request
-  let sent = requests.sent.filter((req) => req.receiver === viewUser);
-
-  //if the user received a request
-  let received = requests.received.filter((req) => req.sender === viewUser);
-
-  if (sent) return sent;
-  if (received) return received;
-  if (!sent && !received) return "none";
-};

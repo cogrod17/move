@@ -2,10 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import WorkoutCard from "./WorkoutCard";
 import { openModal } from "../../actions";
-import { getStatus } from "../../helperFunctions";
+import { getUserStatus } from "../../helperFunctions";
 
 const WorkoutsHistory = ({ openModal, workoutHistory, viewUser }) => {
-  let status = getStatus();
+  let status = getUserStatus();
   let info;
   if (status === "user") info = workoutHistory;
   if (status === "view") info = viewUser.workouts;

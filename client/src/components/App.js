@@ -6,6 +6,7 @@ import ViewUser from "./view-user/ViewUser";
 import Chat from "./chat/Chat";
 import Profile from "./profile/Profile";
 import LogoutModal from "./misc./LogoutModal";
+import Friends from "./friends/Friends";
 import history from "../history";
 import "../styles/app.css";
 import Feed from "./feed/Feed";
@@ -28,6 +29,7 @@ class App extends React.Component {
     return (
       <div className="app">
         <LogoutModal />
+        <Friends />
         <Router history={history}>
           <ScrollToTop />
           <Header />

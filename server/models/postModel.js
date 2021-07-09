@@ -7,7 +7,6 @@ const postSchema = new mongoose.Schema({
   },
   date: {
     type: String,
-    default: new Date(),
   },
   text: {
     type: String,
@@ -18,6 +17,11 @@ const postSchema = new mongoose.Schema({
     required: true,
     ref: "User",
   },
+});
+
+postSchema.pre("save", async function (next) {
+  this.date = new Date();
+  next();
 });
 
 const Post = mongoose.model("Post", postSchema);

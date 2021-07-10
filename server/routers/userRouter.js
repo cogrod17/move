@@ -3,6 +3,7 @@ const User = require("../models/userModel");
 const Summary = require("../models/summaryModel");
 const Workout = require("../models/workoutModel");
 const Post = require("../models/postModel");
+const FriendRequest = require("../models/friendRequestModel");
 const sortByDate = require("./helperFunctions");
 const auth = require("../middleware/auth");
 const bcrypt = require("bcryptjs");
@@ -64,7 +65,7 @@ router.get("/profile/user", auth, async (req, res) => {
 });
 
 //Read other users profile
-router.get("/viewuser", async (req, res) => {
+router.get("/viewuser", auth, async (req, res) => {
   try {
     const user = await User.findOne({ username: req.headers.username });
 
@@ -73,17 +74,39 @@ router.get("/viewuser", async (req, res) => {
     delete user.tokens;
     delete user.password;
 
+    const friendStatus = await FriendRequest.find({
+      sender: user.username || req.user.username,
+      receiver: req.user.username || user.username,
+      status: { $lt: 3 },
+    });
+    // const sent = await FriendRequest.find({
+    //   receiver: user.username,
+    //   sender: req.user.username,
+    //   status: 1 || 2,
+    // });
+
+    // let friendStatus;
+    // if (sent.length > 0) friendStatus = sent;
+    // if (requested.length > 0) friendStatus = requested;
+
     const workouts = await Workout.find({ owner: user._id });
     const summary = await Summary.find({ owner: user._id });
     const posts = await Post.find({ owner: user._id });
 
-    await workouts.sort(sortByDate);
-    await posts.sort(sortByDate);
+    workouts.sort(sortByDate);
+    posts.sort(sortByDate);
 
-    const viewUser = { user, workouts, summary, posts };
+    const viewUser = {
+      user,
+      workouts,
+      summary,
+      posts,
+      friendStatus,
+    };
 
     res.status(200).send(viewUser);
   } catch (e) {
+    console.log(e);
     res.status(400).send(e);
   }
 });

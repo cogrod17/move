@@ -6,7 +6,13 @@ import ProfileInfo from "../profile/ProfileInfo";
 import { getViewUser } from "../../actions";
 import "../profile/profileStyle.css";
 
-const ViewUser = ({ viewUser, getViewUser }) => {
+const ViewUser = ({
+  user,
+  viewUser,
+  getViewUser,
+
+  friendRequests,
+}) => {
   useEffect(() => {
     getViewUser();
   }, [getViewUser]);

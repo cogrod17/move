@@ -32,11 +32,9 @@ router.get("/request", auth, async (req, res) => {
   try {
     const received = await FriendRequest.find({
       receiver: req.user.username,
-      status: 1,
     });
     const sent = await FriendRequest.find({
       sender: req.user.username,
-      status: 1,
     });
 
     res.send({ received, sent });
@@ -46,56 +44,87 @@ router.get("/request", auth, async (req, res) => {
 });
 
 //update
-router.patch("/request/response", auth, async (req, res) => {
-  //THe request will be sent from the client
-  //will have the _id of request and 'accept' or 'decline'
+router.patch("/request/accept", auth, async (req, res) => {
+  //will have the _id of request
 
   const receiver = req.user;
-  const { _id, action } = req.body;
+  const { _id } = req.body;
 
   try {
     ///Change status
     const request = await FriendRequest.findOne({ _id });
     if (!request) throw new Error();
 
-    //edit the users according to status
     const sender = await User.findOne({ username: request.sender });
-    // const receiver = await User.findOne({ username: request.receiver });
 
-    if (action === "accept") {
-      //add eachother as friend
-      sender.friends.push(receiver.username);
-      receiver.friends.push(sender.username);
-      request.status = 2;
+    sender.friends.push(receiver.username);
+    receiver.friends.push(sender.username);
+    request.status = 2;
 
-      await sender.save();
-      await receiver.save();
-      await request.save();
-      res.status(200).send(request);
-    }
-
-    if (action === "decline") {
-      request.status = 3;
-      await request.save();
-      res.sendStatus(200);
-    }
+    await sender.save();
+    await receiver.save();
+    await request.save();
+    res.status(200).send(receiver);
   } catch (e) {
     res.status(400).send(e);
   }
 });
 
 //delete
-router.delete("/request", auth, async (req, res) => {
+router.patch("/request/decline", auth, async (req, res) => {
   try {
     const request = await FriendRequest.findOne({ _id: req.body._id });
 
     if (!request) throw new Error();
 
-    await request.remove();
+    request.status = 3;
 
-    res.sendStatus(200);
+    await request.save();
+
+    res.status(200).send(request);
   } catch (e) {
     res.status(404).send(e);
+  }
+});
+
+router.patch("/request/unfriend", auth, async (req, res) => {
+  const { username } = req.body;
+  const { user } = req;
+
+  console.log(req.body);
+
+  try {
+    if (!username) throw new Error();
+
+    // const [request] = await FriendRequest.find({ _id });
+
+    const [request] = await FriendRequest.find({
+      $or: [
+        { sender: username, receiver: user.username, status: 2 },
+        { sender: user.username, receiver: username, status: 2 },
+      ],
+    });
+
+    const [user2] = await User.find({ username });
+
+    user.friends = user.friends.filter((friend) => {
+      return friend !== user2.username;
+    });
+
+    user2.friends = user2.friends.filter((friend) => {
+      return friend !== user.username;
+    });
+
+    request.status = 3;
+
+    await user.save();
+    await user2.save();
+    await request.save();
+
+    res.status(200).send(user);
+  } catch (e) {
+    console.log(e);
+    res.status(400).send(e);
   }
 });
 

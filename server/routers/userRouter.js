@@ -74,21 +74,6 @@ router.get("/viewuser", auth, async (req, res) => {
     delete user.tokens;
     delete user.password;
 
-    const friendStatus = await FriendRequest.find({
-      sender: user.username || req.user.username,
-      receiver: req.user.username || user.username,
-      status: { $lt: 3 },
-    });
-    // const sent = await FriendRequest.find({
-    //   receiver: user.username,
-    //   sender: req.user.username,
-    //   status: 1 || 2,
-    // });
-
-    // let friendStatus;
-    // if (sent.length > 0) friendStatus = sent;
-    // if (requested.length > 0) friendStatus = requested;
-
     const workouts = await Workout.find({ owner: user._id });
     const summary = await Summary.find({ owner: user._id });
     const posts = await Post.find({ owner: user._id });
@@ -101,7 +86,6 @@ router.get("/viewuser", auth, async (req, res) => {
       workouts,
       summary,
       posts,
-      friendStatus,
     };
 
     res.status(200).send(viewUser);

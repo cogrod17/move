@@ -53,5 +53,3 @@ export const getUserStatus = () => {
 
 /////////////////////
 /////////////////////
-
-//both should be the usernames

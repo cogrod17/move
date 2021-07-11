@@ -28,7 +28,7 @@ const ProfileInfo = ({ user, viewUser, openModal }) => {
         <p onClick={() => openModal("friends")} className="friends">
           {`${show.friends.length} Friends`}
         </p>
-        <FriendButton />
+        {status === "user" ? <p>Settings</p> : <FriendButton />}
       </div>
     </div>
   );

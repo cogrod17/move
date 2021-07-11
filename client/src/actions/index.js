@@ -248,20 +248,15 @@ export const getFriendRequests = (token) => async (dispatch) => {
 //////////////////////////////////////
 //////////////////////////////////////
 
-export const respondToRequest = (id, action) => async (dispatch, getState) => {
+export const acceptReq = (_id) => async (dispatch, getState) => {
   const { token } = getState();
   //id of the request
-  //action is 'accept' or 'decline'
 
   try {
-    const res = await server.patch(
-      "/request/response",
-      { id, action },
-      auth(token)
-    );
+    const res = await server.patch("/request/accept", { _id }, auth(token));
 
-    if (action === "accept")
-      dispatch({ type: "NEW_FRIEND", payload: res.data.sender });
+    //dispatch({ type: "NEW_FRIEND", payload: res.data.sender });
+    dispatch(setUser(res.data));
   } catch (e) {
     dispatch({ type: "REQ_RESONSE_ERROR", payload: "error" });
   }
@@ -269,6 +264,24 @@ export const respondToRequest = (id, action) => async (dispatch, getState) => {
 
 //////////////////////////////////////
 //////////////////////////////////////
+
+//_id of the friendrequest
+export const unfriend = (username) => async (dispatch, getState) => {
+  const { token } = getState();
+
+  try {
+    const res = await server.patch(
+      "/request/unfriend",
+      { username },
+      auth(token)
+    );
+
+    dispatch(setUser(res.data));
+  } catch (e) {
+    console.log(e);
+    dispatch({ type: "UNFRIEND_ERROR", payload: "error" });
+  }
+};
 
 // export const getFriendStatus = (user, viewUser, friendRequests) => {
 //   //if (!user || !viewUser || !friendRequests) return;

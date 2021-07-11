@@ -1,9 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getSummary } from "../../actions";
+import useWindowStatus from "../../hooks/useWindowStatus";
 
-const Summary = ({ info }) => {
-  if (!info) return <div className="section">Loading</div>;
+const Summary = ({ viewUser, summary }) => {
+  const [windowStatus, getWindowStatus] = useWindowStatus();
+
+  let show;
+  windowStatus === "user" ? (show = summary) : (show = viewUser.summary);
 
   return (
     <div className="section">
@@ -12,34 +15,34 @@ const Summary = ({ info }) => {
         <div className="section-stats two">
           <div>
             <p>Move Days</p>
-            <p className="stat">{info.moveDays}</p>
+            <p className="stat">{show.moveDays}</p>
           </div>
 
           <div>
             <p>Move Min</p>
-            <p className="stat">{info.moveMin}</p>
+            <p className="stat">{show.moveMin}</p>
           </div>
           <div>
             <p>Cardio Days</p>
-            <p className="stat">{info.cardioDays}</p>
+            <p className="stat">{show.cardioDays}</p>
           </div>
           <div>
             <p>Miles Run</p>
-            <p className="stat">{`${info.milesRun} miles`}</p>
+            <p className="stat">{`${show.milesRun} miles`}</p>
           </div>
           <div>
             <p>Avg Pace</p>
             <p className="stat">{`${
-              info.avgPace ? info.avgPace.toFixed(2) : "-"
+              show.avgPace ? show.avgPace.toFixed(2) : "-"
             } min/mile`}</p>
           </div>
           <div>
             <p>Strength Days</p>
-            <p className="stat">{info.strengthDays}</p>
+            <p className="stat">{show.strengthDays}</p>
           </div>
           <div>
             <p>HIIT Days</p>
-            <p className="stat">{info.hiitDays}</p>
+            <p className="stat">{show.hiitDays}</p>
           </div>
         </div>
         <div className="section-visual"></div>
@@ -50,4 +53,4 @@ const Summary = ({ info }) => {
 
 const mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps, { getSummary })(Summary);
+export default connect(mapStateToProps)(Summary);

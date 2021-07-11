@@ -33,7 +33,6 @@ export const setViewUser = async (viewUsername, curUsername) => {
   }
 
   localStorage.setItem("viewUser", JSON.stringify(viewUsername));
-
   history.push("/viewuser");
 };
 

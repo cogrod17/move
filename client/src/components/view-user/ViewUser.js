@@ -6,13 +6,7 @@ import ProfileInfo from "../profile/ProfileInfo";
 import { getViewUser } from "../../actions";
 import "../profile/profileStyle.css";
 
-const ViewUser = ({
-  user,
-  viewUser,
-  getViewUser,
-
-  friendRequests,
-}) => {
+const ViewUser = ({ viewUser, getViewUser }) => {
   useEffect(() => {
     getViewUser();
   }, [getViewUser]);
@@ -24,7 +18,7 @@ const ViewUser = ({
     <div className="profile-container">
       <div className="profile-head">
         <ProfileInfo />
-        <Summary info={viewUser.summary[0]} />
+        <Summary />
       </div>
       <WorkoutHistory />
     </div>

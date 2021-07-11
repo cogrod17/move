@@ -17,7 +17,6 @@ const Profile = (props) => {
     getWorkoutHistory,
     token,
     summary,
-    workoutHistory,
     getFriendRequests,
   } = props;
 
@@ -33,7 +32,7 @@ const Profile = (props) => {
       <NewWorkout />
       <div className="profile-head">
         <ProfileInfo />
-        <Summary info={summary} />
+        <Summary />
       </div>
       <WorkoutHistory />
     </div>

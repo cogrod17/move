@@ -75,7 +75,7 @@ router.get("/viewuser", auth, async (req, res) => {
     delete user.password;
 
     const workouts = await Workout.find({ owner: user._id });
-    const summary = await Summary.find({ owner: user._id });
+    const [summary] = await Summary.find({ owner: user._id });
     const posts = await Post.find({ owner: user._id });
 
     workouts.sort(sortByDate);

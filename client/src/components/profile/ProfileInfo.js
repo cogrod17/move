@@ -1,16 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
 import { openModal } from "../../actions";
-import { getUserStatus } from "../../helperFunctions";
+import useWindowStatus from "../../hooks/useWindowStatus";
 import FriendButton from "./FriendButton";
 
 const ProfileInfo = ({ user, viewUser, openModal }) => {
+  const [windowStatus, getWindowStatus] = useWindowStatus();
   if (!user && !viewUser) return null;
 
-  const status = getUserStatus();
-
   let show;
-  if (status === "user") {
+  if (windowStatus === "user") {
     show = user;
   } else {
     show = viewUser.user;
@@ -28,7 +27,7 @@ const ProfileInfo = ({ user, viewUser, openModal }) => {
         <p onClick={() => openModal("friends")} className="friends">
           {`${show.friends.length} Friends`}
         </p>
-        {status === "user" ? <p>Settings</p> : <FriendButton />}
+        {windowStatus === "user" ? <p>Settings</p> : <FriendButton />}
       </div>
     </div>
   );

@@ -6,12 +6,14 @@ import ProfileInfo from "../profile/ProfileInfo";
 import { getViewUser } from "../../actions";
 import "../profile/profileStyle.css";
 
-const ViewUser = ({ viewUser, getViewUser }) => {
+const ViewUser = ({ viewUser, getViewUser, token }) => {
   useEffect(() => {
+    if (!token) return;
     getViewUser();
-  }, [getViewUser]);
+  }, [getViewUser, token]);
 
   if (!viewUser) return <div>LOADING</div>;
+  //if (viewUser) return <div>got the user</div>;
   if (viewUser.name === "Error") return <div>COULD NOT GET USER</div>;
 
   return (

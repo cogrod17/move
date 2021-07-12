@@ -3,10 +3,7 @@ export const requestsReducer = (friendRequests = null, action) => {
     case "GET_REQ":
       return action.payload;
     case "SEND_REQ":
-      return {
-        sent: [...friendRequests.sent, action.payload],
-        received: friendRequests.received,
-      };
+      return [...friendRequests, action.payload];
     default:
       return friendRequests;
   }

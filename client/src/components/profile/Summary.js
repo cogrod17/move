@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import useWindowStatus from "../../hooks/useWindowStatus";
+import useInfo from "../../hooks/useInfo";
 
 const Summary = ({ viewUser, summary }) => {
-  const [windowStatus, getWindowStatus] = useWindowStatus();
+  const [info, getInfo] = useInfo(summary);
 
-  let show;
-  windowStatus === "user" ? (show = summary) : (show = viewUser.summary);
+  useEffect(() => {
+    if (!viewUser) return;
+    getInfo(summary, viewUser.summary);
+  }, [getInfo, summary, viewUser]);
+
+  if (!info) return null; /// NEED A LOADER
 
   return (
     <div className="section">
@@ -15,34 +19,34 @@ const Summary = ({ viewUser, summary }) => {
         <div className="section-stats two">
           <div>
             <p>Move Days</p>
-            <p className="stat">{show.moveDays}</p>
+            <p className="stat">{info.moveDays}</p>
           </div>
 
           <div>
             <p>Move Min</p>
-            <p className="stat">{show.moveMin}</p>
+            <p className="stat">{info.moveMin}</p>
           </div>
           <div>
             <p>Cardio Days</p>
-            <p className="stat">{show.cardioDays}</p>
+            <p className="stat">{info.cardioDays}</p>
           </div>
           <div>
             <p>Miles Run</p>
-            <p className="stat">{`${show.milesRun} miles`}</p>
+            <p className="stat">{`${info.milesRun} miles`}</p>
           </div>
           <div>
             <p>Avg Pace</p>
             <p className="stat">{`${
-              show.avgPace ? show.avgPace.toFixed(2) : "-"
+              info.avgPace ? info.avgPace.toFixed(2) : "-"
             } min/mile`}</p>
           </div>
           <div>
             <p>Strength Days</p>
-            <p className="stat">{show.strengthDays}</p>
+            <p className="stat">{info.strengthDays}</p>
           </div>
           <div>
             <p>HIIT Days</p>
-            <p className="stat">{show.hiitDays}</p>
+            <p className="stat">{info.hiitDays}</p>
           </div>
         </div>
         <div className="section-visual"></div>

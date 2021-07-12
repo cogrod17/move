@@ -38,9 +38,28 @@ router.post("/login", async (req, res) => {
 
     if (!correctPassword) throw new Error("Incorrect email or password");
 
+    ///////////////////////////////////////////////////
+    // const workouts = await Workout.find({ owner: userTemp._id });
+    // const [summary] = await Summary.find({ owner: userTemp._id });
+    // const received = await FriendRequest.find({
+    //   receiver: userTemp.username,
+    // });
+    // const sent = await FriendRequest.find({
+    //   sender: userTemp.username,
+    // });
+
+    // const user = {
+    //   user: userTemp,
+    //   summary,
+    //   workouts,
+    //   friendRequests: { sent, received },
+    // };
+    ///////////////////////////////////////////////////
+
     const token = await user.giveAuthToken();
     res.status(200).send({ user, token });
   } catch (e) {
+    console.log(e);
     res.status(400).send(e);
   }
 });
@@ -61,6 +80,25 @@ router.post("/logout", auth, async (req, res) => {
 
 //Read My Profile
 router.get("/profile/user", auth, async (req, res) => {
+  ///////////////////////////////////////////////////
+  // const workouts = await Workout.find({ owner: req.user._id });
+  // const [summary] = await Summary.find({ owner: req.user._id });
+  // const received = await FriendRequest.find({
+  //   receiver: req.user.username,
+  // });
+  // const sent = await FriendRequest.find({
+  //   sender: req.user.username,
+  // });
+
+  // const user = {
+  //   user: req.user,
+  //   summary,
+  //   workouts,
+  //   friendRequests: { sent, received },
+  // };
+  //res.send(user)
+  ///////////////////////////////////////////////////
+
   res.send(req.user);
 });
 

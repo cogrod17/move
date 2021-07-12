@@ -11,10 +11,26 @@ router.post("/request", auth, async (req, res) => {
 
   try {
     //check to see if they already sent a request and if user exists
-    const check = await FriendRequest.find({ sender, receiver, status: 1 });
+    const check = await FriendRequest.find({
+      $or: [
+        {
+          $and: [
+            { sender: req.user.username },
+            { receiver: req.body.username },
+          ],
+        },
+        {
+          $and: [
+            { sender: req.body.username },
+            { receiver: req.user.username },
+          ],
+        },
+      ],
+      status: 1,
+    });
+
     const user = await User.find({ username: receiver });
-    if (check.length > 0 && check.status !== 3)
-      throw new Error("request already exists");
+    if (check.length > 0) throw new Error("request already exists");
     if (!user) throw new Error("User does not exist");
 
     const request = await new FriendRequest({ sender, receiver });
@@ -30,14 +46,19 @@ router.post("/request", auth, async (req, res) => {
 //read all requests for user
 router.get("/request", auth, async (req, res) => {
   try {
-    const received = await FriendRequest.find({
-      receiver: req.user.username,
-    });
-    const sent = await FriendRequest.find({
-      sender: req.user.username,
+    // const received = await FriendRequest.find({
+    //   receiver: req.user.username,
+    // });
+    // const sent = await FriendRequest.find({
+    //   sender: req.user.username,
+    // });
+
+    const requests = await FriendRequest.find({
+      $or: [{ sender: req.user.username }, { receiver: req.user.username }],
     });
 
-    res.send({ received, sent });
+    res.send(requests);
+    //res.send({ sent, received });
   } catch (e) {
     res.status(404).send(e);
   }
@@ -59,11 +80,10 @@ router.patch("/request/accept", auth, async (req, res) => {
 
     sender.friends.push(receiver.username);
     receiver.friends.push(sender.username);
-    request.status = 2;
 
     await sender.save();
     await receiver.save();
-    await request.save();
+    await request.remove();
     res.status(200).send(receiver);
   } catch (e) {
     res.status(400).send(e);
@@ -71,15 +91,13 @@ router.patch("/request/accept", auth, async (req, res) => {
 });
 
 //delete
-router.patch("/request/decline", auth, async (req, res) => {
+router.delete("/request/decline", auth, async (req, res) => {
   try {
     const request = await FriendRequest.findOne({ _id: req.body._id });
 
     if (!request) throw new Error();
 
-    request.status = 3;
-
-    await request.save();
+    await request.remove();
 
     res.status(200).send(request);
   } catch (e) {
@@ -91,19 +109,16 @@ router.patch("/request/unfriend", auth, async (req, res) => {
   const { username } = req.body;
   const { user } = req;
 
-  console.log(req.body);
-
   try {
     if (!username) throw new Error();
 
-    // const [request] = await FriendRequest.find({ _id });
-
-    const [request] = await FriendRequest.find({
-      $or: [
-        { sender: username, receiver: user.username, status: 2 },
-        { sender: user.username, receiver: username, status: 2 },
-      ],
-    });
+    // const [request] = await FriendRequest.find({
+    //   $or: [
+    //     { $and: [{ sender: username }, { receiver: user.username }] },
+    //     { $and: [{ sender: user.username }, { receiver: username }] },
+    //   ],
+    //   status: 2,
+    // });
 
     const [user2] = await User.find({ username });
 
@@ -115,15 +130,12 @@ router.patch("/request/unfriend", auth, async (req, res) => {
       return friend !== user.username;
     });
 
-    request.status = 3;
-
     await user.save();
     await user2.save();
-    await request.save();
+    // await request.remove();
 
     res.status(200).send(user);
   } catch (e) {
-    console.log(e);
     res.status(400).send(e);
   }
 });

@@ -12,13 +12,7 @@ import ProfileInfo from "./ProfileInfo";
 import "./profileStyle.css";
 
 const Profile = (props) => {
-  const {
-    getSummary,
-    getWorkoutHistory,
-    token,
-    summary,
-    getFriendRequests,
-  } = props;
+  const { getSummary, getWorkoutHistory, token, getFriendRequests } = props;
 
   useEffect(() => {
     if (!token) return;

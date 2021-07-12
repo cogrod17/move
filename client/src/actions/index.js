@@ -228,6 +228,7 @@ export const sendFriendReq = (username) => async (dispatch, getState) => {
 
     dispatch({ type: "SEND_REQ", payload: res.data });
   } catch (e) {
+    console.log(e);
     dispatch({ type: "SEND_REQ_ERROR", payload: "error" });
   }
 };
@@ -277,6 +278,8 @@ export const unfriend = (username) => async (dispatch, getState) => {
     );
 
     dispatch(setUser(res.data));
+    dispatch(getFriendRequests(token));
+    dispatch(getViewUser());
   } catch (e) {
     console.log(e);
     dispatch({ type: "UNFRIEND_ERROR", payload: "error" });

@@ -14,11 +14,9 @@ const FriendButton = (props) => {
     friendRequests,
   } = props;
 
-  const [friendStatus, evaluate] = useFriendStatus(
-    user,
-    viewUser,
-    friendRequests
-  );
+  const [friendStatus] = useFriendStatus(user, viewUser, friendRequests);
+
+  if (getUserStatus() === "user") return <p>Settings</p>;
 
   if (friendStatus.status === "loading")
     return <p className="add-friend">loading...</p>;

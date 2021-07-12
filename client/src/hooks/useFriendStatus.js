@@ -17,20 +17,22 @@ const useFriendStatus = (curUser, viewUser, friendRequests) => {
   };
 
   const evaluate = (user, viewUser, friendRequests) => {
-    if (!user || !viewUser) return;
+    if (!user || !viewUser || !friendRequests)
+      return setFriendStatus(set("loading"));
+
     let isFriend = user.friends.includes(viewUser.user.username);
 
     if (isFriend) {
       setFriendStatus(set("friends"));
     }
 
-    const [pending] = friendRequests.sent.filter((item) => {
+    const [pending] = friendRequests.filter((item) => {
       return item.receiver === viewUser.user.username && item.status === 1;
     });
 
     if (pending) setFriendStatus(set("pending"));
 
-    const [respond] = friendRequests.received.filter((item) => {
+    const [respond] = friendRequests.filter((item) => {
       return item.sender === viewUser.user.username && item.status === 1;
     });
 

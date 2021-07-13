@@ -228,7 +228,6 @@ export const sendFriendReq = (username) => async (dispatch, getState) => {
 
     dispatch({ type: "SEND_REQ", payload: res.data });
   } catch (e) {
-    console.log(e);
     dispatch({ type: "SEND_REQ_ERROR", payload: "error" });
   }
 };
@@ -258,6 +257,8 @@ export const acceptReq = (_id) => async (dispatch, getState) => {
 
     //dispatch({ type: "NEW_FRIEND", payload: res.data.sender });
     dispatch(setUser(res.data));
+    dispatch(getFriendRequests(token));
+    dispatch(getViewUser());
   } catch (e) {
     dispatch({ type: "REQ_RESONSE_ERROR", payload: "error" });
   }
@@ -271,42 +272,33 @@ export const unfriend = (username) => async (dispatch, getState) => {
   const { token } = getState();
 
   try {
-    const res = await server.patch(
-      "/request/unfriend",
-      { username },
-      auth(token)
-    );
+    const res = await server.patch("/unfriend", { username }, auth(token));
 
     dispatch(setUser(res.data));
     dispatch(getFriendRequests(token));
     dispatch(getViewUser());
   } catch (e) {
-    console.log(e);
     dispatch({ type: "UNFRIEND_ERROR", payload: "error" });
   }
 };
 
-// export const getFriendStatus = (user, viewUser, friendRequests) => {
-//   //if (!user || !viewUser || !friendRequests) return;
-//   const FRIEND_STATUS = "FRIEND_STATUS";
+//////////////////////////////////////
+//////////////////////////////////////
 
-//   let send = (payload) => {
-//     return { type: FRIEND_STATUS, payload };
-//   };
+//id of request
+export const declineReq = (_id) => async (dispatch, getState) => {
+  const { token } = getState();
 
-//   if (user.friends.includes(viewUser.user.username)) return send("friends");
+  try {
+    const res = await server.delete(
+      "/request/decline",
+      { data: { _id } },
+      auth(token)
+    );
 
-//   //if the user sent a request
-//   let sent = friendRequests.sent.filter(
-//     (req) => req.receiver === viewUser.user.username && req.status === 1
-//   );
-//   if (sent.length >= 1) return send("sent");
-
-//   //if the user received a request
-//   let received = friendRequests.received.filter(
-//     (req) => req.sender === viewUser.user.username && req.status === 1
-//   );
-//   if (received.length >= 1) return sent("respond");
-
-//   return send("not friends");
-// };
+    dispatch(getFriendRequests(token));
+  } catch (e) {
+    console.log(e);
+    dispatch({ type: "DECLINE_REQ_ERROR", payload: e });
+  }
+};

@@ -1,0 +1,44 @@
+.request-item {
+  display: grid;
+  grid-template-columns: 50% 25% 25%;
+  padding: 5px 0;
+  margin: 20px 0;
+}
+
+.req-name {
+  font-weight: 900;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.req-name:hover {
+  text-decoration: underline;
+}
+
+.accept-req {
+  border: 1px solid rgb(9, 187, 9);
+  color: rgb(9, 187, 9);
+  text-align: center;
+  margin-right: 3px;
+  cursor: pointer;
+  align-self: center;
+}
+
+.decline-req {
+  border: red solid 1px;
+  color: red;
+  text-align: center;
+  margin-left: 3px;
+  cursor: pointer;
+  align-self: center;
+}
+
+.accept-req:hover {
+  background: rgb(9, 187, 9);
+  color: white;
+}
+
+.decline-req:hover {
+  background: red;
+  color: white;
+}

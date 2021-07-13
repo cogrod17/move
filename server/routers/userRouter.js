@@ -166,7 +166,7 @@ router.patch("/addfriend", auth, async (req, res) => {
 });
 
 //delete friend from friends list
-router.patch("/deletefriend", auth, async (req, res) => {
+router.patch("/unfriend", auth, async (req, res) => {
   const { user, body } = req;
 
   try {

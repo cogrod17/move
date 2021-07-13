@@ -1,16 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { closeModal } from "../../actions";
+import useInfo from "../../hooks/useInfo";
 
 const Friends = ({ closeModal, activeModal, user, viewUser }) => {
+  const [info, getInfo] = useInfo(null);
+
+  // let friends;
+  // if (window.location.pathname === "/profile") friends = user.friends;
+  // if (window.location.pathname === "/viewuser") friends = viewUser.user.friends;
+
+  useEffect(() => {
+    if (user && !viewUser) getInfo(user.friends);
+    if (viewUser) getInfo(user.friends, viewUser.user.friends);
+  }, [getInfo, viewUser, user]);
+
   if (activeModal !== "friends") return null;
 
-  let friends;
-  if (window.location.pathname === "/profile") friends = user.friends;
-  if (window.location.pathname === "/viewuser") friends = viewUser.user.friends;
-
   const renderFriends = () => {
-    return friends.map((name, i) => {
+    if (!info) return <p>Loading...</p>;
+
+    return info.map((name, i) => {
       return <li key={i}>{name}</li>;
     });
   };

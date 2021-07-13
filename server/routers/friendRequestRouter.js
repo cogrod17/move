@@ -91,7 +91,8 @@ router.patch("/request/accept", auth, async (req, res) => {
 });
 
 //delete
-router.delete("/request/decline", auth, async (req, res) => {
+router.delete("/request/decline", async (req, res) => {
+  console.log(req.body);
   try {
     const request = await FriendRequest.findOne({ _id: req.body._id });
 
@@ -105,39 +106,39 @@ router.delete("/request/decline", auth, async (req, res) => {
   }
 });
 
-router.patch("/request/unfriend", auth, async (req, res) => {
-  const { username } = req.body;
-  const { user } = req;
+// router.patch("/request/unfriend", auth, async (req, res) => {
+//   const { username } = req.body;
+//   const { user } = req;
 
-  try {
-    if (!username) throw new Error();
+//   try {
+//     if (!username) throw new Error();
 
-    // const [request] = await FriendRequest.find({
-    //   $or: [
-    //     { $and: [{ sender: username }, { receiver: user.username }] },
-    //     { $and: [{ sender: user.username }, { receiver: username }] },
-    //   ],
-    //   status: 2,
-    // });
+//     // const [request] = await FriendRequest.find({
+//     //   $or: [
+//     //     { $and: [{ sender: username }, { receiver: user.username }] },
+//     //     { $and: [{ sender: user.username }, { receiver: username }] },
+//     //   ],
+//     //   status: 2,
+//     // });
 
-    const [user2] = await User.find({ username });
+//     const [user2] = await User.find({ username });
 
-    user.friends = user.friends.filter((friend) => {
-      return friend !== user2.username;
-    });
+//     user.friends = user.friends.filter((friend) => {
+//       return friend !== user2.username;
+//     });
 
-    user2.friends = user2.friends.filter((friend) => {
-      return friend !== user.username;
-    });
+//     user2.friends = user2.friends.filter((friend) => {
+//       return friend !== user.username;
+//     });
 
-    await user.save();
-    await user2.save();
-    // await request.remove();
+//     await user.save();
+//     await user2.save();
+//     // await request.remove();
 
-    res.status(200).send(user);
-  } catch (e) {
-    res.status(400).send(e);
-  }
-});
+//     res.status(200).send(user);
+//   } catch (e) {
+//     res.status(400).send(e);
+//   }
+//});
 
 module.exports = router;

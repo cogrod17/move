@@ -7,6 +7,7 @@ import Chat from "./chat/Chat";
 import Profile from "./profile/Profile";
 import LogoutModal from "./misc./LogoutModal";
 import Friends from "./friends/Friends";
+import FriendRequests from "./friends/FriendRequests";
 import history from "../history";
 import "../styles/app.css";
 import Feed from "./feed/Feed";
@@ -30,6 +31,7 @@ class App extends React.Component {
       <div className="app">
         <LogoutModal />
         <Friends />
+        <FriendRequests />
         <Router history={history}>
           <ScrollToTop />
           <Header />

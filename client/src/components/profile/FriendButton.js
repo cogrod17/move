@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getUserStatus } from "../../helperFunctions";
-import { sendFriendReq, acceptReq, unfriend } from "../../actions";
+import { sendFriendReq, acceptReq, unfriend, openModal } from "../../actions";
 import useFriendStatus from "../../hooks/useFriendStatus";
 
 const FriendButton = (props) => {
@@ -12,11 +12,24 @@ const FriendButton = (props) => {
     acceptReq,
     unfriend,
     friendRequests,
+    openModal,
   } = props;
 
   const [friendStatus] = useFriendStatus(user, viewUser, friendRequests);
 
-  if (getUserStatus() === "user") return <p>Settings</p>;
+  const reqBtn = (friendRequests) => {
+    if (!friendRequests) return <p className="add-friend">Loading...</p>;
+
+    return (
+      <p className="add-friend" onClick={() => openModal("friend-requests")}>
+        {`${
+          friendRequests.filter((i) => i.sender !== user.username).length
+        } Requests`}
+      </p>
+    );
+  };
+
+  if (getUserStatus() === "user") return reqBtn(friendRequests);
 
   if (friendStatus.status === "loading")
     return <p className="add-friend">loading...</p>;
@@ -62,7 +75,7 @@ const FriendButton = (props) => {
 
 const mapStateToProps = (state) => state;
 
-const mapDispatchToProps = { sendFriendReq, acceptReq, unfriend };
+const mapDispatchToProps = { sendFriendReq, acceptReq, unfriend, openModal };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FriendButton);
 

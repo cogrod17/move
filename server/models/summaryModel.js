@@ -51,7 +51,7 @@ summarySchema.methods.add = function (newWorkout) {
     this.avgPace = this.cardioMin / this.milesRun;
   }
   if (newWorkout.type === "strength") this.strengthDays += 1;
-  if (newWorkout.type === "hiit") this.hiitDays += 1;
+  if (newWorkout.type === "HIIT") this.hiitDays += 1;
 };
 
 const Summary = mongoose.model("Summary", summarySchema);

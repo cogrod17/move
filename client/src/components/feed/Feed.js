@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import WorkoutFeed from "./WorkoutFeed";
 import Post from "./Post";
 import InputFeed from "./InputFeed";
-
 import { getFeed } from "../../actions";
 import "./feed.css";
 

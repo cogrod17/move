@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { closeModal, acceptReq, declineReq } from "../../actions";
+import { setViewUser } from "../../helperFunctions";
 import "./friends.css";
 //import { useFriendStatus } from "../../hooks/useFriendStatus";
 
@@ -20,7 +21,15 @@ const FriendRequests = ({
 
       return (
         <div className="request-item" key={i}>
-          <p className="req-name">{req.sender}</p>
+          <p
+            className="req-name"
+            onClick={() => {
+              closeModal();
+              setViewUser(req.sender, user.username);
+            }}
+          >
+            {req.sender}
+          </p>
           <p className="accept-req" onClick={() => acceptReq(req._id)}>
             Accept
           </p>

@@ -20,13 +20,6 @@ const Conversation = () => {
   return (
     <div className="conversation">
       <p className="received">{response}</p>
-      <p className="sent">Hello</p>
-      <p className="received">{response}</p>
-      <p className="sent">Hello</p>
-      <p className="received">{response}</p>
-      <p className="sent">Hello</p>
-      <p className="received">{response}</p>
-      <p className="sent">Hello</p>
     </div>
   );
 };

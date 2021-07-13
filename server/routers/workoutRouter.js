@@ -11,7 +11,6 @@ router.post("/workout", auth, async (req, res) => {
   req.body.username = req.user.username;
 
   if (req.body.type !== "cardio") delete req.body.distance;
-  console.log(req.body);
 
   const workout = await new Workout(req.body);
   const summary = await Summary.findOne({ owner: req.user._id });
@@ -74,7 +73,7 @@ router.get("/workout/feed", async (req, res) => {
 
 //Edit Workout
 //BE CAREFUL UPDATIING THE WORKOUT
-
+//will have to edit the summary too
 router.patch("/workout", auth, async (req, res) => {
   const { _id } = req.body;
   delete req.body._id;

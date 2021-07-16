@@ -2,22 +2,28 @@ import React from "react";
 import { connect } from "react-redux";
 import { closeModal, acceptReq, declineReq } from "../../actions";
 import { setViewUser } from "../../helperFunctions";
+import history from "../../history";
 import "./friends.css";
-//import { useFriendStatus } from "../../hooks/useFriendStatus";
 
 const FriendRequests = ({
-  friendRequests,
   user,
   activeModal,
   closeModal,
   acceptReq,
   declineReq,
+  friendRequests,
 }) => {
   if (activeModal !== "friend-requests") return null;
 
   const renderRequests = () => {
+    let received = friendRequests.filter((req, i) => {
+      return req.sender !== user.username;
+    });
+
+    if (!received.length) return <p>No Requests</p>;
+
     return friendRequests.map((req, i) => {
-      if (req.sender === user.username) return null;
+      if (req.sender === user.username) return;
 
       return (
         <div className="request-item" key={i}>
@@ -25,7 +31,7 @@ const FriendRequests = ({
             className="req-name"
             onClick={() => {
               closeModal();
-              setViewUser(req.sender, user.username);
+              window.location.pathname = `/profile/${req.sender}`;
             }}
           >
             {req.sender}

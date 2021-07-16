@@ -1,16 +1,18 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import useInfo from "../../hooks/useInfo";
+//import useInfo from "../../hooks/useUser";
 
-const Summary = ({ viewUser, summary }) => {
-  const [info, getInfo] = useInfo(summary);
+const Summary = ({ viewUser }) => {
+  //const [info, getInfo] = useInfo(summary);
 
-  useEffect(() => {
-    if (!viewUser) return;
-    getInfo(summary, viewUser.summary);
-  }, [getInfo, summary, viewUser]);
+  // useEffect(() => {
+  //   if (!viewUser) return;
+  //   getInfo(summary, viewUser.summary);
+  // }, [getInfo, summary, viewUser]);
 
-  if (!info) return null; /// NEED A LOADER
+  if (!viewUser) return null; /// NEED A LOADER
+
+  const { summary } = viewUser;
 
   return (
     <div className="section">
@@ -19,34 +21,34 @@ const Summary = ({ viewUser, summary }) => {
         <div className="section-stats two">
           <div>
             <p>Move Days</p>
-            <p className="stat">{info.moveDays}</p>
+            <p className="stat">{summary.moveDays}</p>
           </div>
 
           <div>
             <p>Move Min</p>
-            <p className="stat">{info.moveMin}</p>
+            <p className="stat">{summary.moveMin}</p>
           </div>
           <div>
             <p>Cardio Days</p>
-            <p className="stat">{info.cardioDays}</p>
+            <p className="stat">{summary.cardioDays}</p>
           </div>
           <div>
             <p>Miles Run</p>
-            <p className="stat">{`${info.milesRun} miles`}</p>
+            <p className="stat">{`${summary.milesRun} miles`}</p>
           </div>
           <div>
             <p>Avg Pace</p>
             <p className="stat">{`${
-              info.avgPace ? info.avgPace.toFixed(2) : "-"
+              summary.avgPace ? summary.avgPace.toFixed(2) : "-"
             } min/mile`}</p>
           </div>
           <div>
             <p>Strength Days</p>
-            <p className="stat">{info.strengthDays}</p>
+            <p className="stat">{summary.strengthDays}</p>
           </div>
           <div>
             <p>HIIT Days</p>
-            <p className="stat">{info.hiitDays}</p>
+            <p className="stat">{summary.hiitDays}</p>
           </div>
         </div>
         <div className="section-visual"></div>

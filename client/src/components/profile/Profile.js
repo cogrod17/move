@@ -1,25 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import {
-  getSummary,
-  getWorkoutHistory,
-  getFriendRequests,
-} from "../../actions";
+import { getViewUser } from "../../actions";
 import Summary from "./Summary";
 import WorkoutHistory from "./WorkoutsHistory";
 import NewWorkout from "./NewWorkout";
 import ProfileInfo from "./ProfileInfo";
 import "./profileStyle.css";
 
-const Profile = (props) => {
-  const { getSummary, getWorkoutHistory, token, getFriendRequests } = props;
-
+const Profile = ({ token, getViewUser, viewUser }) => {
   useEffect(() => {
     if (!token) return;
-    getSummary(token);
-    getWorkoutHistory(token);
-    getFriendRequests(token);
-  }, [getSummary, getWorkoutHistory, getFriendRequests, token]);
+    getViewUser(window.location.pathname.substring(9));
+  }, [getViewUser, token]);
+
+  if (!viewUser || viewUser === "loading") return <div>LOADING</div>;
+  if (viewUser.name === "Error") return <div>USER NOT FOUND</div>;
 
   return (
     <div className="profile-container">
@@ -36,9 +31,7 @@ const Profile = (props) => {
 const mapStateToProps = (state) => state;
 
 const mapDispatchToProps = {
-  getSummary,
-  getWorkoutHistory,
-  getFriendRequests,
+  getViewUser,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

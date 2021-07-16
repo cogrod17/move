@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { closeModal, createWorkout, getSummary } from "../../actions";
+import { closeModal, createWorkout } from "../../actions";
 
 class NewWorkout extends Component {
   state = {
@@ -14,7 +14,7 @@ class NewWorkout extends Component {
   onSubmit = async () => {
     const { createWorkout, getSummary, closeModal, token } = this.props;
     await createWorkout(this.state);
-    await getSummary(token);
+    // await getSummary(token);
     closeModal();
   };
 
@@ -91,7 +91,6 @@ class NewWorkout extends Component {
 const mapStateToProps = (state) => state;
 
 export default connect(mapStateToProps, {
-  getSummary,
   closeModal,
   createWorkout,
 })(NewWorkout);

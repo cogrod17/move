@@ -38,26 +38,12 @@ router.post("/login", async (req, res) => {
 
     if (!correctPassword) throw new Error("Incorrect email or password");
 
-    ///////////////////////////////////////////////////
-    // const workouts = await Workout.find({ owner: userTemp._id });
-    // const [summary] = await Summary.find({ owner: userTemp._id });
-    // const received = await FriendRequest.find({
-    //   receiver: userTemp.username,
-    // });
-    // const sent = await FriendRequest.find({
-    //   sender: userTemp.username,
-    // });
-
-    // const user = {
-    //   user: userTemp,
-    //   summary,
-    //   workouts,
-    //   friendRequests: { sent, received },
-    // };
-    ///////////////////////////////////////////////////
+    const requests = await FriendRequest.find({
+      receiver: user.username,
+    });
 
     const token = await user.giveAuthToken();
-    res.status(200).send({ user, token });
+    res.status(200).send({ user, token, requests });
   } catch (e) {
     console.log(e);
     res.status(400).send(e);
@@ -80,32 +66,23 @@ router.post("/logout", auth, async (req, res) => {
 
 //Read My Profile
 router.get("/profile/user", auth, async (req, res) => {
-  ///////////////////////////////////////////////////
-  // const workouts = await Workout.find({ owner: req.user._id });
-  // const [summary] = await Summary.find({ owner: req.user._id });
-  // const received = await FriendRequest.find({
-  //   receiver: req.user.username,
-  // });
-  // const sent = await FriendRequest.find({
-  //   sender: req.user.username,
-  // });
+  const requests = await FriendRequest.find({
+    receiver: req.user.username,
+  });
 
-  // const user = {
-  //   user: req.user,
-  //   summary,
-  //   workouts,
-  //   friendRequests: { sent, received },
-  // };
-  //res.send(user)
-  ///////////////////////////////////////////////////
-
-  res.send(req.user);
+  res.send({ user: req.user, requests });
 });
 
 //Read other users profile
 router.get("/viewuser", auth, async (req, res) => {
+  const { username } = req.headers;
+
   try {
-    const user = await User.findOne({ username: req.headers.username });
+    const user =
+      username === req.user.username
+        ? req.user
+        : await User.findOne({ username });
+    //console.log(user);
 
     if (!user) throw new Error();
 
@@ -119,16 +96,28 @@ router.get("/viewuser", auth, async (req, res) => {
     workouts.sort(sortByDate);
     posts.sort(sortByDate);
 
+    const request = await FriendRequest.find({
+      $or: [
+        {
+          $and: [{ sender: req.user.username }, { receiver: username }],
+        },
+        {
+          $and: [{ sender: username }, { receiver: req.user.username }],
+        },
+      ],
+      status: 1,
+    });
+
     const viewUser = {
       user,
       workouts,
       summary,
       posts,
+      request,
     };
 
     res.status(200).send(viewUser);
   } catch (e) {
-    console.log(e);
     res.status(400).send(e);
   }
 });

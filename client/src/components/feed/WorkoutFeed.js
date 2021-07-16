@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { formatDate, setViewUser } from "../../helperFunctions";
+import { formatDate } from "../../helperFunctions";
+import history from "../../history";
 
-const WorkoutFeed = ({ item, user }) => {
+const WorkoutFeed = ({ item }) => {
   const { username, date, type, distance, duration, pace, description } = item;
 
   return (
@@ -11,7 +12,7 @@ const WorkoutFeed = ({ item, user }) => {
         <div className="section-stats two ">
           <p
             className="feed-username"
-            onClick={() => setViewUser(item.username, user.username)}
+            onClick={() => history.push(`/profile/${username}`)}
           >
             {username}
           </p>

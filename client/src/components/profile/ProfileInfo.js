@@ -1,19 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { openModal } from "../../actions";
-import useInfo from "../../hooks/useInfo";
 import FriendButton from "./FriendButton";
 
-const ProfileInfo = ({ user, viewUser, openModal }) => {
-  const [info, getInfo] = useInfo(user);
-
-  useEffect(() => {
-    if (!viewUser) return;
-    getInfo(user, viewUser.user);
-  }, [user, viewUser, getInfo]);
-
-  if (!info) return null; /// NEED A LOADER
-  const { username, email } = info;
+const ProfileInfo = ({ viewUser, openModal }) => {
+  const { username, email, friends } = viewUser.user;
 
   return (
     <div className="section row">
@@ -24,7 +15,7 @@ const ProfileInfo = ({ user, viewUser, openModal }) => {
         <h2>{username}</h2>
         <p>{email}</p>
         <p onClick={() => openModal("friends")} className="friends">
-          {`${info.friends.length} Friends`}
+          {`${friends.length} Friends`}
         </p>
         <FriendButton />
       </div>

@@ -92,7 +92,6 @@ router.patch("/request/accept", auth, async (req, res) => {
 
 //delete
 router.delete("/request/decline", async (req, res) => {
-  console.log(req.body);
   try {
     const request = await FriendRequest.findOne({ _id: req.body._id });
 

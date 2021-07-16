@@ -29,15 +29,25 @@ export const setToken = (token) => {
 //////////////////////////////////////
 //////////////////////////////////////
 
+// export const pendiRequests = (requests) => {
+//   return {
+//     type: "FRIEND_REQUESTS",
+//     payload: requests,
+//   };
+// };
+
+//////////////////////////////////////
+//////////////////////////////////////
+
 export const signInWithToken = (token) => async (dispatch) => {
   try {
     const res = await server.get("/profile/user", auth(token));
 
-    await dispatch(setUser(res.data));
-    await dispatch(setToken(token));
-    await dispatch(getWorkoutHistory(token));
-    await dispatch(getFriendRequests(token));
-    await dispatch(getSummary(token));
+    const { user } = res.data;
+
+    dispatch(setUser(user));
+    dispatch(getFriendRequests(token));
+    dispatch(setToken(token));
 
     if (window.location.pathname === "/") history.push("/profile");
   } catch (e) {
@@ -56,11 +66,8 @@ export const createUser = (username, email, password) => async (dispatch) => {
       password,
     });
 
-    console.log(res);
-
     await dispatch(setUser(res.data.user));
     await dispatch(setToken(res.data.token));
-    console.log("here");
     history.push("/feed");
   } catch (e) {
     console.log(e);
@@ -104,13 +111,14 @@ export const login = (email, password) => async (dispatch) => {
   try {
     const res = await server.post("/login", { email, password });
 
-    console.log(res);
+    const { user, token, requests } = res.data;
 
-    dispatch(setUser(res.data.user));
-    dispatch(setToken(res.data.token));
-    history.push("profile");
+    dispatch(setUser(user));
+    dispatch(getFriendRequests(token));
+    dispatch(setToken(token));
+    history.push(`/profile/${res.data.user.username}`);
   } catch (e) {
-    console.log("error in the action creater");
+    dispatch({ type: "LOGIN_ERROR", payload: e });
   }
 };
 
@@ -121,11 +129,12 @@ export const logout = (token) => async (dispatch) => {
   try {
     await server.post("/logout", {}, auth(token));
 
-    await dispatch(setToken(null));
-    await dispatch(setUser(null));
     dispatch(closeModal());
     localStorage.clear();
     history.push("/");
+
+    await dispatch(setToken(null));
+    await dispatch(setUser(null));
   } catch (e) {
     console.log(e);
   }
@@ -134,42 +143,44 @@ export const logout = (token) => async (dispatch) => {
 //////////////////////////////////////
 //////////////////////////////////////
 
-export const getWorkoutHistory = (token) => async (dispatch) => {
-  try {
-    const res = await server.get("/workout/history", auth(token));
+// export const getWorkoutHistory = (token) => async (dispatch) => {
+//   try {
+//     const res = await server.get("/workout/history", auth(token));
 
-    dispatch({ type: "WORKOUT_HISTORY", payload: res.data });
-  } catch (e) {
-    console.log(e);
-  }
-};
+//     dispatch({ type: "WORKOUT_HISTORY", payload: res.data });
+//   } catch (e) {
+//     console.log(e);
+//   }
+// };
 
 ////////////////////////////////////
 //////////////////////////////////////
 
 export const createWorkout = (values) => async (dispatch, getState) => {
+  const { username } = getState().user;
+
   try {
     const res = await server.post("/workout", values, auth(getState().token));
 
-    dispatch({ type: "NEW_WORKOUT", payload: res.data });
+    //dispatch({ type: "NEW_WORKOUT", payload: res.data });
+    getViewUser(username);
   } catch (e) {
     dispatch({ type: "NEW_WORKOUT_ERROR", payload: null });
-    console.log(e);
   }
 };
 
 ////////////////////////////////////
 //////////////////////////////////////
 
-export const getSummary = (token) => async (dispatch) => {
-  try {
-    const res = await server.get("/summary", auth(token));
+// export const getSummary = (token) => async (dispatch) => {
+//   try {
+//     const res = await server.get("/summary", auth(token));
 
-    dispatch({ type: "GET_SUMMARY", payload: res.data });
-  } catch (e) {
-    dispatch({ type: "GET_SUMMARY_ERROR", payload: e });
-  }
-};
+//     dispatch({ type: "GET_SUMMARY", payload: res.data });
+//   } catch (e) {
+//     dispatch({ type: "GET_SUMMARY_ERROR", payload: e });
+//   }
+// };
 
 ////////////////////////////////////
 //////////////////////////////////////
@@ -180,7 +191,6 @@ export const getFeed = (token) => async (dispatch) => {
 
     dispatch({ type: "FEED", payload: res.data });
   } catch (e) {
-    console.log(e);
     dispatch({ type: "FEED_ERROR", payload: e });
   }
 };
@@ -201,8 +211,8 @@ export const newPost = (text, token) => async (dispatch) => {
 ////////////////////////////////////
 //////////////////////////////////////
 
-export const getViewUser = () => async (dispatch, getState) => {
-  const username = JSON.parse(localStorage.getItem("viewUser"));
+export const getViewUser = (username) => async (dispatch, getState) => {
+  dispatch({ type: "VIEW_USER", payload: "loading" });
   const { token } = getState();
 
   try {
@@ -249,16 +259,15 @@ export const getFriendRequests = (token) => async (dispatch) => {
 //////////////////////////////////////
 
 export const acceptReq = (_id) => async (dispatch, getState) => {
-  const { token } = getState();
+  const { token, viewUser } = getState();
   //id of the request
 
   try {
     const res = await server.patch("/request/accept", { _id }, auth(token));
 
-    //dispatch({ type: "NEW_FRIEND", payload: res.data.sender });
     dispatch(setUser(res.data));
     dispatch(getFriendRequests(token));
-    dispatch(getViewUser());
+    //update the view user friends here
   } catch (e) {
     dispatch({ type: "REQ_RESONSE_ERROR", payload: "error" });
   }
@@ -276,7 +285,7 @@ export const unfriend = (username) => async (dispatch, getState) => {
 
     dispatch(setUser(res.data));
     dispatch(getFriendRequests(token));
-    dispatch(getViewUser());
+    //update view user friends here
   } catch (e) {
     dispatch({ type: "UNFRIEND_ERROR", payload: "error" });
   }
@@ -298,7 +307,6 @@ export const declineReq = (_id) => async (dispatch, getState) => {
 
     dispatch(getFriendRequests(token));
   } catch (e) {
-    console.log(e);
     dispatch({ type: "DECLINE_REQ_ERROR", payload: e });
   }
 };

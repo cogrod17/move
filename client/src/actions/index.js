@@ -49,7 +49,8 @@ export const signInWithToken = (token) => async (dispatch) => {
     dispatch(getFriendRequests(token));
     dispatch(setToken(token));
 
-    if (window.location.pathname === "/") history.push("/profile");
+    if (window.location.pathname === "/")
+      history.push(`/profile/${user.username}`);
   } catch (e) {
     console.log(e);
   }
@@ -163,7 +164,7 @@ export const createWorkout = (values) => async (dispatch, getState) => {
     const res = await server.post("/workout", values, auth(getState().token));
 
     //dispatch({ type: "NEW_WORKOUT", payload: res.data });
-    getViewUser(username);
+    dispatch(getViewUser(username));
   } catch (e) {
     dispatch({ type: "NEW_WORKOUT_ERROR", payload: null });
   }
@@ -259,16 +260,20 @@ export const getFriendRequests = (token) => async (dispatch) => {
 //////////////////////////////////////
 
 export const acceptReq = (_id) => async (dispatch, getState) => {
-  const { token, viewUser } = getState();
+  const { token } = getState();
   //id of the request
 
   try {
     const res = await server.patch("/request/accept", { _id }, auth(token));
 
+    console.log(res.data);
+
     dispatch(setUser(res.data));
     dispatch(getFriendRequests(token));
     //update the view user friends here
+    dispatch({ type: "ACCEPT_REQ", payload: res.data.username });
   } catch (e) {
+    console.log(e);
     dispatch({ type: "REQ_RESONSE_ERROR", payload: "error" });
   }
 };
@@ -286,6 +291,7 @@ export const unfriend = (username) => async (dispatch, getState) => {
     dispatch(setUser(res.data));
     dispatch(getFriendRequests(token));
     //update view user friends here
+    dispatch({ type: "UNFRIEND", payload: res.data.username });
   } catch (e) {
     dispatch({ type: "UNFRIEND_ERROR", payload: "error" });
   }

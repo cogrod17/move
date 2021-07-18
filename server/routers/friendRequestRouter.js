@@ -68,7 +68,7 @@ router.get("/request", auth, async (req, res) => {
 router.patch("/request/accept", auth, async (req, res) => {
   //will have the _id of request
 
-  const receiver = req.user;
+  const user = req.user;
   const { _id } = req.body;
 
   try {
@@ -78,13 +78,13 @@ router.patch("/request/accept", auth, async (req, res) => {
 
     const sender = await User.findOne({ username: request.sender });
 
-    sender.friends.push(receiver.username);
-    receiver.friends.push(sender.username);
+    sender.friends.push(user.username);
+    user.friends.push(sender.username);
 
     await sender.save();
-    await receiver.save();
+    await user.save();
     await request.remove();
-    res.status(200).send(receiver);
+    res.status(200).send(user);
   } catch (e) {
     res.status(400).send(e);
   }

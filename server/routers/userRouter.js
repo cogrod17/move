@@ -96,24 +96,24 @@ router.get("/viewuser", auth, async (req, res) => {
     workouts.sort(sortByDate);
     posts.sort(sortByDate);
 
-    const request = await FriendRequest.find({
-      $or: [
-        {
-          $and: [{ sender: req.user.username }, { receiver: username }],
-        },
-        {
-          $and: [{ sender: username }, { receiver: req.user.username }],
-        },
-      ],
-      status: 1,
-    });
+    // const request = await FriendRequest.find({
+    //   $or: [
+    //     {
+    //       $and: [{ sender: req.user.username }, { receiver: username }],
+    //     },
+    //     {
+    //       $and: [{ sender: username }, { receiver: req.user.username }],
+    //     },
+    //   ],
+    //   status: 1,
+    // });
 
     const viewUser = {
       user,
       workouts,
       summary,
       posts,
-      request,
+      //request,
     };
 
     res.status(200).send(viewUser);

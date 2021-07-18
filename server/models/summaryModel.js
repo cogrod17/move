@@ -41,6 +41,7 @@ const summarySchema = new mongoose.Schema({
 });
 
 summarySchema.methods.add = function (newWorkout) {
+  console.log(newWorkout);
   this.moveDays += 1;
   this.moveMin += newWorkout.duration;
 
@@ -50,8 +51,8 @@ summarySchema.methods.add = function (newWorkout) {
     this.cardioMin += newWorkout.duration;
     this.avgPace = this.cardioMin / this.milesRun;
   }
-  if (newWorkout.type === "strength") this.strengthDays += 1;
-  if (newWorkout.type === "HIIT") this.hiitDays += 1;
+  if (newWorkout.type.toLowerCase() === "strength") this.strengthDays += 1;
+  if (newWorkout.type.toLowerCase() === "hiit") this.hiitDays += 1;
 };
 
 const Summary = mongoose.model("Summary", summarySchema);

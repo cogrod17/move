@@ -14,7 +14,7 @@ class NewWorkout extends Component {
   onSubmit = async () => {
     const { createWorkout, getSummary, closeModal, token } = this.props;
     await createWorkout(this.state);
-    // await getSummary(token);
+    console.log(this.state);
     closeModal();
   };
 
@@ -74,7 +74,9 @@ class NewWorkout extends Component {
             </div>
             <div className="form-field">
               <input
-                onChange={(e) => this.setState({ description: e.target.value })}
+                onChange={(e) => {
+                  this.setState({ description: e.target.value });
+                }}
               />
               <label>Description</label>
             </div>

@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
-//socket
-// import socketClient from "socket.io-client";
-// const ENDPOINT = "http://127.0.0.1:3001";
+///arr = [username, chatUsername]
+const createRoom = (arr) => {
+  return arr.sort().join("_");
+};
 
-const Conversation = ({ socket, activeChat }) => {
-  const [response, setResponse] = useState("hi");
+const Conversation = ({ socket, activeChat, user }) => {
+  const [response, setResponse] = useState();
 
   useEffect(() => {
     if (!activeChat || !socket) return;
+
+    socket.emit("create", createRoom([user.username, activeChat]));
+
     socket.on("receiveMessage", (message) => {
       console.log("message received");
       setResponse(message);

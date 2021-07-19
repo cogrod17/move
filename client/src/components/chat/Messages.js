@@ -8,18 +8,13 @@ import Conversation from "./Conversation";
 import socketClient from "socket.io-client";
 const ENDPOINT = "http://127.0.0.1:3001";
 
-const Messages = ({ activeChat, selectChat }) => {
+const Messages = ({ activeChat }) => {
   //const [socket, setSocket] = useState(socketClient(ENDPOINT));
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
     if (!activeChat) return;
     setSocket(socketClient(ENDPOINT));
-
-    // socket.on("FromAPI", (data) => {
-    //   //setResponse(data);
-    //   console.log(data);
-    // });
   }, [activeChat]);
 
   return (

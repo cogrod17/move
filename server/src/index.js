@@ -35,9 +35,15 @@ io.on("connection", (socket) => {
   // if (interval) clearInterval(interval);
   sendMsg(socket);
 
-  socket.on("sendMessage", (message, callback) => {
-    socket.broadcast.emit("receiveMessage", message);
-    callback("delivered");
+  socket.on("create", (room) => {
+    console.log(room);
+    socket.join(room);
+    //io.to(room).emit("receiveMessage", `this is ${room}`);
+
+    socket.on("sendMessage", (message, callback) => {
+      socket.broadcast.emit("receiveMessage", message);
+      callback("delivered");
+    });
   });
 
   socket.on("disconnect", () => {

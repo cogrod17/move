@@ -4,6 +4,8 @@ export const requestsReducer = (friendRequests = null, action) => {
       return action.payload;
     case "SEND_REQ":
       return [...friendRequests, action.payload];
+    case "DECLINE_REQ":
+      return friendRequests.filter((req) => req._id !== action.payload);
     default:
       return friendRequests;
   }

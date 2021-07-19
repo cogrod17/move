@@ -37,7 +37,6 @@ const WorkoutFeed = ({ item }) => {
               <p>{pace} m/mile</p>
             </div>
           ) : null}
-
           <p className="feed-description">{description}</p>
         </div>
         <div className="section-visual"></div>

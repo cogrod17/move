@@ -16,3 +16,7 @@ conversationSchema.pre("save", async function (next) {
 
   next();
 });
+
+const Conversation = mongoose.model("Conversation", conversationSchema);
+
+module.exports = Conversation;

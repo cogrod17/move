@@ -3,19 +3,6 @@ require("../database/mongoose"); ///
 const app = express();
 const port = process.env.PORT || 3001;
 
-/*
-const cors = require("cors");
-const userRouter = require("../routers/userRouter");
-const workoutRouter = require("../routers/workoutRouter");
-const summaryRouter = require("../routers/summaryRouter");
-const postRouter = require("../routers/postRouter");
-const feedRouter = require("../routers/feedRouter");
-const friendRequestRouter = require("../routers/friendRequestRouter");
-const socketRouter = require("../routers/socketRouter");
-app.use(cors())
-app.use(express.json())
-*/
-
 app.use(
   require("cors")(),
   express.json(),
@@ -41,22 +28,26 @@ const io = socketio(server, {
   },
 });
 
-let interval;
+//let interval;
 
 io.on("connection", (socket) => {
   console.log("new client connected");
-  if (interval) clearInterval(interval);
+  // if (interval) clearInterval(interval);
+  sendMsg(socket);
 
-  interval = setInterval(() => sendMsg(socket), 1000);
+  socket.on("sendMessage", (message, callback) => {
+    socket.broadcast.emit("receiveMessage", message);
+    callback("delivered");
+  });
 
   socket.on("disconnect", () => {
     console.log("client disconnected");
-    clearInterval(interval);
+    // clearInterval(interval);
   });
 });
 
 const sendMsg = (socket) => {
-  const msg = "hello from the socket";
+  const msg = "connected to the socket";
   socket.emit("FromAPI", msg);
 };
 //////////////////////////////

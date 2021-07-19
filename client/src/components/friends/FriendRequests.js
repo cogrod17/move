@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { closeModal, acceptReq, declineReq } from "../../actions";
-import { setViewUser } from "../../helperFunctions";
-import history from "../../history";
 import "./friends.css";
 
 const FriendRequests = ({
@@ -23,7 +21,7 @@ const FriendRequests = ({
     if (!received.length) return <p>No Requests</p>;
 
     return friendRequests.map((req, i) => {
-      if (req.sender === user.username) return;
+      if (req.sender === user.username) return null;
 
       return (
         <div className="request-item" key={i}>

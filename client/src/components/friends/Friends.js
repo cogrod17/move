@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { closeModal } from "../../actions";
 
@@ -6,7 +6,7 @@ const Friends = ({ closeModal, activeModal, user, viewUser }) => {
   if (activeModal !== "friends") return null;
 
   const renderFriends = () => {
-    if (!viewUser) return <p>Loading...</p>;
+    // if (!viewUser) return <p>Loading...</p>;
     return viewUser.user.friends.map((name, i) => {
       return <li key={i}>{name}</li>;
     });

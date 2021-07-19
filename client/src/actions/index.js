@@ -112,12 +112,12 @@ export const login = (email, password) => async (dispatch) => {
   try {
     const res = await server.post("/login", { email, password });
 
-    const { user, token, requests } = res.data;
+    const { user, token } = res.data;
 
     dispatch(setUser(user));
     dispatch(getFriendRequests(token));
     dispatch(setToken(token));
-    history.push(`/profile/${res.data.user.username}`);
+    history.push(`/profile/${user.username}`);
   } catch (e) {
     dispatch({ type: "LOGIN_ERROR", payload: e });
   }
@@ -161,9 +161,8 @@ export const createWorkout = (values) => async (dispatch, getState) => {
   const { username } = getState().user;
 
   try {
-    const res = await server.post("/workout", values, auth(getState().token));
+    await server.post("/workout", values, auth(getState().token));
 
-    //dispatch({ type: "NEW_WORKOUT", payload: res.data });
     dispatch(getViewUser(username));
   } catch (e) {
     dispatch({ type: "NEW_WORKOUT_ERROR", payload: null });
@@ -305,14 +304,20 @@ export const declineReq = (_id) => async (dispatch, getState) => {
   const { token } = getState();
 
   try {
-    const res = await server.delete(
-      "/request/decline",
-      { data: { _id } },
-      auth(token)
-    );
+    await server.delete("/request/decline", { data: { _id } }, auth(token));
 
-    dispatch(getFriendRequests(token));
+    dispatch({ type: "DECLINE_REQ", payload: _id });
   } catch (e) {
     dispatch({ type: "DECLINE_REQ_ERROR", payload: e });
   }
+};
+
+//////////////////////////////////////
+//////////////////////////////////////
+
+export const selectChat = (username) => {
+  return {
+    type: "SELECT_CHAT",
+    payload: username,
+  };
 };

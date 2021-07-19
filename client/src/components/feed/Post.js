@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { formatDate } from "../../helperFunctions";
 import history from "../../history";
 
-const Post = ({ post, user }) => {
+const Post = ({ post }) => {
   const { date, text, username } = post;
 
   return (

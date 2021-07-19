@@ -1,14 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 import Dropdown from "./Dropdown";
 import history from "../../history";
 import { connect } from "react-redux";
 import { toggleDropdown, openModal } from "../../actions";
 
 const Menu = ({ user, toggleDropdown, openModal }) => {
-  const goToProfile = () => {
-    window.location.pathname = `/profile/${user.username}`;
-  };
-
   return (
     <div>
       <Dropdown />
@@ -21,7 +17,7 @@ const Menu = ({ user, toggleDropdown, openModal }) => {
       <div className="menu-list">
         <p onClick={() => history.push("/feed")}>Feed</p>
         <p onClick={() => history.push("/chat")}>Chat</p>
-        <p onClick={goToProfile}>Profile</p>
+        <p onClick={() => history.push(`/profile/${user.username}`)}>Profile</p>
         <p onClick={() => openModal("logout")}>Logout</p>
       </div>
     </div>

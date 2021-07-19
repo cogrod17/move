@@ -18,12 +18,12 @@ class App extends React.Component {
   componentDidMount() {
     const token = JSON.parse(localStorage.getItem("token"));
     if (!token) history.push("/");
-    if (token) {
-      this.props.signInWithToken(token);
-    }
+    if (token) this.props.signInWithToken(token);
   }
 
   render() {
+    if (!this.props.token) return <h1>Loading</h1>;
+
     return (
       <div className="app">
         <LogoutModal />

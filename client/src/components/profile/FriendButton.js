@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import {
   sendFriendReq,
@@ -18,20 +18,9 @@ const FriendButton = (props) => {
     unfriend,
     openModal,
     friendRequests,
-    getFriendRequests,
-    token,
   } = props;
 
-  const [friendStatus, evaluate] = useFriendStatus(
-    user,
-    viewUser,
-    friendRequests
-  );
-
-  // useEffect(() => {
-  //   if (!token) return;
-  //   getFriendRequests(token);
-  // }, [getFriendRequests, token]);
+  const [friendStatus] = useFriendStatus(user, viewUser, friendRequests);
 
   if (friendStatus.status === "loading")
     return <p className="add-friend">Loading...</p>;

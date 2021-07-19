@@ -1,15 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
-//import useInfo from "../../hooks/useUser";
 
 const Summary = ({ viewUser }) => {
-  //const [info, getInfo] = useInfo(summary);
-
-  // useEffect(() => {
-  //   if (!viewUser) return;
-  //   getInfo(summary, viewUser.summary);
-  // }, [getInfo, summary, viewUser]);
-
   if (!viewUser) return null; /// NEED A LOADER
 
   const { summary } = viewUser;

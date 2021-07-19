@@ -8,7 +8,6 @@ import "./feed.css";
 
 const Feed = ({ getFeed, feed, token }) => {
   useEffect(() => {
-    if (!token) return;
     getFeed(token);
   }, [getFeed, token]);
 

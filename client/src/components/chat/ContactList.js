@@ -1,10 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
+import { selectChat } from "../../actions";
 
-const ContactList = ({ user }) => {
+const ContactList = ({ user, selectChat, activeChat }) => {
   const renderFriends = () => {
     return user.friends.map((friend, i) => {
-      return <p key={i}>{friend}</p>;
+      return (
+        <p onClick={() => selectChat(friend)} key={i}>
+          {friend}
+        </p>
+      );
     });
   };
 
@@ -18,4 +23,4 @@ const ContactList = ({ user }) => {
 
 const mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps)(ContactList);
+export default connect(mapStateToProps, { selectChat })(ContactList);

@@ -12,7 +12,7 @@ class NewWorkout extends Component {
   };
 
   onSubmit = async () => {
-    const { createWorkout, getSummary, closeModal, token } = this.props;
+    const { createWorkout, closeModal } = this.props;
     await createWorkout(this.state);
     console.log(this.state);
     closeModal();

@@ -12,6 +12,7 @@ app.use(
   require("../routers/summaryRouter"),
   require("../routers/postRouter"),
   require("../routers/feedRouter"),
+  require("../routers/conversationRouter"),
   require("../routers/socketRouter") //don't think we need this
 );
 /////////////////////////////
@@ -28,34 +29,38 @@ const io = socketio(server, {
   },
 });
 
-//let interval;
-
 io.on("connection", (socket) => {
   console.log("new client connected");
-  // if (interval) clearInterval(interval);
-  sendMsg(socket);
+
+  //sendMsg(socket);
 
   socket.on("create", (room) => {
-    console.log(room);
+    // console.log(room);
     socket.join(room);
     //io.to(room).emit("receiveMessage", `this is ${room}`);
 
-    socket.on("sendMessage", (message, callback) => {
-      socket.broadcast.emit("receiveMessage", message);
-      callback("delivered");
-    });
+    // socket.to(room).on("sendMessage", (message, callback) => {
+    //   console.log(message, room);
+    //   socket.to(room).broadcast.emit("receiveMessage", message);
+    //   callback("delivered");
+    //});
+  });
+
+  socket.on("sendMessage", (room, message) => {
+    // console.log("room:" + room);
+    // console.log("message:" + message);
+    socket.to(room).emit("receiveMessage", message);
   });
 
   socket.on("disconnect", () => {
     console.log("client disconnected");
-    // clearInterval(interval);
   });
 });
 
-const sendMsg = (socket) => {
-  const msg = "connected to the socket";
-  socket.emit("FromAPI", msg);
-};
+// const sendMsg = (socket) => {
+//   const msg = "connected to the socket";
+//   socket.emit("FromAPI", msg);
+// };
 //////////////////////////////
 //////////////////////////////
 

@@ -5,8 +5,8 @@ const conversationSchema = new mongoose.Schema({
   created_at: Date,
 });
 
-conversationSchema.virtual("conversation", {
-  ref: "Conversation",
+conversationSchema.virtual("message", {
+  ref: "Message",
   localField: "_id",
   foreignField: "conversation_id",
 });

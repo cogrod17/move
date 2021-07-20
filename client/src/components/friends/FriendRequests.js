@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { closeModal, acceptReq, declineReq } from "../../actions";
+import history from "../../history";
 import "./friends.css";
 
 const FriendRequests = ({
@@ -29,7 +30,7 @@ const FriendRequests = ({
             className="req-name"
             onClick={() => {
               closeModal();
-              window.location.pathname = `/profile/${req.sender}`;
+              history.push(`/profile/${req.sender}`);
             }}
           >
             {req.sender}
@@ -48,13 +49,11 @@ const FriendRequests = ({
   return (
     <div className="modal-dimmer">
       <div className="modal-container">
-        <div className="friends-container">
-          <p className="close-btn" onClick={closeModal}>
-            X
-          </p>
-          <h1>Friend Requests</h1>
-          <ul>{renderRequests()}</ul>
-        </div>
+        <p className="close-btn" onClick={closeModal}>
+          X
+        </p>
+        <h1>Friend Requests</h1>
+        <ul>{renderRequests()}</ul>
       </div>
     </div>
   );

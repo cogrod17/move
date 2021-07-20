@@ -7,6 +7,7 @@ import { feedReducer } from "./feedReducer";
 import { viewUserReducer } from "./viewUserReducer";
 import { requestsReducer } from "./requestsReducer";
 import { chatReducer } from "./chatReducer";
+import { isLoadingReducer } from "./isLoadingReducer";
 
 export default combineReducers({
   user: userReducer,
@@ -17,4 +18,5 @@ export default combineReducers({
   viewUser: viewUserReducer,
   friendRequests: requestsReducer,
   activeChat: chatReducer,
+  isLoading: isLoadingReducer,
 });

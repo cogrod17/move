@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 
-const ChatInput = ({ socket }) => {
+const ChatInput = ({ activeChat }) => {
   const [message, setMessage] = useState("");
 
   const sendMessage = (e) => {
     e.preventDefault();
-    if (message === "" || !socket) return;
-    socket.emit("sendMessage", message, (callback) => {
-      console.log(callback);
-    });
+    if (message === "" || !activeChat) return;
+    const { socket, room } = activeChat;
+    socket.emit("sendMessage", room, message);
     setMessage("");
   };
 

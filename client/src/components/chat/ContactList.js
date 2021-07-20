@@ -1,12 +1,21 @@
 import React from "react";
 import { connect } from "react-redux";
-import { selectChat } from "../../actions";
+import { selectChat, openModal } from "../../actions";
 
-const ContactList = ({ user, selectChat, activeChat }) => {
+//socket
+import socketClient from "socket.io-client";
+const ENDPOINT = "http://127.0.0.1:3001";
+
+const ContactList = ({ user, selectChat, openModal }) => {
+  const { username } = user;
+
   const renderFriends = () => {
     return user.friends.map((friend, i) => {
       return (
-        <p onClick={() => selectChat(friend)} key={i}>
+        <p
+          onClick={() => selectChat(username, friend, socketClient(ENDPOINT))}
+          key={i}
+        >
           {friend}
         </p>
       );
@@ -15,7 +24,12 @@ const ContactList = ({ user, selectChat, activeChat }) => {
 
   return (
     <div className=" contacts">
-      <h1>Friends</h1>
+      <div>
+        <h1>Chats</h1>
+        <h1 onClick={() => openModal("new-chat")} className="new-chat">
+          +
+        </h1>
+      </div>
       {renderFriends()}
     </div>
   );
@@ -23,4 +37,4 @@ const ContactList = ({ user, selectChat, activeChat }) => {
 
 const mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps, { selectChat })(ContactList);
+export default connect(mapStateToProps, { selectChat, openModal })(ContactList);

@@ -7,6 +7,7 @@ import Profile from "./profile/Profile";
 import LogoutModal from "./misc./LogoutModal";
 import Friends from "./friends/Friends";
 import FriendRequests from "./friends/FriendRequests";
+import NewChat from "./chat/NewChat";
 import history from "../history";
 import "../styles/app.css";
 import Feed from "./feed/Feed";
@@ -22,13 +23,14 @@ class App extends React.Component {
   }
 
   render() {
-    if (!this.props.token) return <h1>Loading</h1>;
+    if (this.props.isLoading) return <h1>Loading...</h1>;
 
     return (
       <div className="app">
         <LogoutModal />
         <Friends />
         <FriendRequests />
+        <NewChat />
         <Router history={history}>
           <ScrollToTop />
           <Header />

@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { closeModal } from "../../actions";
 
-const Friends = ({ closeModal, activeModal, user, viewUser }) => {
+const Friends = ({ closeModal, activeModal, viewUser }) => {
   if (activeModal !== "friends") return null;
 
   const renderFriends = () => {
@@ -15,13 +15,11 @@ const Friends = ({ closeModal, activeModal, user, viewUser }) => {
   return (
     <div className="modal-dimmer">
       <div className="modal-container">
-        <div className="friends-container">
-          <p className="close-btn" onClick={closeModal}>
-            X
-          </p>
-          <h1>Friends</h1>
-          <ul>{renderFriends()}</ul>
-        </div>
+        <p className="close-btn" onClick={closeModal}>
+          X
+        </p>
+        <h1>Friends</h1>
+        <ul>{renderFriends()}</ul>
       </div>
     </div>
   );

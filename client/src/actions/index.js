@@ -29,12 +29,12 @@ export const setToken = (token) => {
 //////////////////////////////////////
 //////////////////////////////////////
 
-// export const pendiRequests = (requests) => {
-//   return {
-//     type: "FRIEND_REQUESTS",
-//     payload: requests,
-//   };
-// };
+export const isLoading = (trueOrFalse) => {
+  return {
+    type: "LOADING",
+    payload: trueOrFalse,
+  };
+};
 
 //////////////////////////////////////
 //////////////////////////////////////
@@ -48,6 +48,7 @@ export const signInWithToken = (token) => async (dispatch) => {
     dispatch(setUser(user));
     dispatch(getFriendRequests(token));
     dispatch(setToken(token));
+    dispatch(isLoading(false));
 
     if (window.location.pathname === "/")
       history.push(`/profile/${user.username}`);
@@ -315,9 +316,27 @@ export const declineReq = (_id) => async (dispatch, getState) => {
 //////////////////////////////////////
 //////////////////////////////////////
 
-export const selectChat = (username) => {
+//pass socketClient(ENDPOINT)
+export const selectChat = (curUser, friend, socket) => {
+  ///arr = [username, chatUsername]
+  const createRoom = (arr) => {
+    return arr.sort().join("_");
+  };
+
+  let room = createRoom([curUser, friend]);
+
   return {
     type: "SELECT_CHAT",
-    payload: username,
+    payload: { username: friend, socket, room },
+  };
+};
+
+//////////////////////////////////////
+//////////////////////////////////////
+
+export const newMessage = (message) => {
+  return {
+    type: "NEW_MESSAGE",
+    payload: message,
   };
 };

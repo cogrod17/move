@@ -34,6 +34,20 @@
   border-left: rgb(9, 187, 9) 5px solid;
 }
 
+.contacts div {
+  display: flex;
+  flex-direction: row;
+}
+
+.new-chat {
+  text-align: center;
+  cursor: pointer;
+}
+
+.new-chat:hover {
+  color: rgb(32, 74, 211);
+}
+
 .conversation {
   display: flex;
   flex-direction: column;
@@ -44,6 +58,11 @@
   width: 100%;
   overflow: auto;
   background: rgba(173, 173, 173, 0.3);
+}
+
+.conversation div {
+  display: flex;
+  flex-direction: row;
 }
 
 .received,

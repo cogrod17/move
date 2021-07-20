@@ -12,6 +12,7 @@ const Conversation = ({ activeChat }) => {
   useEffect(() => {
     if (!activeChat) return;
     let { socket, room } = activeChat;
+    // let room = conversation_id;
 
     socket.emit("create", room);
 

@@ -317,26 +317,54 @@ export const declineReq = (_id) => async (dispatch, getState) => {
 //////////////////////////////////////
 
 //pass socketClient(ENDPOINT)
-export const selectChat = (curUser, friend, socket) => {
-  ///arr = [username, chatUsername]
-  const createRoom = (arr) => {
-    return arr.sort().join("_");
-  };
-
-  let room = createRoom([curUser, friend]);
-
+export const selectChat = (conversation_id, friend, socket) => {
   return {
     type: "SELECT_CHAT",
-    payload: { username: friend, socket, room },
+    payload: { username: friend, socket, room: conversation_id },
   };
 };
 
 //////////////////////////////////////
 //////////////////////////////////////
 
-export const newMessage = (message) => {
-  return {
-    type: "NEW_MESSAGE",
-    payload: message,
-  };
+///array = ['username', 'username']
+export const createConvo = (arr) => async (dispatch, getState) => {
+  const { token } = getState();
+
+  try {
+    const { data } = await server.post(
+      "/newconversation",
+      { participants: arr },
+      auth(token)
+    );
+
+    dispatch({ type: "NEW_CONVO", payload: data });
+  } catch (e) {
+    dispatch({ type: "NEW_CONVO_ERROR", payload: e });
+  }
 };
+
+//////////////////////////////////////
+//////////////////////////////////////
+
+export const getConvos = () => async (dispatch, getState) => {
+  const { token } = getState();
+
+  try {
+    const { data } = await server.get("/conversation", auth(token));
+
+    dispatch({ type: "CONVOS", payload: data });
+  } catch (e) {
+    dispatch({ type: "CONVOS_ERROR", payload: e });
+  }
+};
+
+//////////////////////////////////////
+//////////////////////////////////////
+
+// export const newMessage = (message) => {
+//   return {
+//     type: "NEW_MESSAGE",
+//     payload: message,
+//   };
+// };

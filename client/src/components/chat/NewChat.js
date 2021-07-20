@@ -1,14 +1,21 @@
 import React from "react";
 import { connect } from "react-redux";
-import { closeModal } from "../../actions";
+import { closeModal, createConvo } from "../../actions";
 import history from "../../history";
 
 //modal
-const NewChat = ({ activeModal, user, closeModal }) => {
+const NewChat = (props) => {
+  const { activeModal, user, closeModal, createConvo, conversations } = props;
   if (activeModal !== "new-chat") return null;
 
-  const renderFriends = () => {
+  const render = () => {
     return user.friends.map((friend, i) => {
+      if (
+        conversations.filter((convo) => convo.participants.includes(friend))
+          .length !== 0
+      )
+        return null;
+
       return (
         <div className="request-item" key={i}>
           <p
@@ -21,7 +28,15 @@ const NewChat = ({ activeModal, user, closeModal }) => {
           >
             {friend}
           </p>
-          <p className="accept-req">Chat</p>
+          <p
+            onClick={() => {
+              closeModal();
+              createConvo([user.username, friend]);
+            }}
+            className="accept-req"
+          >
+            Chat
+          </p>
         </div>
       );
     });
@@ -34,7 +49,7 @@ const NewChat = ({ activeModal, user, closeModal }) => {
           X
         </p>
         <h1>New Chat</h1>
-        <ul>{renderFriends()}</ul>
+        <ul>{render()}</ul>
       </div>
     </div>
   );
@@ -42,4 +57,4 @@ const NewChat = ({ activeModal, user, closeModal }) => {
 
 const mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps, { closeModal })(NewChat);
+export default connect(mapStateToProps, { closeModal, createConvo })(NewChat);

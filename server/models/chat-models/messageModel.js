@@ -5,7 +5,7 @@ const messageSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Conversation",
   },
-  author: String, //username or _id
+  author: String, //username
   message: String,
   created_at: Date,
 });

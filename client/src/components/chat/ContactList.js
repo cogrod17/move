@@ -1,19 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { selectChat, openModal } from "../../actions";
+import { selectChat, openModal, getConvos } from "../../actions";
 
 //socket
 import socketClient from "socket.io-client";
 const ENDPOINT = "http://127.0.0.1:3001";
 
-const ContactList = ({ user, selectChat, openModal }) => {
+const ContactList = (props) => {
+  const { user, selectChat, openModal, conversations, getConvos } = props;
   const { username } = user;
 
-  const renderFriends = () => {
-    return user.friends.map((friend, i) => {
+  useEffect(() => {
+    getConvos();
+  }, [getConvos]);
+
+  const renderConvos = () => {
+    if (!conversations) return <p>loading...</p>;
+    if (!conversations.length) return <h4>You have no conversations</h4>;
+
+    return conversations.map((convo, i) => {
+      let [friend] = convo.participants.filter((name) => name !== username);
+      const { _id } = convo;
+
       return (
         <p
-          onClick={() => selectChat(username, friend, socketClient(ENDPOINT))}
+          onClick={() => selectChat(_id, friend, socketClient(ENDPOINT))}
           key={i}
         >
           {friend}
@@ -30,11 +41,13 @@ const ContactList = ({ user, selectChat, openModal }) => {
           +
         </h1>
       </div>
-      {renderFriends()}
+      {renderConvos()}
     </div>
   );
 };
 
 const mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps, { selectChat, openModal })(ContactList);
+export default connect(mapStateToProps, { selectChat, openModal, getConvos })(
+  ContactList
+);

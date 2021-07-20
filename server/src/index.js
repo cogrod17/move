@@ -13,6 +13,7 @@ app.use(
   require("../routers/postRouter"),
   require("../routers/feedRouter"),
   require("../routers/conversationRouter"),
+  require("../routers/messageRouter"),
   require("../routers/socketRouter") //don't think we need this
 );
 /////////////////////////////
@@ -47,8 +48,8 @@ io.on("connection", (socket) => {
   });
 
   socket.on("sendMessage", (room, message) => {
-    // console.log("room:" + room);
-    // console.log("message:" + message);
+    console.log("room:" + room);
+    console.log("message:" + message);
     socket.to(room).emit("receiveMessage", message);
   });
 

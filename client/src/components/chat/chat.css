@@ -49,9 +49,9 @@
 }
 
 .conversation {
+  position: relative;
   display: flex;
   flex-direction: column;
-
   padding-bottom: 10px;
   max-height: 75vh;
   min-height: 75vh;

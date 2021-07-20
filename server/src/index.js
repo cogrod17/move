@@ -48,8 +48,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("sendMessage", (room, message) => {
-    console.log("room:" + room);
-    console.log("message:" + message);
     socket.to(room).emit("receiveMessage", message);
   });
 

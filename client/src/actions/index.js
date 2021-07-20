@@ -362,9 +362,54 @@ export const getConvos = () => async (dispatch, getState) => {
 //////////////////////////////////////
 //////////////////////////////////////
 
-// export const newMessage = (message) => {
-//   return {
-//     type: "NEW_MESSAGE",
-//     payload: message,
-//   };
-// };
+export const getChatHistory = (conversation_id) => async (
+  dispatch,
+  getState
+) => {
+  const { token } = getState();
+
+  try {
+    const { data } = await server.get("/message", {
+      headers: { conversation_id },
+    });
+
+    dispatch({ type: "CHAT_HISTORY", payload: { conversation_id, data } });
+  } catch (e) {
+    console.log(e);
+    dispatch({ type: "CHAT_HISTORY_ERROR", payload: e });
+  }
+};
+
+//////////////////////////////////////
+//////////////////////////////////////
+
+export const newMessage = (message, conversation_id, socket) => async (
+  dispatch,
+  getState
+) => {
+  const { token } = getState();
+
+  try {
+    const { data } = await server.post(
+      "/newmessage",
+      { message, conversation_id },
+      auth(token)
+    );
+    let room = conversation_id;
+    socket.emit("sendMessage", room, data);
+    dispatch({ type: "NEW_MESSAGE", payload: data });
+  } catch (e) {
+    console.log(e);
+    dispatch({ type: "NEW_MESSAGE_ERROR", payload: e });
+  }
+};
+
+//////////////////////////////////////
+//////////////////////////////////////
+
+export const receiveMessage = (data) => {
+  return {
+    type: "NEW_MESSAGE",
+    payload: data,
+  };
+};

@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { newMessage } from "../../actions";
 
-const ChatInput = ({ activeChat }) => {
+const ChatInput = ({ activeChat, newMessage }) => {
   const [message, setMessage] = useState("");
 
   const sendMessage = (e) => {
     e.preventDefault();
     if (message === "" || !activeChat) return;
+
     const { socket, room } = activeChat;
-    socket.emit("sendMessage", room, message);
+    // socket.emit("sendMessage", room, message);
+    newMessage(message, room, socket);
     setMessage("");
   };
 
@@ -25,4 +28,4 @@ const ChatInput = ({ activeChat }) => {
 
 const mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps)(ChatInput);
+export default connect(mapStateToProps, { newMessage })(ChatInput);

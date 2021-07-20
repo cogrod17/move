@@ -15,7 +15,7 @@ router.post("/newmessage", auth, async (req, res) => {
   try {
     await msg.save();
 
-    res.status(200).send(message);
+    res.status(200).send(msg);
   } catch (e) {
     console.log(e);
     res.status(400).send(e);
@@ -24,8 +24,8 @@ router.post("/newmessage", auth, async (req, res) => {
 
 //read
 //read all messages in conversation
-router.get("/message", auth, async (req, res) => {
-  const { conversation_id } = req.body;
+router.get("/message", async (req, res) => {
+  const { conversation_id } = req.headers;
 
   try {
     const msgs = await Message.find({ conversation_id });

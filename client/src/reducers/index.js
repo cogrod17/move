@@ -19,6 +19,6 @@ export default combineReducers({
   viewUser: viewUserReducer,
   friendRequests: requestsReducer,
   activeChat: chatReducer,
-  isLoading: isLoadingReducer,
+  loading: isLoadingReducer,
   conversations: conversationReducer,
 });

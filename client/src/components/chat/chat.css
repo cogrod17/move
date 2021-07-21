@@ -48,13 +48,22 @@
   color: rgb(32, 74, 211);
 }
 
+.chat-username {
+  text-align: center;
+  padding-bottom: 5px;
+  background: rgba(255, 255, 255);
+  border: rgba(173, 173, 173, 0.5) solid 1px;
+  border-left: none;
+  border-top: none;
+}
+
 .conversation {
   position: relative;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   padding-bottom: 10px;
-  max-height: 75vh;
-  min-height: 75vh;
+  max-height: 70vh;
+  min-height: 70vh;
   width: 100%;
   overflow: auto;
   background: rgba(173, 173, 173, 0.3);
@@ -73,6 +82,7 @@
   color: white;
   padding: 2.5px 5px;
   max-width: 50%;
+  margin: 2.5px;
 }
 
 .received {

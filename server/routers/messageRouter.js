@@ -30,6 +30,8 @@ router.get("/message", async (req, res) => {
   try {
     const msgs = await Message.find({ conversation_id });
 
+    await msgs.reverse();
+
     res.status(200).send(msgs);
   } catch (e) {
     console.log(e);

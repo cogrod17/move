@@ -18,7 +18,7 @@ export const conversationReducer = (conversations = null, action) => {
     case "NEW_MESSAGE":
       return conversations.map((convo) => {
         if (convo._id === action.payload.conversation_id) {
-          return { ...convo, messages: [...convo.messages, action.payload] };
+          return { ...convo, messages: [action.payload, ...convo.messages] };
         }
         return convo;
       });

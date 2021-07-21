@@ -13,17 +13,20 @@ import "../styles/app.css";
 import Feed from "./feed/Feed";
 import ScrollToTop from "./ScrollToTop";
 import { connect } from "react-redux";
-import { signInWithToken } from "../actions";
+import { signInWithToken, isLoading } from "../actions";
 
 class App extends React.Component {
   componentDidMount() {
     const token = JSON.parse(localStorage.getItem("token"));
-    if (!token) history.push("/");
+    if (!token) {
+      history.push("/");
+      this.props.isLoading(false);
+    }
     if (token) this.props.signInWithToken(token);
   }
 
   render() {
-    if (this.props.isLoading) return <h1>Loading...</h1>;
+    if (this.props.loading) return <h1>Loading...</h1>;
 
     return (
       <div className="app">
@@ -46,4 +49,4 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps, { signInWithToken })(App);
+export default connect(mapStateToProps, { signInWithToken, isLoading })(App);

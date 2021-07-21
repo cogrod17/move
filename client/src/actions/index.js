@@ -366,8 +366,6 @@ export const getChatHistory = (conversation_id) => async (
   dispatch,
   getState
 ) => {
-  const { token } = getState();
-
   try {
     const { data } = await server.get("/message", {
       headers: { conversation_id },

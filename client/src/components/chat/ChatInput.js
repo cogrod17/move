@@ -10,7 +10,6 @@ const ChatInput = ({ activeChat, newMessage }) => {
     if (message === "" || !activeChat) return;
 
     const { socket, room } = activeChat;
-    // socket.emit("sendMessage", room, message);
     newMessage(message, room, socket);
     setMessage("");
   };

@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
-import { getChatHistory, receiveMessage } from "../../actions";
+import { getChatHistory, receiveMessage, selectChat } from "../../actions";
 
 const Conversation = (props) => {
   const {
@@ -9,35 +9,31 @@ const Conversation = (props) => {
     conversations,
     user,
     receiveMessage,
+    selectChat,
   } = props;
 
   const ref = useRef();
 
   const scrollToBottom = () => {
     if (!ref.current) return;
-    console.log("running");
-    console.log(ref.current);
     ref.current.scrollIntoView({ behavior: "smooth" });
   };
 
   ////////////////////////////
   useEffect(() => {
-    scrollToBottom();
-    if (!activeChat) return;
     let { socket, room } = activeChat;
+    if (!room) return;
+
     getChatHistory(activeChat.room);
 
     socket.emit("create", room);
-
     socket.on("receiveMessage", (message) => {
+      scrollToBottom();
       receiveMessage(message);
     });
 
-    return () => {
-      console.log("disconnect");
-      socket.disconnect();
-    };
-  }, [activeChat, getChatHistory]);
+    return () => socket.disconnect();
+  }, [activeChat, getChatHistory, receiveMessage]);
   ////////////////////////////
 
   ////////////////////////////
@@ -46,44 +42,49 @@ const Conversation = (props) => {
   ////////////////////////////
 
   const renderHistory = () => {
-    scrollToBottom();
-    let [{ messages }] = conversations.filter(
-      (convo) => convo._id === activeChat.room
-    );
+    if (!activeChat.room) return;
+
+    let [{ messages }] = conversations
+      .filter((convo) => convo._id === activeChat.room)
+      .reverse();
 
     if (!messages) return null;
 
     return messages.map((msg, i) => {
-      if (msg.author === user.username)
+      if (msg.author === user.username) {
         return (
           <p className="sent" key={i}>
             {msg.message}
           </p>
         );
-
-      if (msg.author !== user.username)
+      } else {
         return (
           <p className="received" key={i}>
             {msg.message}
           </p>
         );
+      }
     });
   };
 
   ////////////////////////////
 
   return (
-    <div className="conversation">
-      <h3>{activeChat.username}</h3>
-      {renderHistory()}
-      <br />
-      <div style={{ float: "left", clear: "both" }} ref={ref}></div>
+    <div>
+      <h3 className="chat-username">{activeChat.username}</h3>
+      <div className="conversation">
+        <div style={{ float: "left", clear: "both" }} ref={ref}></div>
+        {renderHistory()}
+        <br />
+      </div>
     </div>
   );
 };
 
 const mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps, { getChatHistory, receiveMessage })(
-  Conversation
-);
+export default connect(mapStateToProps, {
+  getChatHistory,
+  receiveMessage,
+  selectChat,
+})(Conversation);

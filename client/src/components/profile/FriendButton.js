@@ -60,17 +60,22 @@ const FriendButton = (props) => {
   if (friendStatus.status === "pending")
     return <p className="add-friend">Pending</p>;
 
-  if (friendStatus.status === "respond")
+  if (friendStatus.status === "respond") {
+    const [req] = friendRequests.filter(
+      (req) => req.sender === viewUser.user.username
+    );
+
     return (
       <p
         className="add-friend"
         onClick={() => {
-          acceptReq(viewUser.request[0]._id);
+          acceptReq(req._id);
         }}
       >
         Accept Friend Request
       </p>
     );
+  }
 };
 
 const mapStateToProps = (state) => state;

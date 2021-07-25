@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import SumVis from "./SumVis";
 
 const Summary = ({ viewUser }) => {
   if (!viewUser) return null; /// NEED A LOADER
@@ -9,7 +10,7 @@ const Summary = ({ viewUser }) => {
   return (
     <div className="section">
       <h1>Summary</h1>
-      <div className="section-container">
+      <div className="summary">
         <div className="section-stats two">
           <div>
             <p>Move Days</p>
@@ -43,7 +44,8 @@ const Summary = ({ viewUser }) => {
             <p className="stat">{summary.hiitDays}</p>
           </div>
         </div>
-        <div className="section-visual"></div>
+        <SumVis />
+        {/*<div id="section-visual"></div>*/}
       </div>
     </div>
   );

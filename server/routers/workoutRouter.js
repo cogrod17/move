@@ -39,7 +39,6 @@ router.get("/workout", auth, async (req, res) => {
     res.status(200).send(workout);
   } catch (e) {
     res.status(400).send(e);
-    console.log(e);
   }
 });
 

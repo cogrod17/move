@@ -21,8 +21,9 @@ const Conversation = (props) => {
 
   ////////////////////////////
   useEffect(() => {
+    if (!activeChat) return;
     let { socket, room } = activeChat;
-    if (!room) return;
+    scrollToBottom();
 
     getChatHistory(activeChat.room);
 
@@ -49,6 +50,9 @@ const Conversation = (props) => {
       .reverse();
 
     if (!messages) return null;
+    scrollToBottom();
+
+    let length = messages.length;
 
     return messages.map((msg, i) => {
       if (msg.author === user.username) {
@@ -72,10 +76,15 @@ const Conversation = (props) => {
   return (
     <div>
       <h3 className="chat-username">{activeChat.username}</h3>
+
       <div className="conversation">
-        <div style={{ float: "left", clear: "both" }} ref={ref}></div>
+        <div
+          style={{
+            padding: "20px",
+          }}
+          ref={ref}
+        ></div>
         {renderHistory()}
-        <br />
       </div>
     </div>
   );

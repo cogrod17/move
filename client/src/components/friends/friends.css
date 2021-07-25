@@ -42,3 +42,13 @@
   background: red;
   color: white;
 }
+
+.friend-item {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  margin: 20px 0;
+}
+
+.friend-item p {
+  text-align: center;
+}

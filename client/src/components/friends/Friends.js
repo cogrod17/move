@@ -1,14 +1,28 @@
 import React from "react";
 import { connect } from "react-redux";
 import { closeModal } from "../../actions";
+import history from "../../history";
 
 const Friends = ({ closeModal, activeModal, viewUser }) => {
   if (activeModal !== "friends") return null;
 
   const renderFriends = () => {
-    // if (!viewUser) return <p>Loading...</p>;
+    if (!viewUser.user) return null;
     return viewUser.user.friends.map((name, i) => {
-      return <li key={i}>{name}</li>;
+      return (
+        <div className="friend-item">
+          <p key={i}>{name}</p>
+          <p
+            onClick={() => {
+              closeModal();
+              history.push(`/profile/${name}`);
+            }}
+            className="accept-req"
+          >
+            View Profile
+          </p>
+        </div>
+      );
     });
   };
 

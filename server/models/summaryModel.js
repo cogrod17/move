@@ -41,7 +41,6 @@ const summarySchema = new mongoose.Schema({
 });
 
 summarySchema.methods.add = function (newWorkout) {
-  console.log(newWorkout);
   this.moveDays += 1;
   this.moveMin += newWorkout.duration;
 

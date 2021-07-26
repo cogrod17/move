@@ -5,56 +5,70 @@ import * as d3 from "d3";
 //const RD3Component = rd3.Component;
 
 const SumVis = ({ viewUser }) => {
-  //const [d3, setD3] = useState("");
+  const { cardioDays, hiitDays, strengthDays, moveDays } = viewUser.summary;
   const ref = useRef();
 
   useEffect(() => {
-    // setD3(node);
-
-    const { cardioDays, hiitDays, strengthDays } = viewUser.summary;
-
-    //drawBarChart({ cardioDays, hiitDays, strengthDays });
     makeDonut({ cardioDays, hiitDays, strengthDays });
-  }, [viewUser]);
+    // eslint-disable-next-line
+  }, []);
 
   const makeDonut = (data) => {
-    const height = 200;
-    const width = ref.current.clientWidth;
-    const margin = 40;
-
-    console.log(ref.current.clientHeight);
+    const height = 220;
+    const width = 380;
+    const margin = 45;
 
     let radius = Math.min(width, height) / 2 - margin;
-
-    console.log(ref.current);
 
     const svg = d3
       .select(ref.current)
       .append("svg")
-      .attr("viewBox", `0 0 ${width} ${height} `)
+      .attr("viewBox", `0 0 ${width} ${height}`)
       .append("g")
-      .attr("transform", `translate (${width / 2}, ${height / 2})`)
-      .attr("preserveAspectRatio", "xMidYMid meet")
-      .classed("svg-content", true);
+      .attr("transform", `translate (${width / 2}, ${height / 2})`);
 
-    const color = d3.scaleOrdinal().range(["red", "blue", "grey"]);
+    const color = d3.scaleOrdinal().range(["red", "blue", "green"]);
 
-    let pie = d3.pie().value((d) => {
-      console.log(d);
-      return d[1];
-    });
+    let pie = d3.pie().value((d) => d[1]);
 
     let data_ready = pie(Object.entries(data));
+
+    const arc = d3
+      .arc()
+      .innerRadius(110)
+      .outerRadius(radius * 0.9);
 
     svg
       .selectAll()
       .data(data_ready)
       .join("path")
-      .attr("d", d3.arc().innerRadius(100).outerRadius(radius))
-      .attr("fill", (d) => color(d.data[0]))
-      .attr("stroke", "black")
-      .style("stroke-width", "1px")
-      .style("opacity", 0.7);
+      .attr("d", arc)
+      .attr("fill", (d) => color(d.data[0]));
+
+    svg
+      .selectAll()
+      .data(data_ready)
+      .join("text")
+      .text((d) => ((d.data[1] / moveDays) * 100).toFixed(1) + "%")
+      .attr("transform", (d) => `translate(${arc.centroid(d)})`)
+      .style("fill", "white");
+
+    svg
+      .selectAll()
+      .data(data_ready)
+      .join("text")
+      .text((d) => {
+        let i = d.data[0].indexOf("D");
+        return d.data[0].slice(0, i).toUpperCase();
+      })
+      .attr("transform", (d) => {
+        let y = arc.centroid(d).map((x) => x * 1.6);
+        return `translate(${y})`;
+      });
+
+    // .style("fill", "white");
+
+    // (d) => (d.data[0] / viewUser.summary.moveDays).toFixed(2) * 100 + "%"
   };
 
   return <div className="svg-container" ref={ref}></div>;

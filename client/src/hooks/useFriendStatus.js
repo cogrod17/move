@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 //curuser = signed in user
 //ciewUser = other one
@@ -8,15 +8,11 @@ const useFriendStatus = (curUser, viewUser, friendRequests) => {
     _id: null,
   });
 
-  useEffect(() => {
-    evaluate(curUser, viewUser, friendRequests);
-  }, [curUser, viewUser, friendRequests]);
+  const evaluate = useCallback((user, viewUser, friendRequests) => {
+    const set = (status, _id = null) => {
+      return { status, _id };
+    };
 
-  const set = (status, _id = null) => {
-    return { status, _id };
-  };
-
-  const evaluate = (user, viewUser, friendRequests) => {
     if (!user || !viewUser || !friendRequests)
       return setFriendStatus(set("loading"));
 
@@ -39,7 +35,11 @@ const useFriendStatus = (curUser, viewUser, friendRequests) => {
     if (respond) setFriendStatus(set("respond", respond._id));
 
     if (!isFriend && !respond && !pending) setFriendStatus(set("not friends"));
-  };
+  }, []);
+
+  useEffect(() => {
+    evaluate(curUser, viewUser, friendRequests);
+  }, [evaluate, curUser, viewUser, friendRequests]);
 
   return [friendStatus, evaluate];
 };

@@ -82,6 +82,7 @@
   width: 100%;
   display: grid;
   grid-template-columns: 50% 50%;
+  padding-bottom: 10px;
 }
 
 .workout-card {
@@ -187,10 +188,15 @@ h2 {
 }
 
 .svg-container {
-  display: inline-block;
+  display: flex;
   position: relative;
+  align-content: center;
   width: 100%;
-  height: 100%;
+  height: 110%;
   vertical-align: top;
-  overflow: hidden;
+}
+
+svg {
+  text-anchor: middle;
+  opacity: 0.9;
 }

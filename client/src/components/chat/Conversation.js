@@ -9,7 +9,6 @@ const Conversation = (props) => {
     conversations,
     user,
     receiveMessage,
-    selectChat,
   } = props;
 
   const ref = useRef();
@@ -51,8 +50,6 @@ const Conversation = (props) => {
 
     if (!messages) return null;
     scrollToBottom();
-
-    let length = messages.length;
 
     return messages.map((msg, i) => {
       if (msg.author === user.username) {

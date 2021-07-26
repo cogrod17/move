@@ -7,7 +7,7 @@ const Post = ({ post }) => {
   const { date, text, username } = post;
 
   return (
-    <div className="section post">
+    <div className="feed-item post">
       <div className="section-container">
         <div className="section-stats">
           <div>

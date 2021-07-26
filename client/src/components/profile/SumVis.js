@@ -43,7 +43,8 @@ const SumVis = ({ viewUser }) => {
       .data(data_ready)
       .join("path")
       .attr("d", arc)
-      .attr("fill", (d) => color(d.data[0]));
+      .attr("fill", (d) => color(d.data[0]))
+      .style("stroke", "white");
 
     svg
       .selectAll()
@@ -62,13 +63,11 @@ const SumVis = ({ viewUser }) => {
         return d.data[0].slice(0, i).toUpperCase();
       })
       .attr("transform", (d) => {
-        let y = arc.centroid(d).map((x) => x * 1.6);
+        let r;
+        d.data[0] === "cardioDays" ? (r = 1.7) : (r = 1.55);
+        let y = arc.centroid(d).map((x) => x * r);
         return `translate(${y})`;
       });
-
-    // .style("fill", "white");
-
-    // (d) => (d.data[0] / viewUser.summary.moveDays).toFixed(2) * 100 + "%"
   };
 
   return <div className="svg-container" ref={ref}></div>;
@@ -77,42 +76,3 @@ const SumVis = ({ viewUser }) => {
 const mapStateToProps = (state) => state;
 
 export default connect(mapStateToProps)(SumVis);
-
-// const drawBarChart = (data) => {
-//   // const height = 200px
-
-//   console.log(data);
-
-//   const numbers = Object.values(data);
-//   const labels = Object.keys(data);
-
-//   const canvas = d3
-//     .select(ref.current)
-//     .append("svg")
-//     .attr("height", 200)
-//     .attr("width", "80%")
-//     .style("border", "grey solid 1px")
-//     .style("margin", "20px")
-//     .style("padding-left", "20px");
-
-//   canvas
-//     .selectAll("rect")
-//     .data(numbers)
-//     .enter()
-//     .append("rect")
-//     .attr("width", 40)
-//     .attr("height", (datapoint) => datapoint * 40)
-//     .attr("fill", "orange")
-//     .attr("x", (_, i) => i * 45)
-//     .attr("y", (datapoint) => 200 - datapoint * 40);
-
-//   canvas
-//     .selectAll("text")
-//     .data(labels)
-//     .enter()
-//     .append("text")
-//     .attr("x", (datapoint, i) => i * 45 + 10)
-//     .attr("y", (datapoint, i) => 200 - numbers[i] * 50)
-//     .text((datapoint) => datapoint)
-//     .attr("transform", "rotate(-25)");
-// };

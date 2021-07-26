@@ -411,3 +411,18 @@ export const receiveMessage = (data) => {
     payload: data,
   };
 };
+
+//////////////////////////////////////
+//////////////////////////////////////
+
+// export const getPaceHistory = () => async (dispatch, getState) => {
+//   const { token } = getState();
+
+//   try {
+//     const res = server.get("/workout/cardio_history", auth(token));
+
+//     dispatch()
+//   } catch (e) {
+//     dispatch({ type: "PACE_HISTORY_ERROR", payload: e });
+//   }
+// };

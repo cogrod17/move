@@ -97,6 +97,7 @@
   transition: transform 0.25s ease-in-out;
   cursor: pointer;
 }
+
 .workout-card .stats div {
   display: flex;
   flex-direction: row;
@@ -154,13 +155,8 @@ h2 {
 }
 
 .section-visual {
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  height: 200px;
+  height: 100%;
   width: 100%;
-  border: green solid 1px;
 }
 
 .add-friend,

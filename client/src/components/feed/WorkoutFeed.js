@@ -2,14 +2,15 @@ import React from "react";
 import { connect } from "react-redux";
 import { formatDate } from "../../helperFunctions";
 import history from "../../history";
+import pic from "../../images/miami.jpeg";
 
 const WorkoutFeed = ({ item }) => {
   const { username, date, type, distance, duration, pace, description } = item;
 
   return (
-    <div className="section feed-item">
-      <div className="section-container">
-        <div className="section-stats two ">
+    <div className="feed-item">
+      <div className="feed-section">
+        <div className="section-stats two">
           <p
             className="feed-username"
             onClick={() => history.push(`/profile/${username}`)}
@@ -39,7 +40,9 @@ const WorkoutFeed = ({ item }) => {
           ) : null}
           <p className="feed-description">{description}</p>
         </div>
-        <div className="section-visual"></div>
+        <div className="feed-visual">
+          <img src={pic} alt={"adslkf"} />
+        </div>
       </div>
     </div>
   );

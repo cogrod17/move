@@ -63,8 +63,6 @@ const CardioVis = ({ username }) => {
       );
   };
 
-  console.log(paces);
-
   return <div ref={ref} className="svg-container"></div>;
 };
 

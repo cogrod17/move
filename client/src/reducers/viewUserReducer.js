@@ -23,6 +23,14 @@ export const viewUserReducer = (viewUser = null, action) => {
           friends: viewUser.user.friends.filter((x) => x !== action.payload),
         },
       };
+    case "EDIT_AVATAR":
+      return {
+        ...viewUser,
+        user: {
+          ...viewUser.user,
+          avatar: action.payload,
+        },
+      };
     default:
       return viewUser;
   }

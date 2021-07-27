@@ -12,13 +12,17 @@
   position: absolute;
   top: 0;
   width: 100vw;
-  background: rgb(233, 233, 233);
+  background: #e2ddda;
+
+  /*background: rgb(233, 233, 233);
+  #749eb2;
+  */
 }
 
 .header-container {
   position: relative;
   z-index: 999;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.8);
   box-shadow: 0 0 5px 3px rgb(173, 172, 172);
   height: 4rem;
   display: flex;
@@ -143,7 +147,6 @@
 .modal-dimmer {
   z-index: 1000;
   position: absolute;
-  top: 0;
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, 0.7);

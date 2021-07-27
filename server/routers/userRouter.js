@@ -7,6 +7,7 @@ const FriendRequest = require("../models/friendRequestModel");
 const sortByDate = require("./helperFunctions");
 const auth = require("../middleware/auth");
 const bcrypt = require("bcryptjs");
+const multer = require("multer");
 
 ///create user
 router.post("/create/user", async (req, res) => {
@@ -138,6 +139,35 @@ router.patch("/update/user", auth, async (req, res) => {
     res.status(404).send(e);
   }
 });
+
+const upload = multer({
+  limits: {
+    fileSize: 15999999,
+  },
+  fileFilter(req, file, cb) {
+    if (!file.originalname.match(/\.(jpg|jpeg|png|JPG)$/)) {
+      return cb(new Error("please upload an image"));
+    }
+
+    cb(undefined, true);
+  },
+});
+
+//add avatar to user
+router.post(
+  "/avatar",
+  auth,
+  upload.single("avatar"),
+  async (req, res) => {
+    req.user.avatar = req.file.buffer;
+    await req.user.save();
+    res.send(req.user);
+  },
+  (error, req, res) => {
+    console.log(error);
+    res.status(400).send({ error: error.message });
+  }
+);
 
 //add friend to friends list
 router.patch("/addfriend", auth, async (req, res) => {

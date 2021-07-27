@@ -7,6 +7,7 @@ import Profile from "./profile/Profile";
 import LogoutModal from "./misc./LogoutModal";
 import Friends from "./friends/Friends";
 import FriendRequests from "./friends/FriendRequests";
+import EditAvatar from "./profile/EditAvatar";
 import NewChat from "./chat/NewChat";
 import history from "../history";
 import "../styles/app.css";
@@ -34,6 +35,7 @@ class App extends React.Component {
         <Friends />
         <FriendRequests />
         <NewChat />
+        <EditAvatar />
         <Router history={history}>
           <ScrollToTop />
           <Header />

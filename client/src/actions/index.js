@@ -415,14 +415,17 @@ export const receiveMessage = (data) => {
 //////////////////////////////////////
 //////////////////////////////////////
 
-// export const getPaceHistory = () => async (dispatch, getState) => {
-//   const { token } = getState();
+export const uploadAvatar = (file) => async (dispatch, getState) => {
+  const { token } = getState();
+  try {
+    const res = await server.post("/avatar", file, auth(token));
 
-//   try {
-//     const res = server.get("/workout/cardio_history", auth(token));
+    dispatch(setUser(res.data));
+    dispatch(getViewUser(res.data.username));
+  } catch (e) {
+    dispatch({ type: "AVATAR_ERROR", payload: e });
+  }
+};
 
-//     dispatch()
-//   } catch (e) {
-//     dispatch({ type: "PACE_HISTORY_ERROR", payload: e });
-//   }
-// };
+//////////////////////////////////////
+//////////////////////////////////////

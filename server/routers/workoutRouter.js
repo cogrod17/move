@@ -71,23 +71,23 @@ router.get("/workout/feed", async (req, res) => {
 });
 
 //Get cardio history to plot pace graph
-router.get("/workout/cardio_history", async (req, res) => {
-  try {
-    const cardios = await Workout.find({
-      username: req.headers.username,
-      type: "cardio",
-    });
+// router.get("/workout/cardio_history", async (req, res) => {
+//   try {
+//     const cardios = await Workout.find({
+//       username: req.headers.username,
+//       type: "cardio",
+//     });
 
-    const paceHistory = cardios.map((w) => {
-      return { pace: w.pace, date: w.date };
-    });
+//     const paceHistory = cardios.map((w) => {
+//       return { pace: w.pace, date: w.date };
+//     });
 
-    res.status(200).send(paceHistory);
-  } catch (e) {
-    console.log(e);
-    res.status(404).send(e);
-  }
-});
+//     res.status(200).send(paceHistory);
+//   } catch (e) {
+//     console.log(e);
+//     res.status(404).send(e);
+//   }
+// });
 
 //Edit Workout
 //BE CAREFUL UPDATIING THE WORKOUT

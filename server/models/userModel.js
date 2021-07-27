@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   friends: [String],
+  avatar: Buffer,
   tokens: [{ token: { type: String, required: true } }],
 });
 

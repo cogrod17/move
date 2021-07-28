@@ -12,7 +12,7 @@
   position: absolute;
   top: 0;
   width: 100vw;
-  background: #e2ddda;
+  background: #e8eff3;
 
   /*background: rgb(233, 233, 233);
   #749eb2;
@@ -23,7 +23,7 @@
   position: relative;
   z-index: 999;
   background: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 0 5px 3px rgb(173, 172, 172);
+  box-shadow: var(--boxShadow);
   height: 4rem;
   display: flex;
   justify-content: space-between;

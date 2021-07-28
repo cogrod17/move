@@ -29,7 +29,6 @@
   .feed-section {
     grid-template-columns: 100%;
   }
-
   .feed-item {
     border-top: var(--borderMain);
     border-radius: 10px 10px 0px 0px;
@@ -50,20 +49,18 @@
   display: flex;
   flex-direction: row;
   border-radius: 10px;
-  box-shadow: var(--boxShadow);
 }
 
 .input-feed input {
   padding: 10px;
   font-size: 100%;
-  border: none;
   outline: none;
+  border: var(--btnColorSec) solid 1px;
   width: 100%;
   height: 20px;
   border-radius: 10px;
   margin-right: auto;
   margin-left: auto;
-  border: 0;
 }
 
 .feed-username {

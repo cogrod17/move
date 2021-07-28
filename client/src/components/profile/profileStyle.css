@@ -1,11 +1,3 @@
-:root {
-  --borderMain: #6aabd2 solid 12px;
-  --borderSecondary: #86b8b6 solid 10px;
-  --sectionBackground: #ebf7ff;
-  --boxShadow: 0px 30px 40px -20px rgb(173, 172, 172);
-  --btnColor: #6aabd2;
-}
-
 .profile-container {
   display: flex;
   flex-direction: column;
@@ -31,9 +23,8 @@
   display: flex;
   background-color: var(--sectionBackground);
   box-shadow: var(--boxShadow);
-  /*border: #0474b7 solid 1px;*/
+  /*border: #385e72 solid 1px;*/
   border-top: var(--borderMain);
-
   border-radius: 20px;
   flex-direction: column;
   max-width: 100%;
@@ -184,7 +175,7 @@ h2 {
 .friends {
   cursor: pointer;
   color: black;
-  border: var(--btnColor) solid 1px;
+  border: #189ab4 solid 1px;
   width: 100px;
   margin-right: auto;
   margin-left: auto;
@@ -198,7 +189,7 @@ h2 {
 .upload-btn {
   margin-top: 3px;
   cursor: pointer;
-  border: var(--btnColor) solid 1px;
+  border: var(--btnColorSec) solid 1px;
 }
 
 .add-friend:hover,
@@ -206,8 +197,8 @@ h2 {
 .upload-btn:hover {
   background: none;
   color: white;
-  border: var(--btnColor) solid 1px;
-  background: var(--btnColor);
+  border: var(--btnColorSec) solid 1px;
+  background: var(--btnColorSec);
   opacity: 0.7;
 }
 

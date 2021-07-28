@@ -1,5 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200&display=swap");
 
+:root {
+  --appBackground: #f2ffff;
+  --borderMain: #385e72 solid 12px;
+  --borderSecondary: #2b7c85 solid 10px;
+  --sectionBackground: #f9ffff;
+  --boxShadow: 0px 30px 40px -20px rgb(173, 172, 172);
+  --btnColor: #75e6da;
+  --btnColorSec: #189ab4;
+  --headerBackground: #385e72;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -12,17 +23,14 @@
   position: absolute;
   top: 0;
   width: 100vw;
-  background: #e8eff3;
-
-  /*background: rgb(233, 233, 233);
-  #749eb2;
-  */
+  background: var(--appBackground);
 }
 
 .header-container {
   position: relative;
   z-index: 999;
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--headerBackground);
+  padding: 5px 0;
   box-shadow: var(--boxShadow);
   height: 4rem;
   display: flex;
@@ -37,9 +45,10 @@
   justify-content: left;
   align-items: center;
   text-transform: uppercase;
-  font-size: 25px;
+  font-size: 30px;
 }
 .title h1 {
+  color: #f2ffff;
   cursor: pointer;
 }
 
@@ -67,8 +76,8 @@
 .signup-btn:hover,
 .logout p:hover {
   opacity: 1;
-  border-bottom: 1px solid rgb(9, 187, 9);
-  color: rgb(9, 187, 9);
+  border-bottom: 1px solid var(--btnColor);
+  color: var(--btnColor);
 }
 
 .menu-icon {
@@ -83,9 +92,9 @@
 .menu-icon div {
   z-index: 10;
   position: relative;
+  background: #f2ffff;
   width: 100%;
   height: 3px;
-  background: rgba(0, 0, 0, 0.7);
   margin: 3px 0;
 }
 
@@ -110,9 +119,10 @@
 
 .menu-list p,
 .dropdown p {
+  color: #f2ffff;
   text-align: center;
   cursor: pointer;
-  opacity: 0.5;
+  border: var(--headerBackground) solid 1px;
 }
 
 .dropdown p {
@@ -122,8 +132,8 @@
 .menu-list p:hover,
 .dropdown p:hover {
   opacity: 1;
-  border-bottom: 1px solid rgb(9, 187, 9);
-  color: rgb(9, 187, 9);
+  border-bottom: 1px solid var(--btnColor);
+  color: var(--btnColor);
 }
 
 @media (max-width: 600px) {
@@ -138,10 +148,9 @@
   top: 17px;
   right: 27px;
   border-radius: 10px 1px 10px 10px;
-  background: rgba(255, 255, 255);
+  background: var(--headerBackground);
   padding: 30px;
-
-  border: rgba(0, 0, 0, 0.7) solid 2px;
+  border: rgba(0, 0, 0, 0.7) solid 1px;
 }
 
 .modal-dimmer {
@@ -157,7 +166,8 @@
   top: 100px;
   left: 50%;
   transform: translate(-50%);
-  border-top: rgb(56, 160, 166) solid 7.5px;
+  border-top: var(--borderMain);
+  background: var(--appBackground);
 }
 
 .logout div {
@@ -167,10 +177,17 @@
   margin: 30px 0;
 }
 
-.logout h1 {
+.modal-container h1 {
   text-align: center;
+  color: var(--btnColorSec);
 }
 
 .logout p {
   cursor: pointer;
+  border: var(--appBackground) solid 1px;
+}
+
+.logout p:hover {
+  color: var(--btnColorSec);
+  border-bottom: var(--btnColorSec) solid 1px;
 }

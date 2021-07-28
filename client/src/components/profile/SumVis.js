@@ -27,7 +27,7 @@ const SumVis = ({ viewUser }) => {
       .append("g")
       .attr("transform", `translate (${width / 2}, ${height / 2})`);
 
-    const color = d3.scaleOrdinal().range(["red", "blue", "green"]);
+    const color = d3.scaleOrdinal().range(["#05445e", "#189ab4", "#75e6da"]);
 
     let pie = d3.pie().value((d) => d[1]);
 

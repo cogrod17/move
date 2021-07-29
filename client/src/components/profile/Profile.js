@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { getViewUser } from "../../actions";
 import Summary from "./Summary";
 import WorkoutHistory from "./WorkoutsHistory";
-import NewWorkout from "./NewWorkout";
+import Loader from "../misc./Loader";
 import ProfileInfo from "./ProfileInfo";
 import history from "../../history";
 import "./profileStyle.css";
@@ -19,12 +19,11 @@ const Profile = ({ getViewUser, viewUser }) => {
     getViewUser(window.location.pathname.substring(9));
   }, [getViewUser]);
 
-  if (!viewUser || viewUser === "loading") return <div>LOADING</div>;
+  if (!viewUser || viewUser === "loading") return <Loader />;
   if (viewUser.name === "Error") return <div>USER NOT FOUND</div>;
 
   return (
     <div className="profile-container">
-      <NewWorkout />
       <div className="profile-head">
         <ProfileInfo />
         <Summary />

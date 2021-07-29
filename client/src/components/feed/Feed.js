@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import WorkoutFeed from "./WorkoutFeed";
 import Post from "./Post";
 import InputFeed from "./InputFeed";
+import Loader from "../misc./Loader";
 import { getFeed } from "../../actions";
 import "./feed.css";
 
@@ -12,7 +13,7 @@ const Feed = ({ getFeed, feed, token }) => {
   }, [getFeed, token]);
 
   const renderFeed = () => {
-    if (!feed) return null;
+    if (!feed) return <Loader />;
 
     return feed.map((item, i) => {
       return item.text ? (

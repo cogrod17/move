@@ -9,10 +9,12 @@ import Friends from "./friends/Friends";
 import FriendRequests from "./friends/FriendRequests";
 import EditAvatar from "./profile/EditAvatar";
 import NewChat from "./chat/NewChat";
+import NewWorkout from "./profile/NewWorkout";
 import history from "../history";
 import "../styles/app.css";
 import Feed from "./feed/Feed";
 import ScrollToTop from "./ScrollToTop";
+import Loader from "./misc./Loader";
 import { connect } from "react-redux";
 import { signInWithToken, isLoading } from "../actions";
 
@@ -27,7 +29,7 @@ class App extends React.Component {
   }
 
   render() {
-    if (this.props.loading) return <h1>Loading...</h1>;
+    if (this.props.loading) return <Loader />;
 
     return (
       <div className="app">
@@ -36,6 +38,7 @@ class App extends React.Component {
         <FriendRequests />
         <NewChat />
         <EditAvatar />
+        <NewWorkout />
         <Router history={history}>
           <ScrollToTop />
           <Header />

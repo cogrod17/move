@@ -1,15 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { openModal } from "../../actions";
-import pic from "../../images/default_avatar.png";
 
 const Avatar = ({ viewUser, user, openModal }) => {
-  const { avatar, username } = viewUser.user;
+  const { username } = viewUser.user;
 
   return (
     <div>
       <div className="avatar-container">
-        <img src={avatar ? `data:image/png;base64,${avatar}` : pic} />
+        <img src={`http://localhost:3001/profile/avatar/${username}`} />
       </div>
       {user.username === username ? (
         <div onClick={() => openModal("edit-avatar")} className="upload-btn">

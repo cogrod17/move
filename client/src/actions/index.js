@@ -418,10 +418,11 @@ export const receiveMessage = (data) => {
 export const uploadAvatar = (file) => async (dispatch, getState) => {
   const { token } = getState();
   try {
-    const res = await server.post("/avatar", file, auth(token));
+    const res = await server.post("/image/avatar", file, auth(token));
 
-    dispatch(setUser(res.data));
-    dispatch(getViewUser(res.data.username));
+    // console.log(res);
+    // dispatch(setUser(res.data));
+    // dispatch(getViewUser(res.data.username));
   } catch (e) {
     dispatch({ type: "AVATAR_ERROR", payload: e });
   }
@@ -429,3 +430,14 @@ export const uploadAvatar = (file) => async (dispatch, getState) => {
 
 //////////////////////////////////////
 //////////////////////////////////////
+
+// export const getAvatar = (username) => async (dispatch) => {
+//   try {
+//     const res = await server.get(`/profile/avatar/${username}`);
+
+//     dispatch({ type: "GET_AVATAR", payload: res.data });
+//   } catch (e) {
+//     console.log(e);
+//     dispatch({ type: "GET_AVATAR_ERROR", payload: e });
+//   }
+// };

@@ -136,6 +136,9 @@ h2 {
   border-radius: 50%;
   border: black solid 1px;
   overflow: hidden;
+  background-image: url(../../images/default_avatar.png);
+  background-position: bottom;
+  background-size: 150px;
 }
 
 .avatar-container img {

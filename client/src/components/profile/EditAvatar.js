@@ -6,10 +6,10 @@ const EditAvatar = ({ activeModal, closeModal, uploadAvatar }) => {
   const [file, setFile] = useState();
   if (activeModal !== "edit-avatar") return null;
 
-  const onSubmit = async (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
     const data = new FormData();
-    await data.append("avatar", file);
+    data.append("image", file);
 
     uploadAvatar(data);
     closeModal();

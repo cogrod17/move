@@ -9,12 +9,12 @@ class NewWorkout extends Component {
     distance: "",
     duration: "",
     description: "",
+    file: null,
   };
 
   onSubmit = async () => {
     const { createWorkout, closeModal } = this.props;
     await createWorkout(this.state);
-    console.log(this.state);
     closeModal();
   };
 
@@ -35,6 +35,7 @@ class NewWorkout extends Component {
 
   render() {
     if (this.props.activeModal !== "newworkout") return null;
+
     return (
       <div className="modal-dimmer">
         <div className="modal-container">
@@ -79,6 +80,15 @@ class NewWorkout extends Component {
                 }}
               />
               <label>Description</label>
+            </div>
+            <br />
+            <div>
+              <h4>Add Image:</h4>
+              <input
+                onChange={(e) => this.setState({ file: e.target.files[0] })}
+                type="file"
+                name="file"
+              />
             </div>
             <p onClick={this.onSubmit} className="form-button">
               →

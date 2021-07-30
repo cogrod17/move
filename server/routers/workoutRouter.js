@@ -10,6 +10,8 @@ router.post("/workout", auth, async (req, res) => {
   req.body.owner = req.user._id;
   req.body.username = req.user.username;
 
+  delete req.body.file;
+
   if (req.body.type !== "cardio") delete req.body.distance;
 
   const workout = await new Workout(req.body);

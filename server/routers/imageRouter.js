@@ -50,6 +50,31 @@ router.post(
   }
 );
 
+//create workout image
+router.post(
+  "/workout/image/:workout_id",
+  auth,
+  upload.single("image"),
+  async (req, res) => {
+    try {
+      const img = await new Image({
+        type: "workout",
+        parent: req.params.workout_id,
+        data: req.file.buffer,
+      });
+
+      await img.save();
+
+      res.send();
+    } catch (e) {
+      res.status(400).send(e);
+    }
+  },
+  (error, req, res) => {
+    res.status(400).send({ errorr: error.message });
+  }
+);
+
 //read
 router.get("/profile/avatar/:username", async (req, res) => {
   try {
@@ -61,8 +86,20 @@ router.get("/profile/avatar/:username", async (req, res) => {
     res.send(avatar.data);
   } catch (e) {
     res.status(404).send(e);
-    // res.set("Content-Type", "image/jpg");
-    // res.send();
+  }
+});
+
+//read workout image
+router.get("/workout/image/:workout_id", async (req, res) => {
+  try {
+    const img = await Image.findOne({ parent: req.params.workout_id });
+
+    if (!img) throw new Error();
+
+    res.set("Content-Type", "image/png");
+    res.send(img.data);
+  } catch (e) {
+    res.status(404).send(e);
   }
 });
 

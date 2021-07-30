@@ -159,12 +159,20 @@ export const logout = (token) => async (dispatch) => {
 //////////////////////////////////////
 
 export const createWorkout = (values) => async (dispatch, getState) => {
-  const { username } = getState().user;
+  const { token, user } = getState();
 
   try {
-    await server.post("/workout", values, auth(getState().token));
+    const res = await server.post("/workout", values, auth(token));
 
-    dispatch(getViewUser(username));
+    if (values.file) {
+      console.log(values.file);
+      const data = new FormData();
+      data.append("image", values.file);
+
+      await server.post(`/workout/image/${res.data._id}`, data, auth(token));
+    }
+
+    dispatch(getViewUser(user.username));
   } catch (e) {
     dispatch({ type: "NEW_WORKOUT_ERROR", payload: null });
   }
@@ -420,9 +428,7 @@ export const uploadAvatar = (file) => async (dispatch, getState) => {
   try {
     const res = await server.post("/image/avatar", file, auth(token));
 
-    // console.log(res);
-    // dispatch(setUser(res.data));
-    // dispatch(getViewUser(res.data.username));
+    dispatch(getViewUser(res.data.username));
   } catch (e) {
     dispatch({ type: "AVATAR_ERROR", payload: e });
   }

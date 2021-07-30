@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { formatDate } from "../../helperFunctions";
 import history from "../../history";
-import pic from "../../images/miami.jpeg";
 
 const WorkoutFeed = ({ item }) => {
   const { username, date, type, distance, duration, pace, description } = item;
@@ -41,7 +40,10 @@ const WorkoutFeed = ({ item }) => {
           <p className="feed-description">{description}</p>
         </div>
         <div className="feed-visual">
-          <img src={pic} alt={"adslkf"} />
+          <img
+            src={`http://localhost:3001/workout/image/${item._id}`}
+            alt={"workout-image"}
+          />
         </div>
       </div>
     </div>

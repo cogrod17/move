@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { formatDate } from "../../helperFunctions";
 import history from "../../history";
+import Loader from "../misc./Loader";
+import img from "../../images/miami.jpeg";
 
 const WorkoutFeed = ({ item }) => {
+  const [pic, setPic] = useState(
+    `http://localhost:3001/workout/image/${item._id}`
+  );
+  const [picLoading, setPicLoading] = useState(true);
   const { username, date, type, distance, duration, pace, description } = item;
+
+  // useEffect(() => {
+  //   //`http://localhost:3001/workout/image/${item._id}`
+  //   let img = new Image();
+
+  //   console.log(img);
+
+  //   img.onload(() => setPic(img));
+  // });
 
   return (
     <div className="feed-item">
@@ -41,8 +56,16 @@ const WorkoutFeed = ({ item }) => {
         </div>
         <div className="feed-visual">
           <img
-            src={`http://localhost:3001/workout/image/${item._id}`}
+            src={pic}
             alt={"workout-image"}
+            className={`smooth-image image-${
+              !picLoading ? "visible" : "hidden"
+            }`}
+            onLoad={() => setPicLoading(false)}
+            onError={() => {
+              setPic(img);
+              setPicLoading(false);
+            }}
           />
         </div>
       </div>

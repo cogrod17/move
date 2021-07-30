@@ -87,3 +87,18 @@
   width: 100%;
   object-fit: cover;
 }
+
+.feed-visual {
+  max-height: 300px;
+  min-height: 300px;
+}
+
+.smooth-image {
+  transition: opacity 1s;
+}
+.image-visible {
+  opacity: 1;
+}
+.image-hidden {
+  opacity: 0;
+}

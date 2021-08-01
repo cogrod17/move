@@ -1,29 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { formatDate } from "../../helperFunctions";
 import history from "../../history";
-import Loader from "../misc./Loader";
-import img from "../../images/miami.jpeg";
 
 const WorkoutFeed = ({ item }) => {
-  const [pic, setPic] = useState(
-    `http://localhost:3001/workout/image/${item._id}`
-  );
+  const [hasPic, setHasPic] = useState(true);
   const [picLoading, setPicLoading] = useState(true);
   const { username, date, type, distance, duration, pace, description } = item;
 
-  // useEffect(() => {
-  //   //`http://localhost:3001/workout/image/${item._id}`
-  //   let img = new Image();
-
-  //   console.log(img);
-
-  //   img.onload(() => setPic(img));
-  // });
-
   return (
     <div className="feed-item">
-      <div className="feed-section">
+      <div className={`feed-section ${!hasPic ? null : "pic"}`}>
         <div className="section-stats two">
           <p
             className="feed-username"
@@ -54,17 +41,16 @@ const WorkoutFeed = ({ item }) => {
           ) : null}
           <p className="feed-description">{description}</p>
         </div>
-        <div className="feed-visual">
+        <div className="workout-image">
           <img
-            src={pic}
-            alt={"workout-image"}
+            src={`http://localhost:3001/workout/image/${item._id}`}
+            alt={"workout"}
             className={`smooth-image image-${
               !picLoading ? "visible" : "hidden"
             }`}
             onLoad={() => setPicLoading(false)}
             onError={() => {
-              setPic(img);
-              setPicLoading(false);
+              setHasPic(false);
             }}
           />
         </div>

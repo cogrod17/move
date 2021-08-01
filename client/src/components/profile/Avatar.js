@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { openModal } from "../../actions";
 import img from "../../images/default_avatar.png";
@@ -15,7 +15,7 @@ const Avatar = ({ viewUser, user, openModal }) => {
       <div className="avatar-container">
         <img
           src={pic}
-          alt={"workout-image"}
+          alt={"avatar"}
           className={`smooth-image image-${!picLoading ? "visible" : "hidden"}`}
           onLoad={() => setPicLoading(false)}
           onError={() => {

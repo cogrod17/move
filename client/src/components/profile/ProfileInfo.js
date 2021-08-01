@@ -5,7 +5,7 @@ import FriendButton from "./FriendButton";
 import Avatar from "./Avatar";
 
 const ProfileInfo = ({ viewUser, openModal }) => {
-  const { username, email, friends, avatar } = viewUser.user;
+  const { username, email, friends } = viewUser.user;
 
   return (
     <div className="section row">

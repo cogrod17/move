@@ -437,13 +437,17 @@ export const uploadAvatar = (file) => async (dispatch, getState) => {
 //////////////////////////////////////
 //////////////////////////////////////
 
-// export const getAvatar = (username) => async (dispatch) => {
-//   try {
-//     const res = await server.get(`/profile/avatar/${username}`);
+export const editWorkoutImage = (file, workout_id) => async (
+  dispatch,
+  getState
+) => {
+  const { token, viewUser } = getState();
+  try {
+    await server.post(`/workout/image/${workout_id}`, file, auth(token));
 
-//     dispatch({ type: "GET_AVATAR", payload: res.data });
-//   } catch (e) {
-//     console.log(e);
-//     dispatch({ type: "GET_AVATAR_ERROR", payload: e });
-//   }
-// };
+    dispatch(getViewUser(viewUser.user.username));
+  } catch (e) {
+    console.log(e);
+    dispatch({ type: "EDIT_IMAGE_ERROR", payload: e });
+  }
+};

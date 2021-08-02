@@ -106,12 +106,17 @@ router.patch("/workout", auth, async (req, res) => {
 
   try {
     const workout = await Workout.findOne({ _id: _id });
+    const summary = await Summary.findOne({ owner: req.user._id });
 
-    if (!workout) throw new Error();
+    if (!workout || !summary) throw new Error();
+
+    await summary.delete(workout);
 
     updates.forEach((key) => (workout[key] = req.body[key]));
 
     await workout.save();
+    await summary.add(workout);
+    await summary.save();
     res.send(workout);
   } catch (e) {
     res.status(404).send(e);
@@ -119,13 +124,17 @@ router.patch("/workout", auth, async (req, res) => {
 });
 
 //Delete Workout
-router.delete("/workout", auth, async (req, res) => {
+router.delete("/workout/:workout_id", auth, async (req, res) => {
   try {
-    const workout = await Workout.findOne({ _id: req.body._id });
+    const workout = await Workout.findOne({ _id: req.params.workout_id });
+    const summary = await Summary.findOne({ owner: req.user._id });
 
-    if (!workout) throw new Error();
+    if (!workout || !summary) throw new Error();
+
+    await summary.delete(workout);
 
     await workout.remove();
+    await summary.save();
     res.send(workout);
   } catch (e) {
     res.status(500).send();

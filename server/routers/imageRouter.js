@@ -39,7 +39,7 @@ router.post(
     }
 
     if (oldImg) {
-      oldImage.data = req.file.buffer;
+      oldImg.data = req.file.buffer;
       await oldImg.save();
     }
 
@@ -56,19 +56,26 @@ router.post(
   auth,
   upload.single("image"),
   async (req, res) => {
-    try {
+    const oldImg = await Image.findOne({
+      type: "workout",
+      parent: req.params.workout_id,
+    });
+
+    if (!oldImg) {
       const img = await new Image({
         type: "workout",
         parent: req.params.workout_id,
         data: req.file.buffer,
       });
-
       await img.save();
-
-      res.send();
-    } catch (e) {
-      res.status(400).send(e);
     }
+
+    if (oldImg) {
+      oldImg.data = req.file.buffer;
+      await oldImg.save();
+    }
+
+    res.send();
   },
   (error, req, res) => {
     res.status(400).send({ errorr: error.message });
@@ -102,8 +109,6 @@ router.get("/workout/image/:workout_id", async (req, res) => {
     res.status(404).send(e);
   }
 });
-
-//update
 
 //delete
 

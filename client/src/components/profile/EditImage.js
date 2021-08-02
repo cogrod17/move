@@ -1,17 +1,29 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { closeModal, uploadAvatar } from "../../actions";
+import { closeModal, uploadAvatar, editWorkoutImage } from "../../actions";
 
-const EditAvatar = ({ activeModal, closeModal, uploadAvatar }) => {
+const EditImage = (props) => {
+  const { activeModal, closeModal, uploadAvatar, editWorkoutImage } = props;
   const [file, setFile] = useState();
-  if (activeModal !== "edit-avatar") return null;
+
+  if (
+    !activeModal ||
+    (activeModal !== "edit-avatar" &&
+      activeModal.slice(0, 16) !== "edit-workout-img")
+  )
+    return null;
 
   const onSubmit = (e) => {
     e.preventDefault();
     const data = new FormData();
     data.append("image", file);
 
-    uploadAvatar(data);
+    if (activeModal === "edit-avatar") uploadAvatar(data);
+    if (activeModal.slice(0, 16) === "edit-workout-img") {
+      const workout_id = activeModal.substring(17);
+      editWorkoutImage(data, workout_id);
+    }
+
     closeModal();
   };
 
@@ -21,7 +33,7 @@ const EditAvatar = ({ activeModal, closeModal, uploadAvatar }) => {
         <p className="close-btn" onClick={closeModal}>
           X
         </p>
-        <h1>Edit Avatar</h1>
+        <h1>Edit Image</h1>
         <form className="avatar-form">
           <input
             onChange={(e) => setFile(e.target.files[0])}
@@ -37,6 +49,8 @@ const EditAvatar = ({ activeModal, closeModal, uploadAvatar }) => {
 
 const mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps, { closeModal, uploadAvatar })(
-  EditAvatar
-);
+export default connect(mapStateToProps, {
+  closeModal,
+  uploadAvatar,
+  editWorkoutImage,
+})(EditImage);

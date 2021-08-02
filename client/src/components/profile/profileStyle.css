@@ -90,17 +90,12 @@
 .workout-card {
   background: var(--sectionBackground);
   box-shadow: var(--boxShadow);
-
   border-top: var(--borderSecondary);
-
-  min-width: 350px;
-  height: 100%;
-  max-height: 450px;
+  width: 350px;
+  height: 450px;
   margin: 20px;
   margin-bottom: 20px;
   border-radius: 10px 10px 0px 0px;
-  transition: transform 0.5s ease-in-out;
-  cursor: pointer;
 }
 
 .workout-card .stats div {
@@ -119,10 +114,65 @@
 }
 
 .workout-card img {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.workout-visual {
+  background: whitesmoke;
+
+  position: relative;
+  margin: 0 !important;
+  padding: 0 !important;
   height: 50%;
   width: 100%;
   object-fit: cover;
-  border-bottom: solid black 1px;
+}
+
+.workout-visual div {
+  display: flex;
+  flex-direction: row;
+  opacity: 0;
+  z-index: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.5s ease-in-out;
+}
+
+.workout-visual p {
+  color: white;
+  border: white solid 2px;
+  font-weight: 900;
+  font-size: 20px;
+  padding: 5px 15px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.edit:hover > img {
+  opacity: 0.5;
+  z-index: 0;
+}
+
+.edit:hover > div {
+  opacity: 1;
+  z-index: 1;
+}
+
+.edit p:hover {
+  background: rgb(255, 255, 255, 0.4);
+  border: var(--headerBackground) solid 2px;
+  color: var(--headerBackground);
+}
+
+.edit .delete:hover {
+  color: red;
+  border: red solid 2px;
 }
 
 .section-stats div {
@@ -147,11 +197,6 @@ h2 {
   border-radius: 50%;
   border: black solid 1px;
   overflow: hidden;
-  /*
-  background-image: url(../../images/default_avatar.png);
-  background-position: bottom;
-  background-size: 150px;
-  */
 }
 
 .avatar-container img {

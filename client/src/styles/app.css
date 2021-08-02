@@ -179,10 +179,7 @@
   top: 10px;
   right: 20px;
   cursor: pointer;
-}
-
-.close-btn:hover {
-  color: var(--btnColorSec);
+  border: var(--appBackground) solid 1px;
 }
 
 .logout div {
@@ -205,6 +202,11 @@
 .logout p:hover {
   color: var(--btnColorSec);
   border-bottom: var(--btnColorSec) solid 1px;
+}
+
+.close-btn:hover {
+  color: var(--btnColorSec);
+  border: var(--appBackground) solid 1px !important;
 }
 
 .loader-container {

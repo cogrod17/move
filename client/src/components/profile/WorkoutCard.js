@@ -1,26 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { formatDate } from "../../helperFunctions";
-import strengthPic from "../../images/strength.jpg";
-import cardioPic from "../../images/cardio.jpg";
-import { openModal } from "../../actions";
+import WorkoutImage from "./WorkoutImage";
 
-const WorkoutCard = ({ workout, viewUser, user, openModal }) => {
-  const [pic, setPic] = useState(
-    `http://localhost:3001/workout/image/${workout._id}`
-  );
-  const [picLoading, setPicLoading] = useState(true);
-  const { username } = viewUser.user;
-
-  const setDefaultPic = () => {
-    if (
-      workout.type.toLowerCase() === "strength" ||
-      workout.type.toLowerCase() === "hiit"
-    )
-      setPic(strengthPic);
-    if (workout.type.toLowerCase() === "cardio") setPic(cardioPic);
-  };
-
+const WorkoutCard = ({ workout }) => {
   const pace = () => {
     if (!workout.pace) return null;
     return (
@@ -43,26 +26,7 @@ const WorkoutCard = ({ workout, viewUser, user, openModal }) => {
 
   return (
     <div className="workout-card">
-      <div
-        className={`workout-visual ${username === user.username ? "edit" : ""}`}
-      >
-        <div>
-          <p onClick={() => openModal(`edit-workout-img:${workout._id}`)}>
-            Edit
-          </p>
-          <p className="delete">Delete</p>
-        </div>
-        <img
-          src={pic}
-          alt={"workout-card"}
-          className={`smooth-image image-${!picLoading ? "visible" : "hidden"}`}
-          onLoad={() => setPicLoading(false)}
-          onError={() => {
-            setDefaultPic();
-            setPicLoading(false);
-          }}
-        />
-      </div>
+      <WorkoutImage workout={workout} />
       <div>
         <p className="item-title">{workout.title}</p>
       </div>
@@ -70,7 +34,7 @@ const WorkoutCard = ({ workout, viewUser, user, openModal }) => {
         <p className="feed-date">{formatDate(workout.date)}</p>
       </div>
 
-      <div className={`stats ${!picLoading ? "stats-height-control" : ""}`}>
+      <div className={`stats`}>
         <div>
           <p>Type:</p>
           <p>{workout.type.toUpperCase()}</p>
@@ -91,4 +55,4 @@ const WorkoutCard = ({ workout, viewUser, user, openModal }) => {
 
 const mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps, { openModal })(WorkoutCard);
+export default connect(mapStateToProps)(WorkoutCard);

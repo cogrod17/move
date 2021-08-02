@@ -2,9 +2,9 @@ import React from "react";
 import Dropdown from "./Dropdown";
 import history from "../../history";
 import { connect } from "react-redux";
-import { toggleDropdown, openModal } from "../../actions";
+import { toggleDropdown, openModal, logout } from "../../actions";
 
-const Menu = ({ user, toggleDropdown, openModal }) => {
+const Menu = ({ user, toggleDropdown, openModal, logout }) => {
   return (
     <div>
       <Dropdown />
@@ -18,7 +18,13 @@ const Menu = ({ user, toggleDropdown, openModal }) => {
         <p onClick={() => history.push("/feed")}>Feed</p>
         <p onClick={() => history.push("/chat")}>Chat</p>
         <p onClick={() => history.push(`/profile/${user.username}`)}>Profile</p>
-        <p onClick={() => openModal("logout")}>Logout</p>
+        <p
+          onClick={() =>
+            openModal({ type: "confirm", action: logout, header: "Logout?" })
+          }
+        >
+          Logout
+        </p>
       </div>
     </div>
   );
@@ -26,4 +32,6 @@ const Menu = ({ user, toggleDropdown, openModal }) => {
 
 const mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps, { toggleDropdown, openModal })(Menu);
+export default connect(mapStateToProps, { toggleDropdown, openModal, logout })(
+  Menu
+);

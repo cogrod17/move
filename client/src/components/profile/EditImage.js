@@ -8,6 +8,7 @@ const EditImage = (props) => {
 
   if (
     !activeModal ||
+    activeModal.type ||
     (activeModal !== "edit-avatar" &&
       activeModal.slice(0, 16) !== "edit-workout-img")
   )

@@ -4,7 +4,7 @@ import Header from "./misc./Header";
 import Landing from "./landing/Landing";
 import Chat from "./chat/Chat";
 import Profile from "./profile/Profile";
-import LogoutModal from "./misc./LogoutModal";
+import ConfirmModal from "./misc./ConfirmModal";
 import Friends from "./friends/Friends";
 import FriendRequests from "./friends/FriendRequests";
 import EditImage from "./profile/EditImage";
@@ -33,7 +33,7 @@ class App extends React.Component {
 
     return (
       <div className="app">
-        <LogoutModal />
+        <ConfirmModal />
         <Friends />
         <FriendRequests />
         <NewChat />

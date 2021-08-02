@@ -111,5 +111,16 @@ router.get("/workout/image/:workout_id", async (req, res) => {
 });
 
 //delete
+router.delete("/image/:parent", auth, async (req, res) => {
+  try {
+    const img = await Image.findOne({ parent: req.params.parent });
+
+    if (img) await img.remove();
+
+    res.send();
+  } catch (e) {
+    res.status(404).send(e);
+  }
+});
 
 module.exports = router;

@@ -127,7 +127,8 @@ export const login = (email, password) => async (dispatch) => {
 //////////////////////////////////////
 //////////////////////////////////////
 
-export const logout = (token) => async (dispatch) => {
+export const logout = () => async (dispatch, getState) => {
+  const { token } = getState();
   try {
     await server.post("/logout", {}, auth(token));
 
@@ -449,5 +450,20 @@ export const editWorkoutImage = (file, workout_id) => async (
   } catch (e) {
     console.log(e);
     dispatch({ type: "EDIT_IMAGE_ERROR", payload: e });
+  }
+};
+
+//////////////////////////////////////
+//////////////////////////////////////
+
+export const deleteWorkout = (workout_id) => async (dispatch, getState) => {
+  const { token, viewUser } = getState();
+  try {
+    await server.delete(`/workout/${workout_id}`, auth(token));
+    await server.delete(`/image/${workout_id}`, auth(token));
+
+    dispatch(getViewUser(viewUser.user.username));
+  } catch (e) {
+    dispatch({ type: "DELETE_WORKOUT_ERROR", payload: e });
   }
 };

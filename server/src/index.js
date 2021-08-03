@@ -1,7 +1,7 @@
 const express = require("express");
 require("../database/mongoose"); ///
 const app = express();
-const path = require("path");
+
 const port = process.env.PORT || 3001;
 
 app.use(
@@ -16,9 +16,8 @@ app.use(
   require("../routers/conversationRouter"),
   require("../routers/messageRouter"),
   require("../routers/imageRouter"),
-  ("/images", express.static(path.join(__dirname, "images")))
+  require("../routers/commentRouter")
 );
-/////////////////////////////
 
 /////////////////////////////
 ///SOCKET
@@ -43,6 +42,8 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {});
 });
+
+/////////////////////////////
 
 server.listen(port, () => {
   console.log("NODE IS RUNNING ON PORT " + port);

@@ -11,24 +11,22 @@ const Avatar = ({ viewUser, user, openModal }) => {
   const { username } = viewUser.user;
 
   return (
-    <div>
-      <div className="avatar-container">
-        <img
-          src={pic}
-          alt={"avatar"}
-          className={`smooth-image image-${!picLoading ? "visible" : "hidden"}`}
-          onLoad={() => setPicLoading(false)}
-          onError={() => {
-            setPic(img);
-            setPicLoading(false);
-          }}
-        />
+    <div
+      className={`avatar-container ${user.username === username ? "edit" : ""}`}
+    >
+      <div>
+        <p onClick={() => openModal("edit-avatar")}>Edit</p>
       </div>
-      {user.username === username ? (
-        <div onClick={() => openModal("edit-avatar")} className="upload-btn">
-          Upload Picture
-        </div>
-      ) : null}
+      <img
+        src={pic}
+        alt={"avatar"}
+        className={`smooth-image image-${!picLoading ? "visible" : "hidden"}`}
+        onLoad={() => setPicLoading(false)}
+        onError={() => {
+          setPic(img);
+          setPicLoading(false);
+        }}
+      />
     </div>
   );
 };
@@ -36,3 +34,11 @@ const Avatar = ({ viewUser, user, openModal }) => {
 const mapStateToProps = (state) => state;
 
 export default connect(mapStateToProps, { openModal })(Avatar);
+
+{
+  /*user.username === username ? (
+        <div onClick={() => openModal("edit-avatar")} className="upload-btn">
+          Upload Picture
+        </div>
+      ) : null*/
+}

@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { formatDate } from "../../helperFunctions";
 import history from "../../history";
+import CommentSection from "./CommentSection";
 
 const Post = ({ post }) => {
   const { date, text, username } = post;
@@ -22,6 +23,7 @@ const Post = ({ post }) => {
           <p className="feed-description">{text}</p>
         </div>
       </div>
+      <CommentSection />
     </div>
   );
 };

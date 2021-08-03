@@ -467,3 +467,13 @@ export const deleteWorkout = (workout_id) => async (dispatch, getState) => {
     dispatch({ type: "DELETE_WORKOUT_ERROR", payload: e });
   }
 };
+
+//////////////////////////////////////
+//////////////////////////////////////
+
+export const filterFeed = (params) => {
+  return {
+    type: "FILTER_FEED",
+    payload: params,
+  };
+};

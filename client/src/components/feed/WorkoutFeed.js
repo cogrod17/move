@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { formatDate } from "../../helperFunctions";
 import history from "../../history";
+import CommentSection from "./CommentSection";
 
 const WorkoutFeed = ({ item }) => {
   const [hasPic, setHasPic] = useState(true);
@@ -55,6 +56,7 @@ const WorkoutFeed = ({ item }) => {
           />
         </div>
       </div>
+      <CommentSection />
     </div>
   );
 };

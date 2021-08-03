@@ -1,11 +1,16 @@
-export const feedReducer = (feed = null, action) => {
+const defaultFeed = { filter: "Everyone", items: null };
+
+export const feedReducer = (feed = defaultFeed, action) => {
+  console.log(action.payload);
   switch (action.type) {
     case "FEED":
-      return action.payload;
+      return { ...feed, items: action.payload };
     case "FEED_ERROR":
-      return ["error"];
+      return { ...feed, items: ["error"] };
     case "NEW_POST":
-      return [action.payload, ...feed];
+      return { ...feed, items: [action.payload, ...feed.items] };
+    case "FILTER_FEED":
+      return { ...feed, filter: action.payload };
     default:
       return feed;
   }

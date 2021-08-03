@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const commentSchema = new mongoose.Schema({
   parent_id: String, //_id of post or workout added to it
-  text: String,
+  text: { type: String, required: true },
   author: String, //Username
   date: String,
 });

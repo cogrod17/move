@@ -23,7 +23,7 @@ const Post = ({ post }) => {
           <p className="feed-description">{text}</p>
         </div>
       </div>
-      <CommentSection />
+      <CommentSection id={post._id} />
     </div>
   );
 };

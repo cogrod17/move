@@ -1,7 +1,6 @@
 const defaultFeed = { filter: "Everyone", items: null };
 
 export const feedReducer = (feed = defaultFeed, action) => {
-  console.log(action.payload);
   switch (action.type) {
     case "FEED":
       return { ...feed, items: action.payload };

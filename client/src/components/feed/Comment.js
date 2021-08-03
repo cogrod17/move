@@ -1,17 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
+import history from "../../history";
+import { formatDate } from "../../helperFunctions";
 
-const Comment = () => {
+const Comment = ({ data }) => {
   return (
     <div className="comment">
       <div>
-        <h4>Username along one</h4>
-        <p className="comment-date">date</p>
+        <h4 onClick={() => history.push(`/profile/${data.author}`)}>
+          {data.author}
+        </h4>
+        <p className="comment-date">{formatDate(data.date)}</p>
       </div>
-      <p>
-        This is a comment about the post! alsdkjf a;slkfjqweoifj a aasdf a asdf
-        asdfasdfa sa sdfa adsfadsf a;sdlkfj q[weoifj ;lak aelfj{" "}
-      </p>
+      <p className="comment-body">{data.text}</p>
     </div>
   );
 };

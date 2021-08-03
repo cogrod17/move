@@ -7,7 +7,7 @@ router.post("/comments/:parent_id", auth, async (req, res) => {
   try {
     const comment = await new Comment({
       parent_id: req.params.parent_id,
-      text: req.body.text,
+      text: req.headers.text,
       author: req.user.username,
     });
 

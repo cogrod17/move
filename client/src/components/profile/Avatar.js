@@ -34,11 +34,3 @@ const Avatar = ({ viewUser, user, openModal }) => {
 const mapStateToProps = (state) => state;
 
 export default connect(mapStateToProps, { openModal })(Avatar);
-
-{
-  /*user.username === username ? (
-        <div onClick={() => openModal("edit-avatar")} className="upload-btn">
-          Upload Picture
-        </div>
-      ) : null*/
-}

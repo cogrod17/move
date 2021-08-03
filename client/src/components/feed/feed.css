@@ -77,7 +77,8 @@
   cursor: pointer;
 }
 
-.feed-username:hover {
+.feed-username:hover,
+.comment h4:hover {
   text-decoration: underline;
 }
 
@@ -87,7 +88,7 @@
 }
 
 .feed-description {
-  padding-top: 20px;
+  padding: 10px;
 }
 
 .feed-item img {
@@ -137,6 +138,7 @@
 }
 
 .comments-container {
+  position: relative;
   display: flex;
   flex-direction: column;
 
@@ -144,17 +146,34 @@
   overflow: auto;
 }
 
+.comment-tag {
+  border-top: grey solid 1px;
+  border-bottom: grey solid 1px;
+  font-size: 75%;
+}
+
 .comment {
   display: inline-block;
+  font-size: 80%;
   padding: 0 5px;
-  margin: 10px;
+  margin: 5px;
   margin-left: 30px;
-  border-left: grey solid 1px;
 }
 
 .comment div {
   display: flex;
   align-items: flex-end;
+  margin-bottom: 5px;
+}
+
+.comment h4 {
+  font-size: 140%;
+  cursor: pointer;
+}
+
+.comment-body {
+  border-left: grey solid 1px;
+  padding: 0 15px;
 }
 
 .comment-date {
@@ -163,8 +182,9 @@
 }
 
 .comment-input {
+  padding-bottom: 5px;
   width: 60%;
-  margin: 0 10px;
+  margin: 5px 10px;
 }
 
 .comment-input input {

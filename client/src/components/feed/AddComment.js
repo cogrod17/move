@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { server } from "../../api";
 
-const AddComment = () => {
-  const [text, setText] = useState();
+const AddComment = ({ getComments, id, token }) => {
+  const [text, setText] = useState("");
 
-  const add = (e) => {
+  const add = async (e) => {
     e.preventDefault();
     if (text.length === 0) return;
-    //newPost(post, token);
     setText("");
+    await server.post(`/comments/${id}`, text, {
+      headers: { Authorization: `Bearer ${token}`, text },
+    });
+    getComments();
   };
 
   return (

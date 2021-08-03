@@ -23,7 +23,7 @@ const Feed = ({ getFeed, feed, token, user }) => {
           !user.friends.includes(item.username) &&
           item.username !== user.username
         )
-          return;
+          return null;
       }
 
       return item.text ? (

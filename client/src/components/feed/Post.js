@@ -7,7 +7,7 @@ const Post = ({ post }) => {
   return (
     <div className="feed-item post">
       <div className="section-container">
-        <div className="section-stats">
+        <div>
           <PostHeader post={post} />
           <p className="feed-description">{post.text}</p>
         </div>

@@ -31,7 +31,7 @@ const WorkoutCard = ({ workout }) => {
         <p className="item-title">{workout.title}</p>
       </div>
       <div>
-        <p className="feed-date">{formatDate(workout.date)}</p>
+        <p className="card-date">{formatDate(workout.date)}</p>
       </div>
 
       <div className={`stats`}>

@@ -177,8 +177,21 @@
   border: red solid 2px;
 }
 
+/*
+.section-stats {
+  border: blue solid 1px;
+  width: 60%;
+  margin: 15px auto;
+}
+*/
+
 .section-stats div {
   display: grid;
+}
+
+.card-date {
+  border-top: grey solid 1px;
+  margin-bottom: 10px;
 }
 
 .profile-info {
@@ -225,6 +238,7 @@ h2 {
 
 .two div {
   grid-template-columns: 50% 50%;
+  padding-left: 25px;
 }
 
 .stat {

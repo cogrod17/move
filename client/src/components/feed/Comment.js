@@ -5,10 +5,10 @@ import { formatDate } from "../../helperFunctions";
 const Comment = ({ data }) => {
   return (
     <div className="comment">
+      <h4 onClick={() => history.push(`/profile/${data.author}`)}>
+        {data.author}
+      </h4>
       <div>
-        <h4 onClick={() => history.push(`/profile/${data.author}`)}>
-          {data.author}
-        </h4>
         <p className="comment-body">{data.text}</p>
         <p className="comment-date">{formatDate(data.date)}</p>
       </div>

@@ -19,7 +19,7 @@ const CommentSection = ({ id }) => {
   const renderComments = () => {
     getComments();
     if (comments === "error") return <div>There was an error</div>;
-    if (!comments.length) return <p>There are no comments yet</p>;
+    if (!comments.length) return null;
 
     return comments.map((c, i) => {
       return <Comment key={i} data={c} />;

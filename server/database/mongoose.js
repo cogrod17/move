@@ -10,3 +10,8 @@ mongoose
   })
   .then(() => console.log("database connected"))
   .catch((e) => console.log("database NOT connected"));
+
+/* 
+database
+/Users/Cole/MongoDB/bin/mongod --dbpath="MongoDB-data"
+*/

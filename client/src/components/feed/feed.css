@@ -1,6 +1,6 @@
 .feed-container {
   height: 100%;
-  max-width: 800px;
+  max-width: 650px;
   margin: 0 auto;
   padding: 0 10px;
 }
@@ -8,21 +8,25 @@
 .feed-section {
   width: 100%;
   display: grid;
+  grid-template-columns: 100%;
 }
 
+/*
 .pic {
   grid-template-columns: 50% 50%;
 }
-
+*/
 .workout-image {
+  position: relative;
   max-height: 300px;
 }
 
 .feed-item {
   background-color: var(--sectionBackground);
   box-shadow: var(--boxShadow);
-  border-left: var(--borderMain);
-  border-radius: 10px 0px 0px 10px;
+  border: #385e72 solid 1px;
+  border-top: var(--borderMain);
+  border-radius: 10px 10px 10px 10px;
   margin-top: 20px;
   margin-bottom: 30px;
   height: 100%;
@@ -30,23 +34,16 @@
 
 .post {
   margin-bottom: 30px;
-  border-left: var(--borderSecondary) !important;
+  border-top: var(--borderSecondary);
 }
 
+/*
 @media (max-width: 650px) {
   .feed-section {
     grid-template-columns: 100%;
   }
-  .feed-item {
-    border-top: var(--borderMain);
-    border-radius: 10px 10px 0px 0px;
-    border-left: none;
-  }
-  .post {
-    border-top: var(--borderSecondary) !important;
-    border-left: none !important;
-  }
 }
+*/
 
 .feed-item p {
   margin: 0 5px;
@@ -71,10 +68,47 @@
   margin-left: auto;
 }
 
+.post-user {
+  display: flex !important;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+
+.post-avatar {
+  background: white;
+  display: flex;
+  max-height: 50px;
+  min-height: 50px;
+  max-width: 50px;
+  min-width: 50px;
+  border-radius: 50%;
+  border: grey solid 1px;
+  margin: 5px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.username-date {
+  align-content: flex-start;
+  display: grid;
+  grid-auto-columns: 60% 40%;
+  width: 100%;
+  height: 50px;
+}
+
+.post-avatar img,
+.post-avatar div {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
 .feed-username {
   font-size: 150%;
   font-weight: 900;
   cursor: pointer;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .feed-username:hover,
@@ -83,8 +117,9 @@
 }
 
 .feed-date {
-  border-bottom: grey solid 1px;
-  font-size: 75%;
+  align-content: flex-start;
+  font-size: 60%;
+  margin: 0 !important;
 }
 
 .feed-description {
@@ -155,30 +190,29 @@
 .comment {
   display: inline-block;
   font-size: 80%;
-  padding: 0 5px;
-  margin: 5px;
+
   margin-left: 30px;
 }
 
 .comment div {
   display: flex;
-  align-items: flex-end;
-  margin-bottom: 5px;
+  align-items: center;
 }
 
 .comment h4 {
-  font-size: 140%;
+  font-size: 120%;
   cursor: pointer;
 }
 
 .comment-body {
-  border-left: grey solid 1px;
-  padding: 0 15px;
+  padding: 0 5px;
+  font-size: 90%;
 }
 
 .comment-date {
   font-size: 70%;
   padding-left: 20px;
+  justify-content: end;
 }
 
 .comment-input {

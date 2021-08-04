@@ -1,26 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
-import { formatDate } from "../../helperFunctions";
-import history from "../../history";
 import CommentSection from "./CommentSection";
+import PostHeader from "./PostHeader";
 
 const Post = ({ post }) => {
-  const { date, text, username } = post;
-
   return (
     <div className="feed-item post">
       <div className="section-container">
         <div className="section-stats">
-          <div>
-            <p
-              onClick={() => history.push(`/profile/${username}`)}
-              className="feed-username"
-            >
-              {username}
-            </p>
-            <p className="feed-date">{formatDate(date)}</p>
-          </div>
-          <p className="feed-description">{text}</p>
+          <PostHeader post={post} />
+          <p className="feed-description">{post.text}</p>
         </div>
       </div>
       <CommentSection id={post._id} />

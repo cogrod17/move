@@ -10,6 +10,7 @@ import "./feed.css";
 
 const Feed = ({ getFeed, feed, token, user }) => {
   useEffect(() => {
+    if (!token) return;
     getFeed(token);
   }, [getFeed, token]);
 

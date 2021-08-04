@@ -1,10 +1,12 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 const Loader = () => {
   return (
-    <div className="loader-container">
-      <div className="loader"></div>
-    </div>
+    <Fragment>
+      <div className="loader-container">
+        <div className="loader"></div>
+      </div>
+    </Fragment>
   );
 };
 

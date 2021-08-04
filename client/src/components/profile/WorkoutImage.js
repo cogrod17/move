@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { deleteWorkout, openModal } from "../../actions";
+import Loader from "../misc./Loader";
 import strengthPic from "../../images/strength.jpg";
 import cardioPic from "../../images/cardio.jpg";
 
@@ -23,9 +24,11 @@ const WorkoutImage = (props) => {
 
   return (
     <div
-      className={`workout-visual ${username === user.username ? "edit" : ""}`}
+      className={`workout-visual ${
+        username === user.username && !picLoading ? "edit" : ""
+      }`}
     >
-      <div>
+      <div className="card-btns">
         <p onClick={() => openModal(`edit-workout-img:${workout._id}`)}>Edit</p>
         <p
           onClick={() =>
@@ -41,6 +44,7 @@ const WorkoutImage = (props) => {
           Delete
         </p>
       </div>
+      {picLoading && <Loader />}
       <img
         src={pic}
         alt={"workout-card"}

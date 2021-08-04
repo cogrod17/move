@@ -1,60 +1,43 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { formatDate } from "../../helperFunctions";
-import history from "../../history";
+import WorkoutFeedImage from "./WorkoutFeedImage";
 import CommentSection from "./CommentSection";
+import PostHeader from "./PostHeader";
 
 const WorkoutFeed = ({ item }) => {
   const [hasPic, setHasPic] = useState(true);
-  const [picLoading, setPicLoading] = useState(true);
-  const { username, date, type, distance, duration, pace, description } = item;
+  const { type, distance, duration, pace, description } = item;
 
   return (
     <div className="feed-item">
       <div className={`feed-section ${!hasPic ? null : "pic"}`}>
-        <div className="section-stats two">
-          <p
-            className="feed-username"
-            onClick={() => history.push(`/profile/${username}`)}
-          >
-            {username}
-          </p>
-          <p className="feed-date">{formatDate(date)}</p>
-          <div>
-            <p>Type</p>
-            <p>{type.toUpperCase()}</p>
-          </div>
-          {type === "cardio" ? (
+        <div className="section-stats">
+          <PostHeader post={item} />
+          <div className="two">
             <div>
-              <p>Distance</p>
-              <p>{distance} miles</p>
+              <p>Type</p>
+              <p>{type.toUpperCase()}</p>
             </div>
-          ) : null}
-          <div>
-            <p>Duration</p>
-            <p>{duration} minutes</p>
-          </div>
-          {type === "cardio" ? (
+            {type === "cardio" ? (
+              <div>
+                <p>Distance</p>
+                <p>{distance} miles</p>
+              </div>
+            ) : null}
             <div>
-              <p>Pace</p>
-              <p>{pace} m/mile</p>
+              <p>Duration</p>
+              <p>{duration} minutes</p>
             </div>
-          ) : null}
+            {type === "cardio" ? (
+              <div>
+                <p>Pace</p>
+                <p>{pace} m/mile</p>
+              </div>
+            ) : null}
+          </div>
           <p className="feed-description">{description}</p>
         </div>
-        <div className="workout-image">
-          <img
-            src={`http://localhost:3001/workout/image/${item._id}`}
-            alt={"workout"}
-            className={`smooth-image image-${
-              !picLoading ? "visible" : "hidden"
-            }`}
-            onLoad={() => setPicLoading(false)}
-            onError={() => {
-              setHasPic(false);
-            }}
-          />
-        </div>
+        {hasPic && <WorkoutFeedImage workout={item} setHasPic={setHasPic} />}
       </div>
       <CommentSection id={item._id} />
     </div>

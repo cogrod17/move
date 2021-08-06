@@ -31,7 +31,7 @@
 
 .contacts p:hover {
   background: rgba(173, 173, 173, 0.5);
-  border-left: rgb(9, 187, 9) 5px solid;
+  border-left: var(--btnColorSec) 5px solid;
 }
 
 .contacts div {
@@ -64,22 +64,17 @@
   max-height: 70vh;
   min-height: 70vh;
   width: 100%;
+
   overflow: auto;
   background: rgba(173, 173, 173, 0.3);
 }
 
-.conversation div {
-  display: flex;
-  flex-direction: row;
-}
-
 .received,
 .sent {
-  display: flex;
+  display: inline-block;
+  flex-direction: column;
   position: relative;
-  border-radius: 10px;
   color: white;
-  padding: 2.5px 5px;
   max-width: 50%;
   margin: 2.5px;
 }
@@ -87,11 +82,40 @@
 .received {
   align-self: flex-start;
   margin-left: 5px;
-  background: rgb(32, 74, 211);
+  text-align: left;
 }
 
 .sent {
   align-self: flex-end;
   margin-right: 5px;
+  text-align: right;
+}
+
+.received p:nth-child(1),
+.sent p:nth-child(1) {
+  display: inline-block !important;
+  border-radius: 10px;
+  padding: 2.5px 10px;
+  text-align: center;
+}
+
+.received p:nth-child(1) {
+  background: rgb(32, 74, 211);
+}
+
+.sent p:nth-child(1) {
   background: rgb(9, 187, 9);
+  right: 0;
+}
+
+.received p:nth-child(2),
+.sent p:nth-child(2) {
+  font-size: 50%;
+  color: rgb(0, 0, 0);
+  padding: 0 5px;
+}
+
+.no-active {
+  text-align: center;
+  align-items: center;
 }

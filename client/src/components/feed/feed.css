@@ -55,8 +55,9 @@
   padding-left: 45px;
 }
 
-.feed-item p {
-  margin: 0 5px;
+.feed-stats div p:nth-child(1) {
+  border-right: 1px rgb(128, 128, 128, 0.5) solid;
+  margin-right: 25px !important;
 }
 
 .input-feed {
@@ -226,7 +227,6 @@
 
 .comment-date {
   font-size: 60%;
-  margin-left: 35px;
 }
 
 .comment-input {
@@ -237,9 +237,8 @@
 }
 
 .comment-input input {
-  width: 92.5%;
+  width: 90%;
   border: grey solid 1px;
   border-radius: 5px;
   outline: none;
-  padding: 0 10px;
 }

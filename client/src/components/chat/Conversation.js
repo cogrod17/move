@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { getChatHistory, receiveMessage, selectChat } from "../../actions";
+import { formatDate } from "../../helperFunctions";
 
 const Conversation = (props) => {
   const {
@@ -28,8 +29,8 @@ const Conversation = (props) => {
 
     socket.emit("create", room);
     socket.on("receiveMessage", (message) => {
-      scrollToBottom();
       receiveMessage(message);
+      scrollToBottom();
     });
 
     return () => socket.disconnect();
@@ -38,7 +39,9 @@ const Conversation = (props) => {
 
   ////////////////////////////
   if (!activeChat)
-    return <h1 className="conversation">Pick a friend to chat with!</h1>;
+    return (
+      <h2 className="conversation no-active">Pick a friend to chat with!</h2>
+    );
   ////////////////////////////
 
   const renderHistory = () => {
@@ -49,40 +52,40 @@ const Conversation = (props) => {
       .reverse();
 
     if (!messages) return null;
-    scrollToBottom();
 
     return messages.map((msg, i) => {
+      if (messages.length - 1 === i) console.log(i);
       if (msg.author === user.username) {
         return (
-          <p className="sent" key={i}>
-            {msg.message}
-          </p>
+          <div className="msg sent" key={i}>
+            <p id="msg" ref={i === 0 ? ref : null}>
+              {msg.message}
+            </p>
+            <p>{formatDate(msg.created_at)}</p>
+          </div>
         );
       } else {
         return (
-          <p className="received" key={i}>
-            {msg.message}
-          </p>
+          <div className="received " key={i}>
+            <p id="msg" ref={i === 0 ? ref : null}>
+              {msg.message}
+            </p>
+
+            <p>{formatDate(msg.created_at)}</p>
+          </div>
         );
       }
     });
   };
 
   ////////////////////////////
+  scrollToBottom();
 
   return (
     <div>
       <h3 className="chat-username">{activeChat.username}</h3>
 
-      <div className="conversation">
-        <div
-          style={{
-            padding: "20px",
-          }}
-          ref={ref}
-        ></div>
-        {renderHistory()}
-      </div>
+      <div className="conversation">{renderHistory()}</div>
     </div>
   );
 };

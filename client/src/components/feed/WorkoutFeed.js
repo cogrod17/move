@@ -39,7 +39,6 @@ const WorkoutFeed = ({ item }) => {
           ) : null}
         </div>
       </div>
-
       <CommentSection id={item._id} />
     </div>
   );

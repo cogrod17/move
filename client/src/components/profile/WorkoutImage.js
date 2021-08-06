@@ -2,33 +2,19 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { deleteWorkout, openModal } from "../../actions";
 import Loader from "../misc./Loader";
-import strengthPic from "../../images/strength.jpg";
-import cardioPic from "../../images/cardio.jpg";
 
 const WorkoutImage = (props) => {
   const { workout, viewUser, user, openModal, deleteWorkout } = props;
-  const [pic, setPic] = useState(
-    `http://localhost:3001/workout/image/${workout._id}`
-  );
+
+  const [hasPic, setHasPic] = useState(true);
   const [picLoading, setPicLoading] = useState(true);
   const { username } = viewUser.user;
 
-  const setDefaultPic = () => {
-    if (
-      workout.type.toLowerCase() === "strength" ||
-      workout.type.toLowerCase() === "hiit"
-    )
-      setPic(strengthPic);
-    if (workout.type.toLowerCase() === "cardio") setPic(cardioPic);
-  };
-
   return (
     <div
-      className={`workout-visual ${
-        username === user.username && !picLoading ? "edit" : ""
-      }`}
+      className={`workout-visual ${username === user.username ? "edit" : ""}`}
     >
-      <div className="card-btns">
+      <div className={`${username === user.username ? "card-btns" : "hidden"}`}>
         <p onClick={() => openModal(`edit-workout-img:${workout._id}`)}>Edit</p>
         <p
           onClick={() =>
@@ -45,16 +31,21 @@ const WorkoutImage = (props) => {
         </p>
       </div>
       {picLoading && <Loader />}
-      <img
-        src={pic}
-        alt={"workout-card"}
-        className={`smooth-image image-${!picLoading ? "visible" : "hidden"}`}
-        onLoad={() => setPicLoading(false)}
-        onError={() => {
-          setDefaultPic();
-          setPicLoading(false);
-        }}
-      />
+      {hasPic ? (
+        <img
+          src={`http://localhost:3001/workout/image/${workout._id}`}
+          alt={"workout-card"}
+          className={`smooth-image image-${!picLoading ? "visible" : "hidden"}`}
+          onLoad={() => {
+            setHasPic(true);
+            setPicLoading(false);
+          }}
+          onError={() => {
+            setHasPic(false);
+            setPicLoading(false);
+          }}
+        />
+      ) : null}
     </div>
   );
 };

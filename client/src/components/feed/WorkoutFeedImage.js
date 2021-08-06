@@ -8,7 +8,6 @@ const WorkoutFeedImage = ({ workout, setHasPic }) => {
   return (
     <div className="workout-image">
       {picLoading && <Loader />}
-
       <img
         src={`http://localhost:3001/workout/image/${workout._id}`}
         alt={"workout"}

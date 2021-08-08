@@ -6,7 +6,9 @@ const auth = require("../middleware/auth");
 const sortByDate = require("./helperFunctions");
 
 //get all posts and workouts
-router.get("/feed", auth, async (req, res) => {
+router.get("/feed", async (req, res) => {
+  const { page, limit } = req.query;
+
   try {
     const workouts = await Workout.find();
 
@@ -16,9 +18,13 @@ router.get("/feed", auth, async (req, res) => {
 
     await feed.sort(sortByDate);
 
-    res.status(200).send(feed);
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+
+    const result = feed.slice(startIndex, endIndex);
+
+    res.status(200).send(result);
   } catch (e) {
-    console.log(e);
     res.status(400).send(e);
   }
 });

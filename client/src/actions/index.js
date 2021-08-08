@@ -195,9 +195,18 @@ export const createWorkout = (values) => async (dispatch, getState) => {
 ////////////////////////////////////
 //////////////////////////////////////
 
-export const getFeed = (token) => async (dispatch) => {
+export const getFeed = () => async (dispatch, getState) => {
+  const { token, feed } = getState();
+
+  if (!feed.hasMore) return;
+
   try {
-    const res = await server.get("/feed", auth(token));
+    const res = await server.get(
+      `/feed?page=${feed.page}&limit=10`,
+      auth(token)
+    );
+
+    if (!res.data.length) dispatch({ type: "END_OF_FEED", payload: null });
 
     dispatch({ type: "FEED", payload: res.data });
   } catch (e) {

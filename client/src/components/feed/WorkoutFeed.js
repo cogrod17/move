@@ -4,12 +4,12 @@ import WorkoutFeedImage from "./WorkoutFeedImage";
 import CommentSection from "./CommentSection";
 import PostHeader from "./PostHeader";
 
-const WorkoutFeed = ({ item }) => {
+const WorkoutFeed = ({ item, innerRef }) => {
   const [hasPic, setHasPic] = useState(true);
   const { type, distance, duration, pace, description } = item;
 
   return (
-    <div className="feed-item">
+    <div ref={innerRef ? innerRef : null} className="feed-item">
       <div className={`feed-section ${!hasPic ? null : "pic"}`}>
         <div>
           <PostHeader post={item} />

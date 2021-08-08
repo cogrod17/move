@@ -1,5 +1,6 @@
 .feed-container {
-  height: 100%;
+  position: relative;
+  min-height: 200vh;
   max-width: 650px;
   margin: 0 auto;
   padding: 0 10px;
@@ -51,13 +52,13 @@
 }
 
 .feed-stats div p:nth-last-of-type(1) {
-  width: 100px;
+  width: 150px;
   padding-left: 45px;
 }
 
 .feed-stats div p:nth-child(1) {
   border-right: 1px rgb(128, 128, 128, 0.5) solid;
-  margin-right: 25px !important;
+  margin-right: 20%;
 }
 
 .input-feed {

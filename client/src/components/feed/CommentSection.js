@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { connect } from "react-redux";
 import Comment from "./Comment";
 import AddComment from "./AddComment";
@@ -7,17 +7,21 @@ import { server } from "../../api";
 const CommentSection = ({ id }) => {
   const [comments, setComments] = useState([]);
 
-  const getComments = async () => {
+  const getComments = useCallback(async () => {
     try {
       const { data } = await server.get(`/comments/${id}`);
       setComments(data);
     } catch (e) {
       setComments("error");
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    getComments();
+  }, [getComments]);
 
   const renderComments = () => {
-    getComments();
+    if (!comments) return;
     if (comments === "error") return <div>There was an error</div>;
     if (!comments.length) return null;
 

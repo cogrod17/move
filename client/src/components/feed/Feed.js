@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import { connect } from "react-redux";
 import WorkoutFeed from "./WorkoutFeed";
 import Post from "./Post";
@@ -9,16 +9,32 @@ import { getFeed } from "../../actions";
 import "./feed.css";
 
 const Feed = ({ getFeed, feed, token, user }) => {
+  const observer = useRef();
+
   useEffect(() => {
-    if (!token) return;
-    getFeed(token);
-  }, [getFeed, token]);
+    if (!token || !feed.hasMore) return;
+    getFeed();
+  }, [feed.hasMore, getFeed, token]);
+
+  const lastElRef = useCallback(
+    (node) => {
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          getFeed();
+        }
+      });
+
+      if (node) observer.current.observe(node);
+    },
+    [getFeed]
+  );
 
   const renderFeed = () => {
     if (!feed.items) return <Loader />;
 
     return feed.items.map((item, i) => {
-      // if (user.friends.includes(item.username))
       if (feed.filter !== "Everyone") {
         if (
           !user.friends.includes(item.username) &&
@@ -26,11 +42,18 @@ const Feed = ({ getFeed, feed, token, user }) => {
         )
           return null;
       }
-
       return item.text ? (
-        <Post post={item} key={i} />
+        <Post
+          post={item}
+          key={i}
+          innerRef={i === feed.items.length - 1 ? lastElRef : null}
+        />
       ) : (
-        <WorkoutFeed item={item} key={i} />
+        <WorkoutFeed
+          item={item}
+          key={i}
+          innerRef={i === feed.items.length - 1 ? lastElRef : null}
+        />
       );
     });
   };

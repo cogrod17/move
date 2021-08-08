@@ -1,9 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
-import { openModal, toggleDropdown } from "../../actions";
+import { openModal, toggleDropdown, logout } from "../../actions";
 import history from "../../history";
 
-const Dropdown = ({ user, isDropdownOpen, openModal, toggleDropdown }) => {
+const Dropdown = ({
+  user,
+  isDropdownOpen,
+  openModal,
+  toggleDropdown,
+  logout,
+}) => {
   if (!isDropdownOpen) return null;
 
   const go = (path) => {
@@ -19,7 +25,7 @@ const Dropdown = ({ user, isDropdownOpen, openModal, toggleDropdown }) => {
       <p
         onClick={() => {
           toggleDropdown();
-          openModal("logout");
+          openModal({ type: "confirm", action: logout, header: "Logout?" });
         }}
       >
         Logout
@@ -30,6 +36,6 @@ const Dropdown = ({ user, isDropdownOpen, openModal, toggleDropdown }) => {
 
 const mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps, { openModal, toggleDropdown })(
+export default connect(mapStateToProps, { openModal, toggleDropdown, logout })(
   Dropdown
 );

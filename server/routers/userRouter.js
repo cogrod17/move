@@ -125,7 +125,7 @@ router.get("/viewuser", auth, async (req, res) => {
 //Update User
 router.patch("/update/user", auth, async (req, res) => {
   const updates = Object.keys(req.body);
-  const allowedUpdates = ["username", "email", "password"];
+  const allowedUpdates = ["email", "password"];
   const isValid = updates.every((key) => allowedUpdates.includes(key));
 
   if (!isValid) res.status(400).send({ error: "invalid updates" });

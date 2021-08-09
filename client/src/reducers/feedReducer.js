@@ -1,4 +1,4 @@
-const defaultFeed = { filter: "Everyone", page: 1, items: null, hasMore: true };
+const defaultFeed = { filter: "none", page: 1, items: null, hasMore: true };
 
 export const feedReducer = (feed = defaultFeed, action) => {
   switch (action.type) {
@@ -19,7 +19,7 @@ export const feedReducer = (feed = defaultFeed, action) => {
     case "NEW_POST":
       return { ...feed, items: [action.payload, ...feed.items] };
     case "FILTER_FEED":
-      return { ...feed, filter: action.payload };
+      return { page: 1, filter: action.payload, items: null, hasMore: true };
     case "END_OF_FEED":
       return { ...feed, hasMore: false };
     default:

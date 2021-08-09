@@ -10,7 +10,7 @@ class Login extends Component {
 
   render() {
     if (this.props.activeModal !== "login") return null;
-    const { closeModal, login } = this.props;
+    const { closeModal, login, user } = this.props;
 
     return (
       <div className="modal-container">
@@ -26,10 +26,11 @@ class Login extends Component {
           <div className="form-field">
             <input
               onChange={(e) => this.setState({ password: e.target.value })}
-              type="text"
+              type="password"
             />
             <label>Password</label>
           </div>
+          {user && user.error && <div className="error-msg">{user.error}</div>}
           <p
             className="form-button"
             onClick={() => login(this.state.email, this.state.password)}

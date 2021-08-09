@@ -8,6 +8,7 @@ import ConfirmModal from "./misc./ConfirmModal";
 import Friends from "./friends/Friends";
 import FriendRequests from "./friends/FriendRequests";
 import EditImage from "./profile/EditImage";
+import EditProfile from "./profile/EditProfile";
 import NewChat from "./chat/NewChat";
 import NewWorkout from "./profile/NewWorkout";
 import history from "../history";
@@ -39,6 +40,7 @@ class App extends React.Component {
         <NewChat />
         <EditImage />
         <NewWorkout />
+        <EditProfile />
         <Router history={history}>
           <ScrollToTop />
           <Header />

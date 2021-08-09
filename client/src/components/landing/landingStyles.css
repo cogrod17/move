@@ -83,3 +83,8 @@
 .form-button:hover {
   color: var(--btnColorSec);
 }
+
+.error-msg {
+  color: red;
+  font-size: 80%;
+}

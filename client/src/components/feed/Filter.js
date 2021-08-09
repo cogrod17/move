@@ -17,8 +17,10 @@ const Filter = ({ filterFeed, feed }) => {
       {isOpen && (
         <div className="filter-dropdown">
           <ul>
-            <p onClick={() => filterFeed("Everyone")}>Everyone</p>
+            <p onClick={() => filterFeed("None")}>None</p>
             <p onClick={() => filterFeed("Friends")}>Friends</p>
+            <p onClick={() => filterFeed("Workouts")}>Workouts</p>
+            <p onClick={() => filterFeed("Posts")}>Posts</p>
           </ul>
         </div>
       )}

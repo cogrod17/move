@@ -43,7 +43,6 @@ workoutSchema.methods.calcPace = function () {
 
 workoutSchema.pre("save", async function (next) {
   this.date = new Date();
-
   next();
 });
 

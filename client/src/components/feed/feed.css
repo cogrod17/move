@@ -181,7 +181,7 @@
   background: var(--sectionBackground);
   border: black solid 1px;
   z-index: 1;
-  height: 60px;
+  height: 110px;
   width: 100%;
 }
 

@@ -1,8 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import * as d3 from "d3";
-//import { node } from "./d3file";
-//const RD3Component = rd3.Component;
 
 const SumVis = ({ viewUser }) => {
   const { cardioDays, hiitDays, strengthDays, moveDays } = viewUser.summary;
@@ -14,6 +12,7 @@ const SumVis = ({ viewUser }) => {
   }, []);
 
   const makeDonut = (data) => {
+    if (moveDays === 0) return;
     const height = 220;
     const width = 380;
     const margin = 45;
@@ -35,8 +34,8 @@ const SumVis = ({ viewUser }) => {
 
     const arc = d3
       .arc()
-      .innerRadius(110)
-      .outerRadius(radius * 0.9);
+      .innerRadius(100)
+      .outerRadius(radius * 0.7);
 
     svg
       .selectAll()
@@ -64,7 +63,7 @@ const SumVis = ({ viewUser }) => {
       })
       .attr("transform", (d) => {
         let r;
-        d.data[0] === "cardioDays" ? (r = 1.7) : (r = 1.55);
+        d.data[0] === "cardioDays" ? (r = 1.8) : (r = 1.55);
         let y = arc.centroid(d).map((x) => x * r);
         return `translate(${y})`;
       });

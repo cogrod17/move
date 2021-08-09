@@ -8,13 +8,13 @@ import Loader from "../misc./Loader";
 import { getFeed } from "../../actions";
 import "./feed.css";
 
-const Feed = ({ getFeed, feed, token, user }) => {
+const Feed = ({ getFeed, feed, token }) => {
   const observer = useRef();
 
   useEffect(() => {
     if (!token || !feed.hasMore) return;
     getFeed();
-  }, [feed.hasMore, getFeed, token]);
+  }, [feed.hasMore, getFeed, token, feed.filter]);
 
   const lastElRef = useCallback(
     (node) => {
@@ -31,17 +31,11 @@ const Feed = ({ getFeed, feed, token, user }) => {
     [getFeed]
   );
 
+  //in order to filter the feed we will need to rerender it
   const renderFeed = () => {
     if (!feed.items) return <Loader />;
 
     return feed.items.map((item, i) => {
-      if (feed.filter !== "Everyone") {
-        if (
-          !user.friends.includes(item.username) &&
-          item.username !== user.username
-        )
-          return null;
-      }
       return item.text ? (
         <Post
           post={item}

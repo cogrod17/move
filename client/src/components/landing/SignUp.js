@@ -9,14 +9,25 @@ class SignUp extends Component {
     email: "",
     password: "",
     confirmPass: "",
+    error: null,
   };
 
   onCreate = () => {
-    this.props.createUser(
-      this.state.username,
-      this.state.email,
-      this.state.password
-    );
+    const { username, email, password, confirmPassword } = this.state;
+    if (username.includes(" ") || username.length >= 12) {
+      this.setState({
+        error:
+          "username cannot have spaces and must be less than 12 characters",
+      });
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      this.setState({ error: "passwords do not match" });
+      return;
+    }
+
+    this.props.createUser(username, email, password);
   };
 
   render() {
@@ -41,15 +52,20 @@ class SignUp extends Component {
           <div className="form-field">
             <input
               onChange={(e) => this.setState({ password: e.target.value })}
+              type="password"
             />
             <label>Password</label>
           </div>
           <div className="form-field">
             <input
               onChange={(e) => this.setState({ confirmPass: e.target.value })}
+              type="password"
             />
             <label>Confirm Password</label>
           </div>
+          {this.state.error && (
+            <div className="error-msg">{this.state.error}</div>
+          )}
           <p className="form-button" onClick={this.onCreate}>
             →
           </p>

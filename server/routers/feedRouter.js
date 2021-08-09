@@ -6,20 +6,43 @@ const auth = require("../middleware/auth");
 const sortByDate = require("./helperFunctions");
 
 //get all posts and workouts
-router.get("/feed", async (req, res) => {
-  const { page, limit } = req.query;
+router.get("/feed", auth, async (req, res) => {
+  const { page, limit, filter } = req.query;
+  const { user } = req;
+  console.log(filter);
 
   try {
-    const workouts = await Workout.find();
-
-    const posts = await Post.find();
-
-    let feed = await [...workouts, ...posts];
-
-    await feed.sort(sortByDate);
-
+    let feed;
+    let workouts;
+    let posts;
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
+
+    if (filter.toLowerCase() === "none") {
+      workouts = await Workout.find();
+      posts = await Post.find();
+      feed = [...workouts, ...posts];
+    }
+
+    if (filter.toLowerCase() === "friends") {
+      workouts = await Workout.find({
+        $or: [{ username: user.friends }, { username: user.username }],
+      });
+      posts = await Post.find({
+        $or: [{ username: user.friends }, { username: user.username }],
+      });
+      feed = [...workouts, ...posts];
+    }
+
+    if (filter.toLowerCase() === "workouts") {
+      feed = await Workout.find();
+    }
+
+    if (filter.toLowerCase() === "posts") {
+      feed = await Post.find();
+    }
+
+    feed.sort(sortByDate);
 
     const result = feed.slice(startIndex, endIndex);
 

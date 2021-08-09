@@ -146,15 +146,19 @@ export const logout = () => async (dispatch, getState) => {
 //////////////////////////////////////
 //////////////////////////////////////
 
-// export const getWorkoutHistory = (token) => async (dispatch) => {
-//   try {
-//     const res = await server.get("/workout/history", auth(token));
+export const updateUser = (updates) => async (dispatch, getState) => {
+  const { token } = getState();
 
-//     dispatch({ type: "WORKOUT_HISTORY", payload: res.data });
-//   } catch (e) {
-//     console.log(e);
-//   }
-// };
+  try {
+    const { data } = await server.patch("/update/user", updates, auth(token));
+
+    dispatch(setUser(data));
+    dispatch(getViewUser(data.username));
+    dispatch(closeModal());
+  } catch (e) {
+    dispatch({ type: "UPDATE_USER_ERROR", payload: e });
+  }
+};
 
 ////////////////////////////////////
 //////////////////////////////////////
@@ -202,7 +206,7 @@ export const getFeed = () => async (dispatch, getState) => {
 
   try {
     const res = await server.get(
-      `/feed?page=${feed.page}&limit=10`,
+      `/feed?page=${feed.page}&limit=10&filter=${feed.filter}`,
       auth(token)
     );
 
@@ -480,9 +484,7 @@ export const deleteWorkout = (workout_id) => async (dispatch, getState) => {
 //////////////////////////////////////
 //////////////////////////////////////
 
-export const filterFeed = (params) => {
-  return {
-    type: "FILTER_FEED",
-    payload: params,
-  };
+export const filterFeed = (params) => async (dispatch) => {
+  await dispatch({ type: "FILTER_FEED", payload: params });
+  // dispatch(getFeed());
 };

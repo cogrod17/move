@@ -17,6 +17,12 @@ const ProfileInfo = ({ viewUser, openModal }) => {
           {`${friends.length} Friends`}
         </p>
         <FriendButton />
+        <p
+          onClick={() => openModal("edit-account")}
+          className="edit-account-btn"
+        >
+          Edit account
+        </p>
       </div>
     </div>
   );

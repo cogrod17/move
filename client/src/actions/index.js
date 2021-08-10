@@ -206,7 +206,7 @@ export const getFeed = () => async (dispatch, getState) => {
 
   try {
     const res = await server.get(
-      `/feed?page=${feed.page}&limit=10&filter=${feed.filter}`,
+      `/feed?page=${feed.page}&limit=5&filter=${feed.filter}`,
       auth(token)
     );
 

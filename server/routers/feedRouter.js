@@ -9,7 +9,6 @@ const sortByDate = require("./helperFunctions");
 router.get("/feed", auth, async (req, res) => {
   const { page, limit, filter } = req.query;
   const { user } = req;
-  console.log(filter);
 
   try {
     let feed;

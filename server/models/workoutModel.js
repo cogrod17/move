@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Image = require("./imageModel");
 
 const workoutSchema = new mongoose.Schema({
   title: {
@@ -45,6 +46,14 @@ workoutSchema.pre("save", async function (next) {
   this.date = new Date();
   next();
 });
+
+workoutSchema.statics.deleteWorkoutsandImages = async (user_id) => {
+  const workouts = await Workout.find({ owner: user_id });
+  workouts.forEach(async (workout) => {
+    await Image.deleteMany({ parent: workout._id });
+    await workout.deleteOne();
+  });
+};
 
 const Workout = mongoose.model("Workout", workoutSchema);
 

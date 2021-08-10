@@ -311,3 +311,16 @@ svg {
   align-items: center;
   margin: 20px 0;
 }
+
+.delete-btn {
+  display: inline-block;
+  border: rgb(0, 0, 0, 0.6) solid 2px;
+  padding: 0 5px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  border: red solid 2px;
+  color: red;
+  background: rgba(160, 160, 160, 0.2);
+}

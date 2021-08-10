@@ -488,3 +488,23 @@ export const filterFeed = (params) => async (dispatch) => {
   await dispatch({ type: "FILTER_FEED", payload: params });
   // dispatch(getFeed());
 };
+
+//////////////////////////////////////
+//////////////////////////////////////
+
+export const deleteProfile = () => async (dispatch, getState) => {
+  const { token, user } = getState();
+
+  try {
+    await server.delete("/delete/user", auth(token));
+
+    localStorage.clear();
+
+    await dispatch(setToken(null));
+    await dispatch(setUser(null));
+    dispatch(closeModal());
+    history.push("/");
+  } catch (e) {
+    dispatch({ type: "DELETE_ACCOUNT_ERROR", payload: e });
+  }
+};

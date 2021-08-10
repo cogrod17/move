@@ -19,7 +19,6 @@ const NewChat = (props) => {
       return (
         <div className="request-item" key={i}>
           <p
-            style={{ marginLeft: "40px" }}
             onClick={() => {
               closeModal();
               history.push(`/profile/${friend}`);

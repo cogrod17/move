@@ -4,13 +4,13 @@ import Menu from "./Menu";
 import history from "../../history";
 import { connect } from "react-redux";
 
-const Header = (props) => {
+const Header = ({ token }) => {
   return (
     <div className="header-container">
       <div className="title">
         <h1 onClick={() => history.push("/")}>Move</h1>
       </div>
-      {props.user ? <Menu /> : <HeaderBtns />}
+      {token ? <Menu /> : <HeaderBtns />}
     </div>
   );
 };

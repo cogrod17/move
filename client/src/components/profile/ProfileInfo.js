@@ -4,7 +4,7 @@ import { openModal } from "../../actions";
 import FriendButton from "./FriendButton";
 import Avatar from "./Avatar";
 
-const ProfileInfo = ({ viewUser, openModal }) => {
+const ProfileInfo = ({ viewUser, openModal, user }) => {
   const { username, email, friends } = viewUser.user;
 
   return (
@@ -17,12 +17,14 @@ const ProfileInfo = ({ viewUser, openModal }) => {
           {`${friends.length} Friends`}
         </p>
         <FriendButton />
-        <p
-          onClick={() => openModal("edit-account")}
-          className="edit-account-btn"
-        >
-          Edit account
-        </p>
+        {user.username === username && (
+          <p
+            onClick={() => openModal("edit-account")}
+            className="edit-account-btn"
+          >
+            Edit account
+          </p>
+        )}
       </div>
     </div>
   );

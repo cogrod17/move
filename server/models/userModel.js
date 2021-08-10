@@ -57,6 +57,14 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
+userSchema.statics.removeFromFriends = async (username) => {
+  const users = await User.find({ friends: username });
+  users.forEach(async (user) => {
+    await user.friends.filter((f) => f !== username);
+    await user.save();
+  });
+};
+
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;

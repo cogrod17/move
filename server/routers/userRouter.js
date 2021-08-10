@@ -4,6 +4,10 @@ const Summary = require("../models/summaryModel");
 const Workout = require("../models/workoutModel");
 const Post = require("../models/postModel");
 const FriendRequest = require("../models/friendRequestModel");
+const Conversation = require("../models/chat-models/conversationModel");
+// const Message = require("../models/chat-models/messageModel");
+const Image = require("../models/imageModel");
+const Comment = require("../models/commentModel");
 const sortByDate = require("./helperFunctions");
 const auth = require("../middleware/auth");
 const bcrypt = require("bcryptjs");
@@ -179,24 +183,37 @@ router.patch("/unfriend", auth, async (req, res) => {
 //Delete User
 router.delete("/delete/user", auth, async (req, res) => {
   try {
-    /*    Delete the user from other users friends
-    const users = await User.find({ friends: req.user.username });
-    await users.forEach((user) =>
-      user.friends.filter((f) => f !== req.user.username)
-    );
-    await users.forEach((user) => user.save());
-    */
+    const { _id, username } = req.user;
 
-    await req.user.remove();
+    await Promise.allSettled([
+      User.removeFromFriends(username),
+      Image.deleteMany({ parent: username }),
+      Conversation.deleteAllConvos(username),
+      Workout.deleteWorkoutsandImages(_id),
+      Summary.deleteMany({ owner: _id }),
+      Post.deleteMany({ owner: _id }),
+      FriendRequest.deleteMany({
+        $or: [{ sender: username }, { receiver: username }],
+      }),
+      Comment.deleteMany({ author: username }),
+    ]);
 
-    //delete all workouts and posts
+    await req.user.deleteOne();
 
-    //delete summary
-
-    res.send(req.user);
+    res.send();
   } catch (e) {
+    console.log(e);
     res.status(500).send();
   }
 });
+
+// router.delete("/delete/user/tester", auth, async (req, res) => {
+//   const convos = await Conversation.find({ participants: req.user.username });
+//   console.log(convos);
+
+//   convos.forEach(async (convo) => await Conversation.deleteMsgs(convo._id));
+
+//   res.send("okay");
+// });
 
 module.exports = router;

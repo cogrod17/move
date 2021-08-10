@@ -1,10 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { closeModal, updateUser } from "../../actions";
+import {
+  closeModal,
+  updateUser,
+  openModal,
+  deleteProfile,
+} from "../../actions";
 
-const EditProfile = ({ activeModal, closeModal, user, updateUser }) => {
+const EditProfile = (props) => {
   const [edit, setEdit] = useState({ error: null });
   const [toUpdate, setToUpdate] = useState([]);
+  const {
+    activeModal,
+    closeModal,
+    user,
+    updateUser,
+    openModal,
+    deleteProfile,
+  } = props;
 
   useEffect(() => {
     return () => {
@@ -31,6 +44,14 @@ const EditProfile = ({ activeModal, closeModal, user, updateUser }) => {
     });
 
     updateUser(final);
+  };
+
+  const onDelete = () => {
+    openModal({
+      type: "confirm",
+      header: "Delete Account?",
+      action: deleteProfile,
+    });
   };
 
   return (
@@ -79,7 +100,9 @@ const EditProfile = ({ activeModal, closeModal, user, updateUser }) => {
             →
           </p>
           {edit.error && <div className="error-msg">{edit.error}</div>}
-          <p className="delete-btn">Delete Account</p>
+          <p onClick={onDelete} className="delete-btn">
+            Delete Account
+          </p>
         </form>
       </div>
     </div>
@@ -88,6 +111,9 @@ const EditProfile = ({ activeModal, closeModal, user, updateUser }) => {
 
 const mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps, { closeModal, updateUser })(
-  EditProfile
-);
+export default connect(mapStateToProps, {
+  closeModal,
+  updateUser,
+  openModal,
+  deleteProfile,
+})(EditProfile);

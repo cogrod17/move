@@ -5,7 +5,7 @@ import img from "../../images/default_avatar.png";
 
 const Avatar = ({ viewUser, user, openModal }) => {
   const [pic, setPic] = useState(
-    `http://localhost:3001/profile/avatar/${viewUser.user.username}`
+    `${window.location.origin}/profile/avatar/${viewUser.user.username}`
   );
   const [picLoading, setPicLoading] = useState(true);
   const { username } = viewUser.user;

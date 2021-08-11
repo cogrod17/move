@@ -16,7 +16,7 @@ const PostHeader = ({ post }) => {
       <div className="post-user">
         <div onClick={go} className="post-avatar">
           <img
-            src={`http://localhost:3001/profile/avatar/${username}`}
+            src={`${window.location.origin}/profile/avatar/${username}`}
             alt={"avatar"}
             className={`smooth-image image-${hasPic ? "visible" : "hidden"}`}
             onLoad={() => setHasPic(true)}

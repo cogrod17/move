@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { closeModal, createUser } from "../../actions";
-//import { server } from "../../api";
 
 class SignUp extends Component {
   state = {

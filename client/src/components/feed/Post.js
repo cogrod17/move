@@ -3,24 +3,6 @@ import { connect } from "react-redux";
 import CommentSection from "./CommentSection";
 import PostHeader from "./PostHeader";
 
-// const useOnScreen = (ref) => {
-//   const [isIntersecting, setIntersecting] = useState(false);
-
-//   const observer = new IntersectionObserver(([entry]) => {
-//     setIntersecting(entry.isIntersecting);
-//   });
-
-//   useEffect(() => {
-//     observer.observe(ref.current);
-
-//     return () => {
-//       observer.disconnect();
-//     };
-//   }, [ref]);
-
-//   return isIntersecting;
-// };
-
 const Post = ({ post, innerRef }) => {
   return (
     <div ref={innerRef ? innerRef : null} className="feed-item post">

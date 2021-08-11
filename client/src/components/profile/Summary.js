@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import SumVis from "./SumVis";
 
 const Summary = ({ viewUser }) => {
-  if (!viewUser) return null; /// NEED A LOADER
+  if (!viewUser) return null;
 
   const { summary } = viewUser;
 

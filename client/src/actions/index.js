@@ -486,14 +486,13 @@ export const deleteWorkout = (workout_id) => async (dispatch, getState) => {
 
 export const filterFeed = (params) => async (dispatch) => {
   await dispatch({ type: "FILTER_FEED", payload: params });
-  // dispatch(getFeed());
 };
 
 //////////////////////////////////////
 //////////////////////////////////////
 
 export const deleteProfile = () => async (dispatch, getState) => {
-  const { token, user } = getState();
+  const { token } = getState();
 
   try {
     await server.delete("/delete/user", auth(token));

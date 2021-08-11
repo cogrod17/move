@@ -3,9 +3,11 @@ require("../database/mongoose"); ///
 const app = express();
 const path = require("path");
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT;
 
-console.log(process.env.PATH);
+const production = "https://move-ogrodnick.herokuapp.com";
+const development = "http://localhost:3000";
+const url = process.env.NODE_ENV ? production : development;
 
 app.use(
   require("cors")(),
@@ -29,7 +31,7 @@ const server = http.createServer(app);
 const socketio = require("socket.io");
 const io = socketio(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: url,
     methods: ["GET"],
   },
 });
@@ -49,10 +51,10 @@ io.on("connection", (socket) => {
 /////////////////////////////
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
+  app.use(express.static(path.resolve(__dirname, "../client/build")));
 
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+    res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
   });
 }
 

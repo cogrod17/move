@@ -33,7 +33,7 @@ const WorkoutImage = (props) => {
       {picLoading && <Loader />}
       {hasPic ? (
         <img
-          src={`http://localhost:3001/workout/image/${workout._id}`}
+          src={`${window.location.origin}/workout/image/${workout._id}`}
           alt={"workout-card"}
           className={`smooth-image image-${!picLoading ? "visible" : "hidden"}`}
           onLoad={() => {

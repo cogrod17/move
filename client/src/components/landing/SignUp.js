@@ -21,7 +21,7 @@ class SignUp extends Component {
       return;
     }
 
-    if (password !== confirmPassword) {
+    if (password !== confirmPass) {
       this.setState({ error: "passwords do not match" });
       return;
     }

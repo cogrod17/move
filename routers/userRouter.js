@@ -5,7 +5,6 @@ const Workout = require("../models/workoutModel");
 const Post = require("../models/postModel");
 const FriendRequest = require("../models/friendRequestModel");
 const Conversation = require("../models/chat-models/conversationModel");
-// const Message = require("../models/chat-models/messageModel");
 const Image = require("../models/imageModel");
 const Comment = require("../models/commentModel");
 const sortByDate = require("./helperFunctions");

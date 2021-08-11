@@ -12,7 +12,12 @@ class SignUp extends Component {
   };
 
   onCreate = () => {
-    const { username, email, password, confirmPassword } = this.state;
+    const { username, email, password, confirmPass } = this.state;
+    if (!password || !email || !username) {
+      this.setState({ error: "missing fields" });
+      return;
+    }
+
     if (username.includes(" ") || username.length >= 12) {
       this.setState({
         error:

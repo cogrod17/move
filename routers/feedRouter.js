@@ -6,7 +6,7 @@ const auth = require("../middleware/auth");
 const sortByDate = require("./helperFunctions");
 
 //get all posts and workouts
-router.get("/feed", auth, async (req, res) => {
+router.get("/api/feed", auth, async (req, res) => {
   const { page, limit, filter } = req.query;
   const { user } = req;
 

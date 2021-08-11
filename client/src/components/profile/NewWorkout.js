@@ -14,8 +14,8 @@ class NewWorkout extends Component {
 
   onSubmit = async () => {
     const { createWorkout, closeModal } = this.props;
-    await createWorkout(this.state);
     closeModal();
+    await createWorkout(this.state);
   };
 
   cardioFields = () => {

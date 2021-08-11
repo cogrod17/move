@@ -1,5 +1,5 @@
 const express = require("express");
-require("../database/mongoose"); ///
+require("./database/mongoose"); ///
 const app = express();
 const path = require("path");
 
@@ -12,16 +12,16 @@ const url = process.env.NODE_ENV ? production : development;
 app.use(
   require("cors")(),
   express.json(),
-  require("../routers/userRouter"),
-  require("../routers/friendRequestRouter"),
-  require("../routers/workoutRouter"),
-  require("../routers/summaryRouter"),
-  require("../routers/postRouter"),
-  require("../routers/feedRouter"),
-  require("../routers/conversationRouter"),
-  require("../routers/messageRouter"),
-  require("../routers/imageRouter"),
-  require("../routers/commentRouter")
+  require("./routers/userRouter"),
+  require("./routers/friendRequestRouter"),
+  require("./routers/workoutRouter"),
+  require("./routers/summaryRouter"),
+  require("./routers/postRouter"),
+  require("./routers/feedRouter"),
+  require("./routers/conversationRouter"),
+  require("./routers/messageRouter"),
+  require("./routers/imageRouter"),
+  require("./routers/commentRouter")
 );
 
 /////////////////////////////

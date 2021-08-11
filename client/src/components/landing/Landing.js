@@ -17,7 +17,6 @@ class Landing extends Component {
         <div className="landing-img-container">
           <img className="landing-img" src={pic} alt="landing-pic" />
         </div>
-        <div className="landing-title">MOVE</div>
         <Login />
         <SignUp />
       </div>

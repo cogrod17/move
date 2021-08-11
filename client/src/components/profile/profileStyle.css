@@ -24,7 +24,7 @@
   display: flex;
   background-color: var(--sectionBackground);
   box-shadow: var(--boxShadow);
-  /*border: #385e72 solid 1px;*/
+
   border-top: var(--borderMain);
   border-radius: 20px;
   flex-direction: column;
@@ -43,9 +43,8 @@
 .history-container {
   display: flex;
   flex-direction: column;
-  max-width: 105%;
-  min-width: 105%;
-
+  max-width: 110%;
+  min-width: 110%;
   align-items: left;
 }
 

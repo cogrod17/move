@@ -4,9 +4,7 @@ import ContactList from "./ContactList";
 import Messages from "./Messages";
 import "./chat.css";
 
-const Chat = ({ user }) => {
-  //if (!user) return <h1>Loading...</h1>;
-
+const Chat = () => {
   return (
     <div className="chat-container  section ">
       <ContactList />

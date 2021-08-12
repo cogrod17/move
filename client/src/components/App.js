@@ -11,8 +11,6 @@ import EditImage from "./profile/EditImage";
 import EditProfile from "./profile/EditProfile";
 import NewChat from "./chat/NewChat";
 import NewWorkout from "./profile/NewWorkout";
-import Login from "./landing/Login";
-import SignUp from "./landing/SignUp";
 import history from "../history";
 import "../styles/app.css";
 import Feed from "./feed/Feed";

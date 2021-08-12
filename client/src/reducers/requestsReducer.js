@@ -1,4 +1,4 @@
-export const requestsReducer = (friendRequests = null, action) => {
+export const requestsReducer = (friendRequests = [], action) => {
   switch (action.type) {
     case "GET_REQ":
       return action.payload;

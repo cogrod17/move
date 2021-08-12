@@ -4,7 +4,8 @@ import { selectChat, openModal, getConvos } from "../../actions";
 
 //socket
 import socketClient from "socket.io-client";
-const ENDPOINT = "http://127.0.0.1:3001";
+const ENDPOINT = "https://move-ogrodnick.herokuapp.com/";
+//const ENDPOINT = "http://127.0.0.1:3001";
 
 const ContactList = (props) => {
   const { user, selectChat, openModal, conversations, getConvos } = props;

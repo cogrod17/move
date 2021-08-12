@@ -84,7 +84,6 @@ const Conversation = (props) => {
   return (
     <div>
       <h3 className="chat-username">{activeChat.username}</h3>
-
       <div className="conversation">{renderHistory()}</div>
     </div>
   );

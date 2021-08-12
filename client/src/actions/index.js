@@ -384,10 +384,7 @@ export const getConvos = () => async (dispatch, getState) => {
 //////////////////////////////////////
 //////////////////////////////////////
 
-export const getChatHistory = (conversation_id) => async (
-  dispatch,
-  getState
-) => {
+export const getChatHistory = (conversation_id) => async (dispatch) => {
   try {
     const { data } = await server.get("/message", {
       headers: { conversation_id },

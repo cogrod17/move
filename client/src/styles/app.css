@@ -54,8 +54,8 @@
 
 .header-btns {
   flex: 1;
-  max-width: 200px;
-  min-width: 200px;
+  max-width: 150px;
+  min-width: 150px;
   display: flex;
   margin: 15px;
   justify-content: space-between;
@@ -65,10 +65,11 @@
 .signup-btn {
   background: transparent;
   color: var(--appBackground);
-  height: 30px;
-  width: 90px;
+  height: 100%;
+  width: 50%;
   border: 0;
-  font-size: 100%;
+
+  font-size: 90%;
   cursor: pointer;
 }
 

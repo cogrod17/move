@@ -12,15 +12,22 @@
  - Share workouts and make posts on the community feed.
  - Chat with friends.
  
- ### Technologies used:
+ ### Technologies used
+ #### Frontend
   - HTML
   - CSS
   - React
   - Redux
   - Redux Thunk
+
+#### Backend
   - Node.js
   - Express.js
   - d3.js
+  - Bcrypt.js
+  - JSON Web Tokens
+  - Multer
+  - Mongoose Schema
   - MongoDB
   - Socket.io
   

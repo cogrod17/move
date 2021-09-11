@@ -27,8 +27,10 @@
 ## Pages
 
 ### Landing Page
-  - Sign Up
+- Sign Up
 - Login 
+<img width="623" alt="Screen Shot 2021-09-11 at 11 59 32 AM" src="https://user-images.githubusercontent.com/71439891/132936845-acc59703-4e44-4154-8100-0b805ee29cab.png">
+
 
 ### Feed
 - Users can come here to see all posts and workouts from other users 

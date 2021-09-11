@@ -70,8 +70,8 @@
 - User can see a list of all their friend requests.
 <img width="1274" alt="move_teaser" src="https://user-images.githubusercontent.com/71439891/132936414-a1f53813-2196-475f-a6e2-162b0f90d4a7.png">
  
-#### Workuot History example
-<img width="776" alt="Screen Shot 2021-09-11 at 11 53 52 AM" src="https://user-images.githubusercontent.com/71439891/132936721-8efd8011-f4ec-4831-82ee-35caea193d0f.png">
+#### Workout History on profile example
+<img border-radius='10px' width="776" alt="Screen Shot 2021-09-11 at 11 53 52 AM" src="https://user-images.githubusercontent.com/71439891/132936721-8efd8011-f4ec-4831-82ee-35caea193d0f.png">
 
 
  

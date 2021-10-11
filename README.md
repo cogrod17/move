@@ -19,11 +19,11 @@
   - React
   - Redux
   - Redux Thunk
+  - d3.js
 
 #### Backend
   - Node.js
   - Express.js
-  - d3.js
   - Bcrypt.js
   - JSON Web Tokens
   - Multer
